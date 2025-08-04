@@ -1,80 +1,148 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <head>
-  <!-- Core metadata from oldgmailsite.html :contentReference[oaicite:2]{index=2} -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="referrer" content="origin">
-  <link rel="icon" href="https://lh3.googleusercontent.com/fIDNYTtDUtvU4fm6RzrRKQTdo1nMc2DGE-QxWfplAra31Z5f0LuWiVuqns_aXdBGfnFF70aLb0ltUINDSSLor5fAyk-sNcl3xdLBPPBxqL96ig6Sc0PuTa2iuWQLNegzJScWMcR6D_6C-U1Ty9ibSzw7DFh4LND6H">
-  <meta property="og:title" content="RADS REVIEW">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.radsreview.net/">
-  <meta property="og:description" content="ABD Incidental Adrenal Nodules">
-  <meta property="og:image" content="https://lh6.googleusercontent.com/hLMcnYhW6MnPSbkYbjrbx51fiapYfPPIQm0rF2sEsqBkhrLfnp7sGfZgUz9Bmed8WzJEmY1LLPR3GXoAntEUBKTdc7JnZrRUp5MZGOCTRh1m2p7gumBtS8dyrrkDHnhxQkLlaUEZdfM=w16383">
-  <title>RADS REVIEW</title>
-
-  <!-- Fonts from both sites -->
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500|Roboto:300,400,500,700|Source+Code+Pro:400,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Century+Gothic:400,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700,800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lexend+Giga:400,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Core styling and scripts from index.html :contentReference[oaicite:3]{index=3} -->
-  <style>
-    body { background:#0f1117; color:#e4e6eb; font-family:'Inter',sans-serif; margin:0; }
-    header { display:flex; align-items:center; justify-content:space-between; padding:1rem; border-bottom:1px solid #333; }
-    header img { height:48px; }
-    nav a { margin:0 0.75rem; color:#e4e6eb; text-decoration:none; font-weight:600; }
-    nav a:hover { color:#00c8ff; }
-    .hero { text-align:center; padding:2rem; }
-    .hero h1 { color:#00c8ff; }
-    .search { max-width:400px; margin:1rem auto; }
-    .search input { width:100%; padding:0.75rem; border:1px solid #333; border-radius:6px; background:#1a1c23; color:#e4e6eb; }
-    .tabs { display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; padding:1rem; }
-    .tab { background:#1a1c23; width:200px; padding:1rem; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.4); text-align:center; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; }
-    .tab:hover { transform:translateY(-6px); box-shadow:0 8px 16px rgba(0,0,0,0.6); }
-    .tab h2 { color:#00c8ff; margin:0; font-size:1.1rem; }
-    .content { display:none; max-width:800px; margin:2rem auto; background:#1a1c23; padding:2rem; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
-    .content.active { display:block; }
-    footer { text-align:center; color:#888; padding:1rem; margin-top:2rem; font-size:0.9rem; }
-  </style>
-  <script defer data-domain="radreview.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script>
-  <script src="https://tiiny.host/ad-script.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RadsReview | Radiology Teaching Files</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body { background:#0f1117; color:#e4e6eb; font-family:'Inter',sans-serif; margin:0; }
+  header { display:flex;align-items:center;justify-content:space-between;padding:1rem;border-bottom:1px solid #333; }
+  header img { height:48px; }
+  nav a { margin:0 0.75rem; color:#e4e6eb; text-decoration:none; font-weight:600; }
+  nav a:hover { color:#00c8ff; }
+  .hero { text-align:center;padding:2rem; }
+  .hero h1 { color:#00c8ff; }
+  .search { max-width:400px;margin:1rem auto; }
+  .search input { width:100%;padding:0.75rem;border:1px solid #333;border-radius:6px;background:#1a1c23;color:#e4e6eb; }
+  .tabs { display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;padding:1rem; }
+  .tab { background:#1a1c23; width:150px; padding:1rem;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.4);text-align:center; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; }
+  .tab:hover { transform:translateY(-6px); box-shadow:0 8px 16px rgba(0,0,0,0.6); }
+  .tab h2 { color:#00c8ff; margin: 0; font-size: 1rem; }
+  .content { display:none; max-width:800px; margin: 2rem auto; background:#1a1c23; padding:2rem; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
+  .content.active { display:block; }
+  .content ul { list-style:none; padding-left:0; }
+  .content li { margin:0.5rem 0; }
+  .content a { color:#00c8ff; text-decoration:none; }
+  .content a:hover { text-decoration:underline; }
+  footer { text-align:center;color:#888;padding:1rem;margin-top:2rem;font-size:0.9rem; }
+</style>
 </head>
-
 <body>
-  <!-- Original site header/nav from index.html -->
-  <header>
-    <img src="/mnt/data/A_logo_design_for_a_professional_radiology_referen.png" alt="Logo">
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Categories</a>
-      <a href="#">Flashcards</a>
-      <a href="#">Tools</a>
-      <a href="#">About</a>
-    </nav>
-  </header>
+<header>
+  <img src="/mnt/data/A_logo_design_for_a_professional_radiology_referen.png" alt="Logo">
+  <nav>
+    <a href="https://www.radsreview.com/">Home</a>
+    <a href="https://www.radsreview.com/reading-room-resources">Reading Room Resources</a>
+    <a href="https://www.radsreview.com/protocols">Protocols</a>
+    <a href="https://www.google.com/protected">Protected</a>
+  </nav>
+</header>
+<section class="hero">
+  <h1>Reading Room Resources</h1>
+  <p>Quick access to radiology references from RadsReview.com</p>
+  <div class="search">
+    <input type="text" placeholder="🔍 Search resources..." />
+  </div>
+</section>
+<section class="tabs">
+  <div class="tab" onclick="showTab('abd')"><h2>ABD</h2></div>
+  <div class="tab" onclick="showTab('anatomy')"><h2>ANATOMY</h2></div>
+  <div class="tab" onclick="showTab('chest')"><h2>CHEST</h2></div>
+  <div class="tab" onclick="showTab('breast')"><h2>BREAST</h2></div>
+  <div class="tab" onclick="showTab('neuro')"><h2>NEURO</h2></div>
+  <div class="tab" onclick="showTab('nuclear')"><h2>NUCLEAR MED</h2></div>
+  <div class="tab" onclick="showTab('msk')"><h2>MSK</h2></div>
+  <div class="tab" onclick="showTab('peds')"><h2>PEDS</h2></div>
+  <div class="tab" onclick="showTab('us')"><h2>ULTRASOUND</h2></div>
+</section>
 
-  <!-- Main area: drop in oldgmailsite’s body content below -->
-  <main>
-    <div jsname="ZBtY8b" tabindex="-1" class="UtePc RCETm" dir="ltr">
-      <!-- Paste everything from oldgmailsite.html’s <div jsname="ZBtY8b">…</div> here -->
-    </div>
-  </main>
+<section id="abd" class="content active">
+  <h2>ABD</h2>
+  <ul>
+    <li><a href="https://www.radsreview.com/incidental-adrenal-nodules">Incidental Adrenal Nodules</a></li>
+  </ul>
+</section>
+<section id="anatomy" class="content">
+  <h2>ANATOMY</h2>
+  <ul>
+    <li><a href="https://www.imaios.com/e-anatomy">E-Anatomy</a></li>
+    <li><a href="https://www.castlemountain.dk">Dr. Borgbjerg's</a></li>
+  </ul>
+</section>
+<section id="chest" class="content">
+  <h2>CHEST</h2>
+  <ul>
+    <li><a href="https://www.imaios.com/normal-chest-ct-e-anatomy">Normal Chest CT (e-anatomy)</a></li>
+    <li><a href="#">Fleischner Nodule Cheat Sheet</a></li>
+  </ul>
+</section>
+<section id="breast" class="content">
+  <h2>BREAST</h2>
+  <ul>
+    <li><a href="https://edge.sitecorecloud.io/birads-reference">Birads: Reference (Card)</a></li>
+    <li><a href="https://edge.sitecorecloud.io/birads-poster">Birads: Poster</a></li>
+  </ul>
+</section>
+<section id="neuro" class="content">
+  <h2>NEURO</h2>
+  <ul>
+    <li><a href="https://radiologyassistant.nl/vascular-territories">Vascular Territories</a></li>
+    <li><a href="https://www.radsreview.com/incidental-thyroid-nodules">Incidental Thyroid Nodules</a></li>
+  </ul>
+</section>
+<section id="nuclear" class="content">
+  <h2>NUCLEAR MED</h2>
+  <ul>
+    <li><a href="https://www.radsreview.com/on-call-exams">On Call Exams</a></li>
+  </ul>
+</section>
+<section id="msk" class="content">
+  <h2>MSK</h2>
+  <ul>
+    <li>Measurements:
+      <ul>
+        <li><a href="https://app.statdx.com/wrist">Wrist</a></li>
+        <li><a href="https://app.statdx.com/elbow">Elbow</a></li>
+        <li><a href="https://app.statdx.com/pelvis-hip">Pelvis & Hip</a></li>
+        <li><a href="https://app.statdx.com/knee-leg">Knee & Leg</a></li>
+        <li><a href="https://app.statdx.com/foot-ankle">Foot & Ankle</a></li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section id="peds" class="content">
+  <h2>PEDS</h2>
+  <ul>
+    <li>Normal Radiographs:
+      <ul>
+        <li><a href="https://bonexray.com">Bonexray.com</a></li>
+        <li><a href="https://www.casestacks.com">CaseStacks</a></li>
+        <li><a href="https://www.bonepit.com">Bonepit.com</a></li>
+      </ul>
+    </li>
+    <li><a href="https://www.ohsu.edu">Normal Measurements (OHSU)</a></li>
+  </ul>
+</section>
+<section id="us" class="content">
+  <h2>ULTRASOUND</h2>
+  <ul>
+    <li><a href="#">1st Trimester Guidelines</a></li>
+    <li><a href="#">Fetal Anatomy Ultrasound</a></li>
+    <li><a href="#">O-RADS</a></li>
+    <li><a href="#">Gallbladder Polyps</a></li>
+  </ul>
+</section>
 
-  <!-- Footer from index.html -->
-  <footer>
-    <p>© 2025 RadsReview — Built by and for radiology learners</p>
-  </footer>
-
-  <script>
-    function showTab(tabId) {
-      const sections = document.querySelectorAll('.content');
-      sections.forEach(s => s.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-    }
-  </script>
+<footer>
+  <p>© 2025 RadsReview — Built by and for radiology learners</p>
+</footer>
+<script>
+  function showTab(tabId) {
+    const sections = document.querySelectorAll('.content');
+    sections.forEach(section => section.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+</script>
 </body>
 </html>

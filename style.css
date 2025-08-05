@@ -67,7 +67,6 @@ nav a:hover {
   width: 100%;
   padding: 2.5rem 2rem 0.5rem 2rem;
   background: #2aa198;
-  border-radius: 12px 12px 0 0;
   border-bottom: none;       /* Remove any border between hero-row and subtitle */
 }
 
@@ -90,11 +89,9 @@ nav a:hover {
   font-style: italic;
   font-weight: 200;
   color: #bfc9d1;
-  margin-top: 0.1em;
   margin-bottom: 1.2em;
   font-size: 0.95rem;
-  padding: 0.7em 0 1.2em 0;
-  border-radius: 0 0 12px 12px;
+  padding: 0.8em 0 1.2em 0;
   box-sizing: border-box;
   border-top: none;          /* Ensure no border at the top */
 }

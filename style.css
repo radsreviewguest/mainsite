@@ -41,12 +41,12 @@ nav a:hover {
 }
 
 .hero {
-  background: #23272f;
-  transition: background 0.3s;
+  background: #2aa198;
+  border-radius: 12px;
+  margin: 0 auto 2.5rem auto;
+  max-width: 900px;
+  padding: 0;
   box-shadow: none;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .hero.highlight {
@@ -55,39 +55,44 @@ nav a:hover {
 }
 
 
-.hero-row {
+hero-row {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 2rem;
-  max-width: 900px;
-  margin: 2.5rem auto .1rem auto; /* Reduce bottom margin for less space before subtitle */
-  padding: 2rem 2rem 2.2rem 2rem;  /* Reduce bottom padding as well */
-  background: #2aa198;               /* Teal/green background for the row */
-  border-radius: 12px;
-  box-shadow: none;    
+  width: 100%;
+  padding: 2.5rem 2rem 0.5rem 2rem;
+  background: transparent;
+  border-radius: 12px 12px 0 0;
 }
+
 
 .hero-title {
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #23272f;        /* Dark text */
+  color: #23272f;
   text-transform: uppercase;
   white-space: nowrap;
   margin-right: 2rem;
 }
 
 .hero-subtitle {
+  display: block;
+  width: 100vw;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
+  background: #2aa198;
   text-align: center;
   font-style: italic;
   font-weight: 200;
   color: #bfc9d1;
   margin-top: 0.1em;
-  margin-bottom: 1.2em; /* Reduce bottom margin for less space after subtitle */
-  font-size: 0.95rem;   /* Make subtitle one point smaller */
+  margin-bottom: 1.2em;
+  font-size: 0.95rem;
+  padding: 0.7em 0 1.2em 0;
+  border-radius: 0 0 12px 12px;
+  box-sizing: border-box;
 }
-
 
 .search {
   flex: 1;
@@ -101,19 +106,19 @@ nav a:hover {
   border: none;
   border-bottom: 2.5px solid #ffd166;
   background: transparent;
-  color: #23272f;           /* Dark text */
+  color: #23272f;
   font-size: 1.3rem;
   padding: 0.4em 0 0.4em 0;
   outline: none;
   transition: border-color 0.2s;
-  caret-color: #23272f;     /* Dark caret */
+  caret-color: #23272f;
   text-align: left;
   box-shadow: none;
   border-radius: 0;
 }
 
 .search input::placeholder {
-  color: #23272f;           /* Dark placeholder */
+  color: #23272f;
   text-transform: lowercase;
   letter-spacing: 0.04em;
   opacity: 0.7;
@@ -123,6 +128,7 @@ nav a:hover {
   border-bottom: 3px solid #ffd166;
   background: transparent;
 }
+
 
 
 /* --- TABS --- */

@@ -42,8 +42,8 @@ nav a:hover {
 
 .hero {
   background: #23272f;
-  transition: box-shadow 0.3s, background 0.3s;
-  box-shadow: 0 8px 32px 0 rgba(42,161,152,0.18);
+  transition: background 0.3s;
+  box-shadow: none;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -51,8 +51,9 @@ nav a:hover {
 
 .hero.highlight {
   background: #263238;
-  box-shadow: 0 8px 32px 0 #2aa19855;
+  box-shadow: none;
 }
+
 
 .hero-row {
   display: flex;
@@ -60,15 +61,18 @@ nav a:hover {
   justify-content: flex-start;
   gap: 2rem;
   max-width: 900px;
-  margin: 2.5rem auto 0rem auto; /* Reduce bottom margin for less space before subtitle */
-  padding: 2rem 2rem 0rem 2rem;  /* Reduce bottom padding as well */
+  margin: 2.5rem auto .1rem auto; /* Reduce bottom margin for less space before subtitle */
+  padding: 2rem 2rem 2.2rem 2rem;  /* Reduce bottom padding as well */
+  background: #2aa198;               /* Teal/green background for the row */
+  border-radius: 12px;
+  box-shadow: none;    
 }
 
 .hero-title {
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #2aa198;
+  color: #23272f;        /* Dark text */
   text-transform: uppercase;
   white-space: nowrap;
   margin-right: 2rem;
@@ -97,28 +101,29 @@ nav a:hover {
   border: none;
   border-bottom: 2.5px solid #ffd166;
   background: transparent;
-  color: #f3f3f3;
+  color: #23272f;           /* Dark text */
   font-size: 1.3rem;
-  padding: 0.2em 0 0.2em 0;
+  padding: 0.4em 0 0.4em 0;
   outline: none;
   transition: border-color 0.2s;
-  caret-color: #ffd166;      /* Make caret yellow and visible */
-  text-align: left;          /* Ensure caret is at the left */
+  caret-color: #23272f;     /* Dark caret */
+  text-align: left;
   box-shadow: none;
   border-radius: 0;
 }
 
 .search input::placeholder {
-  color: #bfc9d1;
+  color: #23272f;           /* Dark placeholder */
   text-transform: lowercase;
   letter-spacing: 0.04em;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .search input:focus {
-  border-bottom: 3px solid #2aa198;
+  border-bottom: 3px solid #ffd166;
   background: transparent;
 }
+
 
 /* --- TABS --- */
 .tabs-container {

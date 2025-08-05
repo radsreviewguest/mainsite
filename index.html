@@ -11,12 +11,15 @@
   <img src="https://lh5.googleusercontent.com/V605ItZOm5yIIEiJ71bOzmFeieL6r5H-9QNNukRn_v4ptmIN_pZy7qa6GIPGxL9NFaAEIYt0RiLyTY-bO2CV0v8S9u2hm4golqBGtwdpUeQ2eZxtqENSSZbgiNkIbMIhvOf4jMfNyaA=w16383" alt="Logo">
 </header>
 <section class="hero">
-  <h1>Reading Room Resources</h1>
-  <p>Instant access to trusted radiology references, tools, and teaching files.<br><strong>Built For Radiologists</strong></p>
-  <div class="search">
-    <input type="text" placeholder="🔍 Search resources..." oninput="filterResources(this.value)" />
+  <div class="hero-row">
+    <span class="hero-title">READING ROOM RESOURCES</span>
+    <div class="search">
+      <input type="text" placeholder="search resources" oninput="filterResources(this.value)" />
+    </div>
   </div>
+  <p>Instant access to trusted radiology references, tools, and teaching files.<br><strong>Built For Radiologists</strong></p>
 </section>
+<section class="tabs-container"></section>
 <section class="tabs">
   <div class="tab active" onclick="showTab('abd', this)"><h2>ABD</h2></div>
   <div class="tab" onclick="showTab('anatomy', this)"><h2>ANATOMY</h2></div>
@@ -29,6 +32,7 @@
   <div class="tab" onclick="showTab('peds', this)"><h2>PEDS</h2></div>
   <div class="tab" onclick="showTab('us', this)"><h2>ULTRASOUND</h2></div>
   <div class="tab" onclick="window.open('https://sites.google.com/view/radsreview/numbers-and-measurements','_blank')"><h2>NUMBERS ETC.</h2></div>
+</section>
 </section>
 <section id="abd" class="content active">
   <h2>ABD</h2>
@@ -155,6 +159,21 @@
   function filterResources(query) {
     // ... your existing filterResources function ...
   }
+
+document.addEventListener('DOMContentLoaded', function() {
+  showTab('abd', document.querySelector('.tabs .tab'));
+  // Highlight hero on load
+  const hero = document.querySelector('.hero');
+  hero.classList.add('highlight');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 20) {
+      hero.classList.remove('highlight');
+    } else {
+      hero.classList.add('highlight');
+    }
+  });
+});
+// ...existing code...
 </script>
 </body>
 </html>

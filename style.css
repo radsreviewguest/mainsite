@@ -41,33 +41,85 @@ nav a:hover {
 }
 
 .hero {
-  text-align: center;
-  padding: 2rem;
+  background: #23272f;
+  transition: box-shadow 0.3s, background 0.3s;
+  box-shadow: 0 8px 32px 0 rgba(42,161,152,0.18);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.hero h1 {
+.hero.highlight {
+  background: #263238;
+  box-shadow: 0 8px 32px 0 #2aa19855;
+}
+
+.hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 2.5rem auto 1.5rem auto;
+  padding: 2rem 2rem 1rem 2rem;
+}
+
+.hero-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   color: #2aa198;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-right: 2rem;
 }
 
 .search {
-  max-width: 400px;
-  margin: 1rem auto;
+  flex: 1;
+  max-width: 600px;
 }
 
 .search input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #353945;
-  border-radius: 6px;
-  background: #2c313a;
+  border: none;
+  border-bottom: 2.5px solid #ffd166;
+  background: transparent;
   color: #f3f3f3;
+  font-size: 1.3rem;
+  padding: 0.6em 0;
+  outline: none;
+  transition: border-color 0.2s;
+  caret-color: #ffd166;
+  text-align: left;
 }
 
+.search input::placeholder {
+  color: #bfc9d1;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.search input:focus {
+  border-bottom: 3px solid #2aa198;
+}
+
+
 /* --- TABS --- */
+.tabs-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .tabs {
-  display: flex;          /* Enables Flexbox layout */
-  justify-content: center;/* This is the rule that CENTERS the tabs */
-  flex-wrap: wrap;        /* Allows tabs to wrap onto the next line if needed */
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 85vw;
+  /* existing styles below */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
 }

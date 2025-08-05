@@ -60,8 +60,8 @@ nav a:hover {
   justify-content: flex-start;
   gap: 2rem;
   max-width: 900px;
-  margin: 2.5rem auto 0rem auto; /* Reduce bottom margin for less space before subtitle */
-  padding: 2rem 2rem 0rem 2rem;  /* Reduce bottom padding as well */
+  margin: 2.5rem auto 0.5rem auto; /* Reduce bottom margin for less space before subtitle */
+  padding: 2rem 2rem 0.5rem 2rem;  /* Reduce bottom padding as well */
 }
 
 .hero-title {
@@ -77,9 +77,9 @@ nav a:hover {
 .hero-subtitle {
   text-align: center;
   font-style: italic;
-  font-weight: 200;
+  font-weight: 300;
   color: #bfc9d1;
-  margin-top: 0.1em;
+  margin-top: 0.5em;
   margin-bottom: 1.2em; /* Reduce bottom margin for less space after subtitle */
   font-size: 0.95rem;   /* Make subtitle one point smaller */
 }

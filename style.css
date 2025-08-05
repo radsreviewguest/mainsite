@@ -7,6 +7,13 @@
   src: url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
 }
 
+.logo
+{
+  width: 100%;
+  height: auto;
+  max-width: 200px; /* Adjust as needed */
+  margin: 0 auto; /* Center the logo */
+}
 
 /* Solarized Dark Theme (official colors) */
 body {

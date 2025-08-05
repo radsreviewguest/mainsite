@@ -63,6 +63,7 @@ nav a:hover {
   color: #f3f3f3;
 }
 
+./* --- TABS --- */
 .tabs {
   display: flex;
   justify-content: center;
@@ -71,46 +72,45 @@ nav a:hover {
   padding: 1rem;
 }
 
-.tabs .tab {
-  opacity: 0.25;
-  transition: opacity 0.3s, background 0.3s, color 0.3s;
-  cursor: pointer;
-}
-
-.tabs .tab.active {
-  opacity: 1;
-  background: #1976d2; /* Example accent color, change as needed */
-  color: #fff;
-  border-radius: 6px;
-}
-
-
+/* Base style for ALL tabs (default is faded) */
 .tab {
   background: #2c313a;
   width: 150px;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
   text-align: center;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  opacity: 0.35; /* Faded by default */
+  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s, background-color 0.3s;
 }
 
+/* On hover, ANY tab becomes fully opaque */
 .tab:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
-  background: #353945;
+  opacity: 1; 
 }
 
+/* The ACTIVE tab is fully opaque and gets the accent color */
+.tab.active {
+  opacity: 1;
+  background: #1976d2; /* Your accent color */
+  transform: translateY(-6px);
+  box-shadow: 0 6px 14px rgba(25, 118, 210, 0.3); /* Optional accent glow */
+}
+
+/* Text color for default tabs */
 .tab h2 {
-  color: #2aa198;
+  color: #2aa198; /* Solarized cyan */
   margin: 0;
   font-size: 1rem;
+  transition: color 0.3s;
 }
 
-.tabs .tab h2 {
-  margin: 0;
-  padding: 0.5em 1em;
+/* Text color for the active tab */
+.tab.active h2 {
+  color: #fff; /* White text on the accent background */
 }
 
 .content {

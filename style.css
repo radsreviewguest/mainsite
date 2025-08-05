@@ -96,6 +96,13 @@ nav a:hover {
   border-top: none;          /* Ensure no border at the top */
 }
 
+.superhero {
+  background: #2aa198;
+  width: 100vw;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
+  padding: 0;
+  max-width: none;
+}
 
 .search {
   flex: 1;

@@ -63,10 +63,11 @@ nav a:hover {
   color: #f3f3f3;
 }
 
+/* --- TABS --- */
 .tabs {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: flex;          /* Enables Flexbox layout */
+  justify-content: center;/* This is the rule that CENTERS the tabs */
+  flex-wrap: wrap;        /* Allows tabs to wrap onto the next line if needed */
   gap: 1rem;
   padding: 1rem;
 }
@@ -84,32 +85,36 @@ nav a:hover {
   transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
 }
 
+/* On hover, ANY tab becomes fully opaque */
 .tab:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
   opacity: 1; 
 }
 
-/* The ACTIVE tab is fully opaque. NO background change. */
+/* The ACTIVE tab is fully opaque. NO background color change. */
 .tab.active {
   opacity: 1;
-  transform: translateY(-6px); /* Keeps the "lifted" effect */
-  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6); /* Keeps the shadow for consistency */
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
+  background-color: transparent !important; /* Force no background color */
 }
 
+/* Text color for default (inactive) tabs */
 .tab h2 {
   color: #2aa198; /* Solarized cyan */
   margin: 0;
   font-size: 1rem;
-  text-decoration: none; /* Explicitly remove underline for inactive tabs */
+  text-decoration: none;
   transition: color 0.3s;
 }
 
+/* Text color and underline for the ACTIVE tab's h2 element */
 .tab.active h2 {
-  color: #ffd166; /* The yellow-orange accent color */
+  color: #ffd166 !important; /* The yellow-orange accent color, with !important to ensure it applies */
   text-decoration: underline;
-  text-decoration-thickness: 2px; /* Makes the underline a bit bolder */
-  text-underline-offset: 4px; /* Adds a little space between the text and the line */
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 .content {
   display: none;

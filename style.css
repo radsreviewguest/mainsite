@@ -102,8 +102,8 @@ nav a:hover {
   padding: 0.2em 0 0.2em 0;
   outline: none;
   transition: border-color 0.2s;
-  caret-color: #ffd166;
-  text-align: left;
+  caret-color: #ffd166;      /* Make caret yellow and visible */
+  text-align: left;          /* Ensure caret is at the left */
   box-shadow: none;
   border-radius: 0;
 }

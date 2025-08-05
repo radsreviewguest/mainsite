@@ -120,25 +120,33 @@
   <p>© 2025 RadsReview — Built For Radiologists</p>
 </footer>
 <script>
-  function showTab(tabId) {
-    const sections = document.querySelectorAll('.content');
-    const searchValue = document.querySelector('.search input').value;
-    if (searchValue.trim().length > 0) {
-      filterResources(searchValue);
-      return;
-    }
-    // Only show and activate the selected tab, hide all others
-    sections.forEach(section => {
-      if (section.id === tabId) {
-        section.classList.add('active');
-        section.style.display = '';
-      } else {
-        section.classList.remove('active');
-        section.style.display = 'none';
-      }
-    });
+ function showTab(tabId) {
+  const sections = document.querySelectorAll('.content');
+  const tabs = document.querySelectorAll('.tabs .tab');
+  const searchValue = document.querySelector('.search input').value;
+  if (searchValue.trim().length > 0) {
+    filterResources(searchValue);
+    return;
   }
-
+  // Only show and activate the selected tab, hide all others
+  sections.forEach(section => {
+    if (section.id === tabId) {
+      section.classList.add('active');
+      section.style.display = '';
+    } else {
+      section.classList.remove('active');
+      section.style.display = 'none';
+    }
+  });
+  // Highlight the active tab
+  tabs.forEach(tab => {
+    if (tab.textContent.trim().toUpperCase() === tabId.toUpperCase()) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+}
   function filterResources(query) {
     query = query.toLowerCase();
     const sections = document.querySelectorAll('.content');

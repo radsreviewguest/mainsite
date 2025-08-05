@@ -71,6 +71,20 @@ nav a:hover {
   padding: 1rem;
 }
 
+.tabs .tab {
+  opacity: 0.25;
+  transition: opacity 0.3s, background 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.tabs .tab.active {
+  opacity: 1;
+  background: #1976d2; /* Example accent color, change as needed */
+  color: #fff;
+  border-radius: 6px;
+}
+
+
 .tab {
   background: #2c313a;
   width: 150px;
@@ -92,6 +106,11 @@ nav a:hover {
   color: #2aa198;
   margin: 0;
   font-size: 1rem;
+}
+
+.tabs .tab h2 {
+  margin: 0;
+  padding: 0.5em 1em;
 }
 
 .content {

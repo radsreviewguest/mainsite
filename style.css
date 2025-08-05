@@ -63,7 +63,6 @@ nav a:hover {
   color: #f3f3f3;
 }
 
-./* --- TABS --- */
 .tabs {
   display: flex;
   justify-content: center;
@@ -82,37 +81,36 @@ nav a:hover {
   cursor: pointer;
   opacity: 0.35; /* Faded by default */
   box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
-  transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s, background-color 0.3s;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
 }
 
-/* On hover, ANY tab becomes fully opaque */
 .tab:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
   opacity: 1; 
 }
 
-/* The ACTIVE tab is fully opaque and gets the accent color */
+/* The ACTIVE tab is fully opaque. NO background change. */
 .tab.active {
   opacity: 1;
-  background: #1976d2; /* Your accent color */
-  transform: translateY(-6px);
-  box-shadow: 0 6px 14px rgba(25, 118, 210, 0.3); /* Optional accent glow */
+  transform: translateY(-6px); /* Keeps the "lifted" effect */
+  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6); /* Keeps the shadow for consistency */
 }
 
-/* Text color for default tabs */
 .tab h2 {
   color: #2aa198; /* Solarized cyan */
   margin: 0;
   font-size: 1rem;
+  text-decoration: none; /* Explicitly remove underline for inactive tabs */
   transition: color 0.3s;
 }
 
-/* Text color for the active tab */
 .tab.active h2 {
-  color: #fff; /* White text on the accent background */
+  color: #ffd166; /* The yellow-orange accent color */
+  text-decoration: underline;
+  text-decoration-thickness: 2px; /* Makes the underline a bit bolder */
+  text-underline-offset: 4px; /* Adds a little space between the text and the line */
 }
-
 .content {
   display: none;
   max-width: 800px;

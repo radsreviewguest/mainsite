@@ -5,44 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Radiology Dictation Proofreader</title>
   <style>
+    /* inter-regular - cyrillic_latin */
+    @font-face {
+      font-display: swap;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      src: url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+    }
+
+    /* Solarized Dark Theme (official colors) */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f8;
+      background: #23272f;
+      color: #f3f3f3;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
       padding: 20px;
-      max-width: 800px;
-      margin: auto;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
     }
     h1 {
       text-align: center;
-      color: #2a3f54;
+      color: #2aa198;
+      margin-bottom: 1rem;
     }
     textarea {
       width: 100%;
-      height: 200px;
+      height: 180px;
       padding: 10px;
       font-size: 14px;
-      border: 1px solid #ccc;
+      border: 1px solid #353945;
+      background: #2c313a;
+      color: #f3f3f3;
       resize: vertical;
     }
     button {
       margin-top: 10px;
       padding: 10px 20px;
       font-size: 16px;
-      background-color: #2a3f54;
-      color: white;
+      background-color: #2aa198;
+      color: #23272f;
       border: none;
       cursor: pointer;
+      border-radius: 4px;
     }
     button:hover {
-      background-color: #1d2d3f;
+      background-color: #269986;
     }
     pre {
-      background-color: #eaeaea;
+      background-color: #2c313a;
       padding: 15px;
       white-space: pre-wrap;
       border-radius: 4px;
-      border: 1px solid #ccc;
+      border: 1px solid #353945;
       margin-top: 20px;
+      color: #bfc9d1;
+    }
+    .options {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    .options label {
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .options input[type="checkbox"] {
+      margin-right: 4px;
     }
   </style>
 </head>
@@ -50,28 +82,61 @@
 
   <h1>Radiology Dictation Proofreader</h1>
 
-  <textarea id="input" placeholder="Paste your radiology dictation here..."></textarea>
-  <br>
+  <textarea id="input" placeholder="Paste or write dictation here..."></textarea>
+
+  <div class="options">
+    <label><input type="checkbox" id="createReport"> Create Report</label>
+    <label><input type="checkbox" id="head"> Head</label>
+    <label><input type="checkbox" id="neck"> Neck</label>
+    <label><input type="checkbox" id="chest"> Chest</label>
+    <label><input type="checkbox" id="abdomen"> Abdomen</label>
+    <label><input type="checkbox" id="pelvis"> Pelvis</label>
+    <label><input type="checkbox" id="includeTemplate"> Include Template</label>
+  </div>
+
   <button onclick="askAI()">Submit for Proofreading</button>
 
   <pre id="output">Proofread result will appear here...</pre>
 
   <script>
     async function askAI() {
-      const prompt = document.getElementById("input").value;
+      const input = document.getElementById("input").value.trim();
       const output = document.getElementById("output");
       output.innerText = "Loading...";
+
+      const regions = [];
+      if (document.getElementById("head").checked) regions.push("head");
+      if (document.getElementById("neck").checked) regions.push("neck");
+      if (document.getElementById("chest").checked) regions.push("chest");
+      if (document.getElementById("abdomen").checked) regions.push("abdomen");
+      if (document.getElementById("pelvis").checked) regions.push("pelvis");
+
+      const includeTemplate = document.getElementById("includeTemplate").checked;
+      const createReport = document.getElementById("createReport").checked;
+
+      let fullPrompt = "";
+
+      if (createReport) {
+        fullPrompt =
+          "You are a radiologist. Create a realistic radiology report in professional ACR tone using 'Findings:' and 'Impression:'. " +
+          (regions.length ? `Focus areas: ${regions.join(", ")}. ` : "") +
+          (includeTemplate ? "Include a complete structured radiology report template. " : "") +
+          (input ? `User notes: ${input}` : "");
+      } else {
+        fullPrompt =
+          "You are proofreading a radiology dictation. Format the result in professional ACR tone with 'Findings:' and 'Impression:' headings. " +
+          (regions.length ? `Focus areas: ${regions.join(", ")}. ` : "") +
+          input;
+      }
 
       try {
         const res = await fetch("https://tool.emperiolith.com/api", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt })
+          body: JSON.stringify({ prompt: fullPrompt })
         });
 
-        if (!res.ok) {
-          throw new Error("Server error: " + res.status);
-        }
+        if (!res.ok) throw new Error("Server error: " + res.status);
 
         const data = await res.json();
         output.innerText = data.answer || "[No response received]";

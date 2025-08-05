@@ -5,17 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>RadsReview | Radiology Teaching Files</title>
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="/images/favcon.png">
 </head>
 <body>
 <header>
-  <img src="https://lh5.googleusercontent.com/V605ItZOm5yIIEiJ71bOzmFeieL6r5H-9QNNukRn_v4ptmIN_pZy7qa6GIPGxL9NFaAEIYt0RiLyTY-bO2CV0v8S9u2hm4golqBGtwdpUeQ2eZxtqENSSZbgiNkIbMIhvOf4jMfNyaA=w16383" alt="Logo">
+  <img id="Logo" src= "./images/radreview_text.png" alt="Logo">
 </header>
 <section class="hero">
+  <div class="superhero">
   <div class="hero-row">
     <span class="hero-title">READING ROOM RESOURCES</span>
     <div class="search">
-      <input type="text" placeholder="search resources" oninput="filterResources(this.value)" />
+      <input type="text" placeholder="search..." oninput="filterResources(this.value)" />
     </div>
+  </div>
   <p class="hero-subtitle">Instant access to trusted radiology references, tools, and teaching files.</p>
   </div>
 </section>
@@ -122,6 +125,9 @@
 <footer>
   <p>© 2025 RadsReview — Built For Radiologists</p>
 </footer>
+<div style="width:100%;text-align:center;margin:2em 0;">
+  <img src="./images/logo.png" alt="Logo" style="max-width:120px;display:inline-block;">
+</div>
 <script>
   function showTab(tabId, clickedTab) {
     // Hide all content sections

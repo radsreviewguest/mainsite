@@ -135,6 +135,12 @@
     sections.forEach(section => {
       section.style.display = 'none';
       section.classList.remove('active');
+      
+      // Restore original content if it was modified by search
+      if (section.hasAttribute('data-original-content')) {
+        section.innerHTML = section.getAttribute('data-original-content');
+        section.removeAttribute('data-original-content');
+      }
     });
 
     // Show the target content section
@@ -164,13 +170,31 @@
   function filterResources(query) {
     query = query.toLowerCase().trim();
     
-    // If search is empty, show only the active tab's content
+    // If search is empty, reset to normal tab state
     if (query === '') {
+      // Reset any highlighted links
+      document.querySelectorAll('a').forEach(link => {
+        link.style.backgroundColor = '';
+      });
+      
+      // Find which tab was active before searching
       const activeTab = document.querySelector('.tab.active');
       if (activeTab) {
+        // Convert tab name to ID format (for example "ABDOMEN" -> "abd")
         const tabId = activeTab.querySelector('h2').textContent.toLowerCase().replace(/\s+/g, '');
         showTab(tabId, activeTab);
+      } else {
+        // Fallback to first tab if none is active
+        const firstTab = document.querySelector('.tabs .tab');
+        const firstTabId = firstTab.querySelector('h2').textContent.toLowerCase().replace(/\s+/g, '');
+        showTab(firstTabId, firstTab);
       }
+      
+      // Remove any search-result classes
+      document.querySelectorAll('.search-result').forEach(el => {
+        el.classList.remove('search-result');
+      });
+      
       return;
     }
     
@@ -218,6 +242,10 @@
       if (firstSection) {
         firstSection.style.display = 'block';
         firstSection.classList.add('active');
+        // Store original content before replacing
+        if (!firstSection.hasAttribute('data-original-content')) {
+          firstSection.setAttribute('data-original-content', firstSection.innerHTML);
+        }
         firstSection.innerHTML = `<h2>Search Results</h2><p>No resources found matching "${query}"</p>`;
       }
     }

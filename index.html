@@ -160,9 +160,67 @@
     showTab('abd', document.querySelector('.tabs .tab'));
   });
 
-  // Keep your search function as it is, it's great!
+  // Search function that filters resources based on user input
   function filterResources(query) {
-    // ... your existing filterResources function ...
+    query = query.toLowerCase().trim();
+    
+    // If search is empty, show only the active tab's content
+    if (query === '') {
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab) {
+        const tabId = activeTab.querySelector('h2').textContent.toLowerCase().replace(/\s+/g, '');
+        showTab(tabId, activeTab);
+      }
+      return;
+    }
+    
+    // Hide all content sections first
+    const sections = document.querySelectorAll('.content');
+    sections.forEach(section => {
+      section.style.display = 'none';
+      section.classList.remove('active');
+    });
+    
+    // Clear active state from all tabs
+    const tabs = document.querySelectorAll('.tabs .tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    
+    let resultsFound = false;
+    
+    // Loop through all sections and show matching results
+    sections.forEach(section => {
+      const sectionTitle = section.querySelector('h2').textContent.toLowerCase();
+      const links = section.querySelectorAll('a');
+      let sectionHasMatches = sectionTitle.includes(query);
+      
+      // Check if any links in this section match
+      links.forEach(link => {
+        const linkText = link.textContent.toLowerCase();
+        if (linkText.includes(query)) {
+          sectionHasMatches = true;
+          link.style.backgroundColor = '#ffffcc'; // Highlight matching links
+        } else {
+          link.style.backgroundColor = ''; // Reset highlight
+        }
+      });
+      
+      // Show sections with matches
+      if (sectionHasMatches) {
+        section.style.display = 'block';
+        section.classList.add('search-result');
+        resultsFound = true;
+      }
+    });
+    
+    // If no results found, show a message
+    if (!resultsFound) {
+      const firstSection = document.querySelector('.content');
+      if (firstSection) {
+        firstSection.style.display = 'block';
+        firstSection.classList.add('active');
+        firstSection.innerHTML = `<h2>Search Results</h2><p>No resources found matching "${query}"</p>`;
+      }
+    }
   }
 
 document.addEventListener('DOMContentLoaded', function() {

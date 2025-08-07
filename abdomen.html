@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Adrenal Mass Flowchart</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .mermaid {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            max-width: 95%;
+        }
+        .caption {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 20px;
+            max-width: 1000px;
+            text-align: left;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        /* Custom styles for Mermaid nodes to match the image */
+        .start-node { fill:#cce5ff; stroke:#5b9bd5; stroke-width:2px; }
+        .decision-node { fill:#fff2cc; stroke:#ffc000; stroke-width:2px; }
+        .outcome-node { fill:#e5ccff; stroke:#a066d3; stroke-width:2px; }
+        .action-node { fill:#d9ead3; stroke:#8fbc8f; stroke-width:2px; }
+    </style>
+</head>
+<body>
+
+    <h1>Algorithm for Evaluation of an Incidentally Detected Adrenal Mass</h1>
+
+    <!-- The Mermaid diagram definition is inside this div -->
+    <div class="mermaid">
+        graph TD;
+
+        %% --- Node Definitions ---
+        start["Incidental, Asymptomatic Adrenal Mass (≥1 cm)<br>Detected on any CT or MR exam"]
+        
+        benignFeatures["Diagnostic Benign<br>Imaging Features"]
+        indeterminateFeatures["Indeterminate<br>Imaging Features"]
+        
+        benignResult["Myelolipoma, No enhancement²,<br>Ca⁺⁺ = Benign, no F/U.<br>≤10 HU or ↓ signal on CS-MR<br>= Benign adenoma¹, no F/U"]
+        
+        sizeDecision{"Mass Size?"}
+        
+        size1to4["≥1-<4 cm"]
+        size4plus["≥4 cm"]
+        
+        s4_noCancer["No Cancer Hx:<br>Consider resection¹"]
+        s4_cancer["+ Cancer Hx:<br>Consider<br>Bx or PET-CT¹"]
+        
+        centralPathDecision{"Prior Imaging / Cancer Hx?"}
+
+        priorImaging["Prior Imaging"]
+        noPrior_noCancer["No Prior Imaging<br>No Cancer Hx"]
+        noPrior_cancer["No Prior Imaging,<br>+ Cancer Hx &<br>isolated³ adrenal mass"]
+        
+        stabilityDecision{"Stability?"}
+        stable["Stable ≥1 year"]
+        enlarging["New or enlarging"]
+        
+        stableResult["Benign¹, no F/U"]
+        
+        enlargingDecision{"Cancer Hx?"}
+        enlarging_noCancer["No Cancer Hx:<br>Consider F/U adrenal CT¹<br>or resection¹"]
+        enlarging_cancer["+ Cancer Hx:<br>Consider<br>Bx or PET-CT¹"]
+        
+        npncPathDecision{"Further Evaluation"}
+        size1to2["1-2 cm, Probably benign¹<br>Consider 12 month<br>F/U adrenal CT⁴"]
+        size2to4[">2cm, <4cm"]
+        noEnhancement["No enhancement<br>(<10 HU) = cyst or<br>hemorrhage"]
+        noEnhancementResult["Benign, no F/U"]
+        
+        adrenalCT["Adrenal CT⁴"]
+        ncctDecision{"Reduced dose NCCT?"}
+        ncct_le10["≤10 HU<br>= benign adenoma¹, no F/U"]
+        ncct_gt10[">10 HU"]
+        
+        washout["Adrenal CT washout"]
+        washoutDecision{"APW/RPW"}
+        washout_ge60["APW/RPW<br>≥60/40%"]
+        washout_lt60["APW/RPW<br><60/40%"]
+        
+        washoutBenign["Benign adenoma¹<br>no F/U"]
+        washoutImaging["Imaging F/U, Bx,<br>PET-CT, or resection¹<br>depending on<br>clinical scenario"]
+        
+        %% --- Connections ---
+        start --> benignFeatures
+        start --> indeterminateFeatures
+        
+        benignFeatures --> benignResult
+        
+        indeterminateFeatures --> sizeDecision
+        
+        sizeDecision -- ≥1-<4 cm --> size1to4
+        sizeDecision -- ≥4 cm --> size4plus
+        
+        size4plus --> s4_noCancer
+        size4plus --> s4_cancer
+        
+        size1to4 --> centralPathDecision
+        
+        centralPathDecision -- Prior Imaging --> priorImaging
+        centralPathDecision -- No Prior Imaging,<br>No Cancer Hx --> noPrior_noCancer
+        centralPathDecision -- No Prior Imaging,<br>+ Cancer Hx,<br>Isolated Mass --> noPrior_cancer
+        
+        priorImaging --> stabilityDecision
+        stabilityDecision -- Stable ≥1 year --> stable
+        stabilityDecision -- New or enlarging --> enlarging
+        stable --> stableResult
+        
+        enlarging --> enlargingDecision
+        enlargingDecision -- No --> enlarging_noCancer
+        enlargingDecision -- Yes --> enlarging_cancer
+        
+        noPrior_noCancer --> npncPathDecision
+        npncPathDecision -- 1-2 cm --> size1to2
+        npncPathDecision -- >2cm, <4cm --> size2to4
+        npncPathDecision -- No Enhancement --> noEnhancement
+        
+        noEnhancement --> noEnhancementResult
+        
+        size2to4 --> adrenalCT
+        noPrior_cancer --> adrenalCT
+        
+        adrenalCT --> ncctDecision
+        ncctDecision -- "≤10 HU" --> ncct_le10
+        ncctDecision -- ">10 HU" --> ncct_gt10
+        
+        ncct_gt10 --> washout
+        washout --> washoutDecision
+        
+        washoutDecision -- "≥60/40%" --> washout_ge60
+        washoutDecision -- "<60/40%" --> washout_lt60
+        
+        washout_ge60 --> washoutBenign
+        washout_lt60 --> washoutImaging
+        
+        %% --- Styling ---
+        classDef start-node fill:#cce5ff,stroke:#5b9bd5,stroke-width:2px,color:#000;
+        classDef decision-node fill:#fff2cc,stroke:#ffc000,stroke-width:2px,color:#000;
+        classDef outcome-node fill:#e5ccff,stroke:#a066d3,stroke-width:2px,color:#000;
+        classDef action-node fill:#d9ead3,stroke:#8fbc8f,stroke-width:2px,color:#000;
+        
+        class start start-node;
+        class benignFeatures, indeterminateFeatures, size1to4, size4plus, priorImaging, noPrior_noCancer, noPrior_cancer, stable, enlarging, size1to2, size2to4, noEnhancement, adrenalCT, ncct_gt10, washout, washout_ge60, washout_lt60 decision-node;
+        class benignResult, stableResult, noEnhancementResult, ncct_le10, washoutBenign outcome-node;
+        class s4_noCancer, s4_cancer, enlarging_noCancer, enlarging_cancer, washoutImaging action-node;
+        class sizeDecision, centralPathDecision, stabilityDecision, enlargingDecision, npncPathDecision, ncctDecision, washoutDecision decision-node;
+
+    </div>
+
+    <div class="caption">
+        <p><strong>Fig 1. Algorithm for evaluation of an incidentally detected adrenal mass.</strong> (1) Consider biochemical assays to determine functional status and exclude pheochromocytoma before biopsy/resection. (2) "No enhancement" applies if an examination without and with intravenous contrast is available. (3) "Isolated" defined as no other metastatic disease identified. (4) May consider chemical-shift MRI (CS-MR). APW = absolute percentage washout; Ca<sup>++</sup> = calcification; F/U = follow-up; HU = Hounsfield units; Hx = history; NCCT = CT without intravenous contrast; RPW = relative percentage washout; + = positive.</p>
+    </div>
+
+    <!-- 1. Include the Mermaid.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <!-- 2. Initialize the library -->
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+</body>
+</html>

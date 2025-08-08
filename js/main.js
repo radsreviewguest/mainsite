@@ -43,6 +43,9 @@ function enterSite() {
   const splashScreen = document.getElementById('splashScreen');
   const mainContent = document.getElementById('mainContent');
   
+  // Mark that splash has been seen this session
+  sessionStorage.setItem('splashSeen', 'true');
+  
   // Fade out splash screen
   splashScreen.classList.add('fade-out');
   
@@ -54,6 +57,22 @@ function enterSite() {
     // Initialize theme after entering main content
     initializeTheme();
   }, 500);
+}
+
+// Check if splash should be shown
+function checkSplashScreen() {
+  const hasSeenSplash = sessionStorage.getItem('splashSeen');
+  const splashScreen = document.getElementById('splashScreen');
+  const mainContent = document.getElementById('mainContent');
+  
+  if (hasSeenSplash === 'true') {
+    // Skip splash screen, go directly to main content
+    splashScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    mainContent.classList.add('show');
+    initializeTheme();
+  }
+  // If hasSeenSplash is null/false, splash screen will show by default
 }
 
 // Tab functionality
@@ -174,6 +193,9 @@ function filterResources(query) {
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if splash screen should be shown
+  checkSplashScreen();
+  
   // Initialize theme if main content is visible (not on splash)
   const mainContent = document.getElementById('mainContent');
   if (mainContent && mainContent.style.display !== 'none') {

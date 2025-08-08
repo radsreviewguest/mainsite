@@ -31,7 +31,8 @@
             background: #2d2d2d;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            padding-top: 20px;
         }
         
         /* SVG Container */
@@ -39,8 +40,11 @@
             width: 1200px;
             height: 2000px;
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform-origin: center center;
-            transform: scale(0.4) translate(0px, -400px);
+            transform-origin: top center;
+        }
+        
+        .flowchart-svg.full-view {
+            transform: scale(0.45) translateY(20px);
         }
         
         .flowchart-svg.zoomed {
@@ -405,6 +409,8 @@
         let currentStep = 1;
         let stepHistory = [1];
         let isZoomed = false;
+        let navigationHistory = [];
+        
         const zoomPositions = {
             'start': { x: -200, y: -20 },
             'indeterminate': { x: -350, y: -80 },
@@ -418,6 +424,17 @@
         };
 
         function selectPath(path) {
+            // Save current state to navigation history
+            navigationHistory.push({
+                step: currentStep,
+                highlights: getCurrentHighlights(),
+                zoomState: isZoomed,
+                zoomPosition: isZoomed ? { 
+                    x: document.getElementById('flowchart').style.getPropertyValue('--zoom-x'),
+                    y: document.getElementById('flowchart').style.getPropertyValue('--zoom-y')
+                } : null
+            });
+            
             clearHighlights();
             
             switch(path) {
@@ -488,12 +505,39 @@
         }
 
         function zoomOut() {
+            showFullAlgorithm();
+        }
+
+        function showFullAlgorithm() {
             const flowchart = document.getElementById('flowchart');
             flowchart.classList.remove('zoomed');
+            flowchart.classList.add('full-view');
             isZoomed = false;
             document.getElementById('fullViewBtn').textContent = 'Zoom In';
             document.getElementById('zoomOutBtn').style.display = 'none';
+            
+            // Highlight current step nodes
+            highlightCurrentStep();
+        }
+
+        function getCurrentHighlights() {
+            return Array.from(document.querySelectorAll('.node.highlighted')).map(node => node.id);
+        }
+
+        function restoreHighlights(nodeIds) {
             clearHighlights();
+            nodeIds.forEach(id => {
+                const node = document.getElementById(id);
+                if (node) node.classList.add('highlighted');
+            });
+        }
+
+        function highlightCurrentStep() {
+            clearHighlights();
+            if (currentStep === 1) {
+                highlightNodes(['node-benign', 'node-indeterminate']);
+            }
+            // Add more step-specific highlighting as needed
         }
 
         function highlightNode(nodeId) {
@@ -513,11 +557,7 @@
         function resetView() {
             const flowchart = document.getElementById('flowchart');
             if (isZoomed) {
-                flowchart.classList.remove('zoomed');
-                isZoomed = false;
-                document.getElementById('fullViewBtn').textContent = 'Zoom In';
-                document.getElementById('zoomOutBtn').style.display = 'none';
-                clearHighlights();
+                showFullAlgorithm();
             } else {
                 // If already in full view, zoom to start
                 zoomToArea(-200, -20);
@@ -528,15 +568,23 @@
 
         function resetFlow() {
             clearHighlights();
-            resetView();
+            navigationHistory = [];
             currentStep = 1;
             stepHistory = [1];
-            updateStep('Initial Assessment: Click on appropriate imaging findings');
+            
+            // Show full algorithm at start
+            const flowchart = document.getElementById('flowchart');
+            flowchart.classList.remove('zoomed');
+            flowchart.classList.add('full-view');
+            isZoomed = false;
+            
+            updateStep('Step 1: Initial Assessment - Click on appropriate imaging findings');
             updateProgress();
             updateNavigation();
             
             // Hide zoom out button initially
             document.getElementById('zoomOutBtn').style.display = 'none';
+            document.getElementById('fullViewBtn').textContent = 'Zoom In';
             
             // Highlight initial choices
             setTimeout(() => {
@@ -545,14 +593,43 @@
         }
 
         function previousStep() {
-            if (stepHistory.length > 1) {
-                stepHistory.pop();
-                currentStep = stepHistory[stepHistory.length - 1];
+            if (navigationHistory.length > 0) {
+                const previousState = navigationHistory.pop();
+                currentStep = previousState.step;
+                
+                // Remove last entry from stepHistory
+                if (stepHistory.length > 1) {
+                    stepHistory.pop();
+                }
+                
                 clearHighlights();
                 
-                // Logic to go back to previous state would go here
-                // For now, just reset to beginning
-                resetFlow();
+                // Restore previous zoom state
+                const flowchart = document.getElementById('flowchart');
+                if (previousState.zoomState) {
+                    flowchart.classList.add('zoomed');
+                    flowchart.classList.remove('full-view');
+                    if (previousState.zoomPosition) {
+                        flowchart.style.setProperty('--zoom-x', previousState.zoomPosition.x);
+                        flowchart.style.setProperty('--zoom-y', previousState.zoomPosition.y);
+                    }
+                    isZoomed = true;
+                    document.getElementById('fullViewBtn').textContent = 'See Full Algorithm';
+                    document.getElementById('zoomOutBtn').style.display = 'block';
+                } else {
+                    flowchart.classList.remove('zoomed');
+                    flowchart.classList.add('full-view');
+                    isZoomed = false;
+                    document.getElementById('fullViewBtn').textContent = 'Zoom In';
+                    document.getElementById('zoomOutBtn').style.display = 'none';
+                }
+                
+                // Restore highlights
+                restoreHighlights(previousState.highlights);
+                
+                updateProgress();
+                updateNavigation();
+                updateStep(`Step ${currentStep}: Navigate using highlighted options`);
             }
         }
 
@@ -567,7 +644,7 @@
 
         function updateNavigation() {
             const prevBtn = document.getElementById('prevBtn');
-            if (stepHistory.length > 1) {
+            if (navigationHistory.length > 0) {
                 prevBtn.classList.remove('hidden');
             } else {
                 prevBtn.classList.add('hidden');
@@ -577,15 +654,6 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             resetFlow();
-            
-            // Hide zoom out button initially
-            document.getElementById('zoomOutBtn').style.display = 'none';
-            
-            // Start with initial zoom to show the beginning
-            setTimeout(() => {
-                zoomToArea(-200, -20);
-                highlightNodes(['node-benign', 'node-indeterminate']);
-            }, 500);
         });
     </script>
 

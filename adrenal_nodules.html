@@ -3,219 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Adrenal Mass Flowchart</title>
+    <title>Interactive Adrenal Nodule Management</title>
+    <link rel="stylesheet" href="colors.css">
     <link rel="stylesheet" href="styling/adrenal-nodules.css">
 </head>
 <body>
 
-    <a href="index.html" class="back-btn">← Back</a>
-    
-    <h1>Interactive Adrenal Mass Algorithm</h1>
+<a href="index.html" class="back-btn">← Back</a>
 
-    <div class="progress" id="progress"></div>
-    
-    <div class="flowchart-container">
-        <svg class="flowchart-svg" id="flowchart" viewBox="0 0 1200 2000">
-            <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-                        refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#888" />
-                </marker>
-            </defs>
-            
-            <!-- Start Node -->
-            <g class="node start-node" id="node-start" onclick="zoomToNode('start')" data-step="1">
-                <rect class="node-rect" x="450" y="50" width="300" height="80" rx="10"/>
-                <text class="node-text" x="600" y="90">
-                    <tspan x="600" dy="0">Incidental, Asymptomatic Adrenal Mass (≥1 cm)</tspan>
-                    <tspan x="600" dy="15">Detected on any CT or MR exam</tspan>
-                </text>
-            </g>
-            
-            <!-- Benign Features -->
-            <g class="node decision-node" id="node-benign" onclick="selectPath('benign')" data-step="2">
-                <rect class="node-rect" x="150" y="200" width="250" height="100" rx="10"/>
-                <text class="node-text" x="275" y="245">
-                    <tspan x="275" dy="0">Diagnostic Benign</tspan>
-                    <tspan x="275" dy="15">Imaging Features</tspan>
-                    <tspan x="275" dy="30">(Myelolipoma, No enhancement,</tspan>
-                    <tspan x="275" dy="45">Ca++, ≤10 HU, ↓ signal CS-MR)</tspan>
-                </text>
-            </g>
-            
-            <!-- Indeterminate Features -->
-            <g class="node decision-node" id="node-indeterminate" onclick="selectPath('indeterminate')" data-step="2">
-                <rect class="node-rect" x="750" y="200" width="250" height="100" rx="10"/>
-                <text class="node-text" x="875" y="245">
-                    <tspan x="875" dy="0">Indeterminate</tspan>
-                    <tspan x="875" dy="15">Imaging Features</tspan>
-                </text>
-            </g>
-            
-            <!-- Benign Result -->
-            <g class="node outcome-node" id="node-benign-result" data-step="3a">
-                <rect class="node-rect" x="50" y="380" width="300" height="120" rx="10"/>
-                <text class="node-text" x="200" y="435">
-                    <tspan x="200" dy="0">Myelolipoma, No enhancement, Ca++ = Benign, no F/U</tspan>
-                    <tspan x="200" dy="15">≤10 HU or ↓ signal on CS-MR</tspan>
-                    <tspan x="200" dy="30">= Benign adenoma, no F/U</tspan>
-                </text>
-            </g>
-            
-            <!-- Size Assessment -->
-            <g class="node decision-node" id="node-size-small" onclick="selectPath('size-small')" data-step="3b">
-                <rect class="node-rect" x="650" y="380" width="150" height="80" rx="10"/>
-                <text class="node-text" x="725" y="420">
-                    <tspan x="725" dy="0">≥1-<4 cm</tspan>
-                </text>
-            </g>
-            
-            <g class="node decision-node" id="node-size-large" onclick="selectPath('size-large')" data-step="3b">
-                <rect class="node-rect" x="850" y="380" width="150" height="80" rx="10"/>
-                <text class="node-text" x="925" y="420">
-                    <tspan x="925" dy="0">≥4 cm</tspan>
-                </text>
-            </g>
-            
-            <!-- Large Mass Management -->
-            <g class="node action-node" id="node-large-no-cancer" onclick="selectPath('final')" data-step="4a">
-                <rect class="node-rect" x="800" y="520" width="150" height="80" rx="10"/>
-                <text class="node-text" x="875" y="555">
-                    <tspan x="875" dy="0">No Cancer Hx:</tspan>
-                    <tspan x="875" dy="15">Consider resection</tspan>
-                </text>
-            </g>
-            
-            <g class="node action-node" id="node-large-cancer" onclick="selectPath('final')" data-step="4a">
-                <rect class="node-rect" x="970" y="520" width="150" height="80" rx="10"/>
-                <text class="node-text" x="1045" y="555">
-                    <tspan x="1045" dy="0">+ Cancer Hx:</tspan>
-                    <tspan x="1045" dy="15">Consider Bx or PET-CT</tspan>
-                </text>
-            </g>
-            
-            <!-- Prior Imaging Assessment -->
-            <g class="node decision-node" id="node-prior" onclick="selectPath('prior')" data-step="4b">
-                <rect class="node-rect" x="450" y="520" width="150" height="60" rx="10"/>
-                <text class="node-text" x="525" y="550">
-                    <tspan x="525" dy="0">Prior Imaging</tspan>
-                    <tspan x="525" dy="15">Available</tspan>
-                </text>
-            </g>
-            
-            <g class="node decision-node" id="node-no-prior" onclick="selectPath('no-prior')" data-step="4b">
-                <rect class="node-rect" x="620" y="520" width="150" height="80" rx="10"/>
-                <text class="node-text" x="695" y="555">
-                    <tspan x="695" dy="0">No Prior Imaging</tspan>
-                    <tspan x="695" dy="15">No Cancer Hx</tspan>
-                </text>
-            </g>
-            
-            <!-- Stability Assessment -->
-            <g class="node outcome-node" id="node-stable" onclick="selectPath('final')" data-step="5">
-                <rect class="node-rect" x="350" y="680" width="150" height="80" rx="10"/>
-                <text class="node-text" x="425" y="715">
-                    <tspan x="425" dy="0">Stable ≥1 year</tspan>
-                    <tspan x="425" dy="15">→ Benign, no F/U</tspan>
-                </text>
-            </g>
-            
-            <g class="node decision-node" id="node-enlarging" onclick="selectPath('enlarging')" data-step="5">
-                <rect class="node-rect" x="520" y="680" width="150" height="80" rx="10"/>
-                <text class="node-text" x="595" y="720">
-                    <tspan x="595" dy="0">New or Enlarging</tspan>
-                </text>
-            </g>
-            
-            <!-- Further Evaluation Paths -->
-            <g class="node action-node" id="node-small-benign" onclick="selectPath('final')" data-step="6">
-                <rect class="node-rect" x="550" y="820" width="180" height="100" rx="10"/>
-                <text class="node-text" x="640" y="865">
-                    <tspan x="640" dy="0">1-2 cm: Probably benign</tspan>
-                    <tspan x="640" dy="15">Consider 12 month</tspan>
-                    <tspan x="640" dy="30">F/U adrenal CT</tspan>
-                </text>
-            </g>
-            
-            <g class="node decision-node" id="node-medium" onclick="selectPath('ct')" data-step="6">
-                <rect class="node-rect" x="750" y="820" width="150" height="80" rx="10"/>
-                <text class="node-text" x="825" y="855">
-                    <tspan x="825" dy="0">>2cm, <4cm</tspan>
-                    <tspan x="825" dy="15">→ Adrenal CT</tspan>
-                </text>
-            </g>
-            
-            <!-- CT Assessment -->
-            <g class="node outcome-node" id="node-ct-benign" onclick="selectPath('final')" data-step="7">
-                <rect class="node-rect" x="650" y="980" width="150" height="80" rx="10"/>
-                <text class="node-text" x="725" y="1015">
-                    <tspan x="725" dy="0">≤10 HU</tspan>
-                    <tspan x="725" dy="15">→ Benign adenoma</tspan>
-                    <tspan x="725" dy="30">no F/U</tspan>
-                </text>
-            </g>
-            
-            <g class="node decision-node" id="node-ct-washout" onclick="selectPath('washout')" data-step="7">
-                <rect class="node-rect" x="820" y="980" width="150" height="80" rx="10"/>
-                <text class="node-text" x="895" y="1015">
-                    <tspan x="895" dy="0">>10 HU</tspan>
-                    <tspan x="895" dy="15">→ Washout study</tspan>
-                </text>
-            </g>
-            
-            <!-- Washout Results -->
-            <g class="node outcome-node" id="node-washout-benign" onclick="selectPath('final')" data-step="8">
-                <rect class="node-rect" x="750" y="1140" width="150" height="80" rx="10"/>
-                <text class="node-text" x="825" y="1175">
-                    <tspan x="825" dy="0">APW/RPW ≥60/40%</tspan>
-                    <tspan x="825" dy="15">→ Benign adenoma</tspan>
-                    <tspan x="825" dy="30">no F/U</tspan>
-                </text>
-            </g>
-            
-            <g class="node action-node" id="node-washout-indeterminate" onclick="selectPath('final')" data-step="8">
-                <rect class="node-rect" x="920" y="1140" width="180" height="100" rx="10"/>
-                <text class="node-text" x="1010" y="1185">
-                    <tspan x="1010" dy="0">APW/RPW <60/40%</tspan>
-                    <tspan x="1010" dy="15">→ Imaging F/U, Bx,</tspan>
-                    <tspan x="1010" dy="30">PET-CT, or resection</tspan>
-                    <tspan x="1010" dy="45">depending on scenario</tspan>
-                </text>
-            </g>
-            
-            <!-- Connectors -->
-            <path class="connector" d="M 600 130 L 275 200"/>
-            <path class="connector" d="M 600 130 L 875 200"/>
-            <path class="connector" d="M 275 300 L 200 380"/>
-            <path class="connector" d="M 875 300 L 725 380"/>
-            <path class="connector" d="M 875 300 L 925 380"/>
-            <path class="connector" d="M 925 460 L 875 520"/>
-            <path class="connector" d="M 925 460 L 1045 520"/>
-            <path class="connector" d="M 725 460 L 525 520"/>
-            <path class="connector" d="M 725 460 L 695 520"/>
-            <path class="connector" d="M 525 580 L 425 680"/>
-            <path class="connector" d="M 525 580 L 595 680"/>
-            <path class="connector" d="M 695 600 L 640 820"/>
-            <path class="connector" d="M 695 600 L 825 820"/>
-            <path class="connector" d="M 825 900 L 725 980"/>
-            <path class="connector" d="M 825 900 L 895 980"/>
-            <path class="connector" d="M 895 1060 L 825 1140"/>
-            <path class="connector" d="M 895 1060 L 1010 1140"/>
-        </svg>
-    </div>
-    
-    <div class="controls">
-        <button class="control-btn" onclick="togglePan()" id="panBtn">Pan Mode</button>
-        <button class="control-btn" onclick="zoomOut()" id="zoomOutBtn">Zoom Out</button>
-        <button class="control-btn" onclick="resetView()" id="fullViewBtn">See Full Algorithm</button>
-        <button class="control-btn hidden" onclick="previousStep()" id="prevBtn">Previous</button>
-        <button class="control-btn" onclick="resetFlow()">Start Over</button>
-    </div>
-    
-    <div class="step-indicator" id="stepIndicator">Step 1: Initial Assessment</div>
+<div class="tool-container">
+    <h1>Incidental Adrenal Nodule Management</h1>
+    <h2>Interactive Tool for Management of Asymptomatic Adrenal Masses</h2>
 
-    <!-- External JavaScript -->
-    <script src="./js/abdomen-flowchart.js"></script>
+    <div class="form-grid">
+        <form id="adrenal-form">
+            <fieldset>
+                <legend>1. Initial Assessment</legend>
+                <div class="radio-group">
+                    <label><input type="radio" name="initial" value="benign"> Definite Benign Features</label>
+                    <label><input type="radio" name="initial" value="indeterminate"> Indeterminate Features</label>
+                </div>
+            </fieldset>
+
+            <!-- Benign Features Options -->
+            <div id="benign-options" class="hidden">
+                <fieldset>
+                    <legend>2. Benign Feature Type</legend>
+                    <div class="radio-group">
+                        <label><input type="radio" name="benign_type" value="myelolipoma"> Myelolipoma</label>
+                        <label><input type="radio" name="benign_type" value="no_enhancement"> No Enhancement</label>
+                        <label><input type="radio" name="benign_type" value="calcified"> Calcified</label>
+                        <label><input type="radio" name="benign_type" value="low_hu"> ≤10 HU on unenhanced CT</label>
+                        <label><input type="radio" name="benign_type" value="cs_mr"> Signal drop on CS-MR</label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <!-- Indeterminate Options -->
+            <div id="indeterminate-options" class="hidden">
+                <fieldset>
+                    <legend>2. Size Assessment</legend>
+                    <div class="radio-group">
+                        <label><input type="radio" name="size" value="small"> 1-4 cm</label>
+                        <label><input type="radio" name="size" value="large"> ≥4 cm</label>
+                    </div>
+                </fieldset>
+
+                <!-- Large Mass Options -->
+                <div id="large-options" class="hidden">
+                    <fieldset>
+                        <legend>3. Cancer History</legend>
+                        <div class="radio-group">
+                            <label><input type="radio" name="cancer_history" value="no"> No Cancer History</label>
+                            <label><input type="radio" name="cancer_history" value="yes"> Known Cancer History</label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <!-- Small Mass Options -->
+                <div id="small-options" class="hidden">
+                    <fieldset>
+                        <legend>3. Prior Imaging</legend>
+                        <div class="radio-group">
+                            <label><input type="radio" name="prior" value="available"> Prior Imaging Available</label>
+                            <label><input type="radio" name="prior" value="none"> No Prior Imaging</label>
+                        </div>
+                    </fieldset>
+
+                    <!-- Prior Imaging Assessment -->
+                    <div id="prior-assessment" class="hidden">
+                        <fieldset>
+                            <legend>4. Stability Assessment</legend>
+                            <div class="radio-group">
+                                <label><input type="radio" name="stability" value="stable"> Stable ≥1 year</label>
+                                <label><input type="radio" name="stability" value="new_enlarging"> New or Enlarging</label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- No Prior Options -->
+                    <div id="no-prior-assessment" class="hidden">
+                        <fieldset>
+                            <legend>4. Size Classification</legend>
+                            <div class="radio-group">
+                                <label><input type="radio" name="size_detail" value="very_small"> 1-2 cm</label>
+                                <label><input type="radio" name="size_detail" value="medium"> 2-4 cm</label>
+                            </div>
+                        </fieldset>
+
+                        <!-- Medium Size CT Assessment -->
+                        <div id="ct-assessment" class="hidden">
+                            <fieldset>
+                                <legend>5. Adrenal CT Results</legend>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="ct_hu" value="low"> ≤10 HU</label>
+                                    <label><input type="radio" name="ct_hu" value="high"> >10 HU</label>
+                                </div>
+                            </fieldset>
+
+                            <!-- Washout Study -->
+                            <div id="washout-study" class="hidden">
+                                <fieldset>
+                                    <legend>6. Washout Study Results</legend>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="washout" value="adequate"> APW ≥60% or RPW ≥40%</label>
+                                        <label><input type="radio" name="washout" value="inadequate"> APW <60% and RPW <40%</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="calculate-btn" onclick="calculateRecommendation()">Get Recommendation</button>
+        </form>
+
+        <div id="result-container" class="hidden">
+            <h3>Management Recommendation</h3>
+            <div id="recommendation"></div>
+            <div id="comments"></div>
+        </div>
+    </div>
+
+    <div class="footer-notes">
+        <p><strong>Important Notes:</strong></p>
+        <ul>
+            <li>APW = Absolute Percentage Washout; RPW = Relative Percentage Washout</li>
+            <li>CS-MR = Chemical Shift MRI</li>
+            <li>F/U = Follow-up</li>
+            <li>Bx = Biopsy</li>
+            <li>This tool is for educational purposes. Clinical correlation and institutional guidelines should always be considered.</li>
+        </ul>
+        <p><em>Based on ACR Appropriateness Criteria and current literature</em></p>
+    </div>
+</div>
+
+<script>
+// Show/hide sections based on selections
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('adrenal-form');
+    
+    form.addEventListener('change', function(e) {
+        if (e.target.name === 'initial') {
+            hideAllSections();
+            if (e.target.value === 'benign') {
+                document.getElementById('benign-options').classList.remove('hidden');
+            } else if (e.target.value === 'indeterminate') {
+                document.getElementById('indeterminate-options').classList.remove('hidden');
+            }
+        }
+        
+        if (e.target.name === 'size') {
+            document.getElementById('large-options').classList.add('hidden');
+            document.getElementById('small-options').classList.add('hidden');
+            if (e.target.value === 'large') {
+                document.getElementById('large-options').classList.remove('hidden');
+            } else if (e.target.value === 'small') {
+                document.getElementById('small-options').classList.remove('hidden');
+            }
+        }
+        
+        if (e.target.name === 'prior') {
+            document.getElementById('prior-assessment').classList.add('hidden');
+            document.getElementById('no-prior-assessment').classList.add('hidden');
+            if (e.target.value === 'available') {
+                document.getElementById('prior-assessment').classList.remove('hidden');
+            } else if (e.target.value === 'none') {
+                document.getElementById('no-prior-assessment').classList.remove('hidden');
+            }
+        }
+        
+        if (e.target.name === 'size_detail') {
+            document.getElementById('ct-assessment').classList.add('hidden');
+            if (e.target.value === 'medium') {
+                document.getElementById('ct-assessment').classList.remove('hidden');
+            }
+        }
+        
+        if (e.target.name === 'ct_hu') {
+            document.getElementById('washout-study').classList.add('hidden');
+            if (e.target.value === 'high') {
+                document.getElementById('washout-study').classList.remove('hidden');
+            }
+        }
+    });
+});
+
+function hideAllSections() {
+    const sections = document.querySelectorAll('.hidden');
+    sections.forEach(section => section.classList.add('hidden'));
+    document.getElementById('result-container').classList.add('hidden');
+}
+
+function calculateRecommendation() {
+    const formData = new FormData(document.getElementById('adrenal-form'));
+    let recommendation = '';
+    let comments = '';
+    
+    const initial = formData.get('initial');
+    
+    if (initial === 'benign') {
+        const benignType = formData.get('benign_type');
+        if (benignType) {
+            recommendation = 'Benign adrenal adenoma - No follow-up required';
+            switch(benignType) {
+                case 'myelolipoma':
+                    comments = 'Myelolipomas contain fat and are pathognomonic for benign lesions.';
+                    break;
+                case 'no_enhancement':
+                    comments = 'Lack of enhancement suggests benign nature.';
+                    break;
+                case 'calcified':
+                    comments = 'Calcification patterns suggest benign etiology.';
+                    break;
+                case 'low_hu':
+                    comments = 'Attenuation ≤10 HU is diagnostic of lipid-rich adenoma.';
+                    break;
+                case 'cs_mr':
+                    comments = 'Signal loss on opposed-phase images confirms lipid-rich adenoma.';
+                    break;
+            }
+        }
+    } else if (initial === 'indeterminate') {
+        const size = formData.get('size');
+        
+        if (size === 'large') {
+            const cancerHistory = formData.get('cancer_history');
+            if (cancerHistory === 'no') {
+                recommendation = 'Consider surgical resection';
+                comments = 'Large adrenal masses (≥4 cm) without cancer history warrant consideration for resection due to increased risk of malignancy.';
+            } else if (cancerHistory === 'yes') {
+                recommendation = 'Consider biopsy or PET-CT';
+                comments = 'Large adrenal masses in patients with known cancer history require tissue sampling or metabolic imaging to exclude metastasis.';
+            }
+        } else if (size === 'small') {
+            const prior = formData.get('prior');
+            
+            if (prior === 'available') {
+                const stability = formData.get('stability');
+                if (stability === 'stable') {
+                    recommendation = 'Benign - No follow-up required';
+                    comments = 'Stability over ≥1 year indicates benign nature.';
+                } else if (stability === 'new_enlarging') {
+                    recommendation = 'Further characterization needed - Consider adrenal CT or MRI';
+                    comments = 'New or enlarging lesions require additional imaging for characterization.';
+                }
+            } else if (prior === 'none') {
+                const sizeDetail = formData.get('size_detail');
+                
+                if (sizeDetail === 'very_small') {
+                    recommendation = 'Probably benign - Consider 12-month follow-up adrenal CT';
+                    comments = 'Small lesions (1-2 cm) are likely benign but may warrant surveillance.';
+                } else if (sizeDetail === 'medium') {
+                    const ctHu = formData.get('ct_hu');
+                    
+                    if (ctHu === 'low') {
+                        recommendation = 'Benign adenoma - No follow-up required';
+                        comments = 'Attenuation ≤10 HU confirms lipid-rich adenoma.';
+                    } else if (ctHu === 'high') {
+                        const washout = formData.get('washout');
+                        
+                        if (washout === 'adequate') {
+                            recommendation = 'Benign adenoma - No follow-up required';
+                            comments = 'Adequate washout (APW ≥60% or RPW ≥40%) confirms adenoma.';
+                        } else if (washout === 'inadequate') {
+                            recommendation = 'Indeterminate - Consider imaging follow-up, biopsy, PET-CT, or resection';
+                            comments = 'Inadequate washout requires further evaluation depending on clinical scenario.';
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    if (recommendation) {
+        document.getElementById('recommendation').textContent = recommendation;
+        document.getElementById('comments').textContent = comments;
+        document.getElementById('result-container').classList.remove('hidden');
+        document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' });
+    } else {
+        alert('Please complete all required selections to get a recommendation.');
+    }
+}
+</script>
 
 </body>
 </html>

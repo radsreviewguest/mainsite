@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>RadsReview | Radiology Teaching Files</title>
 <link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/png" href="/images/favcon.png">
+<link rel="icon" type="image/png" href="./images/favcon.png">
 </head>
 <body>
 <!-- Splash Screen -->
@@ -14,31 +14,20 @@
     <div class="splash-logo anim-on-load" id="splash-logo">
       <img src="./images/radreview_text.png" alt="RadsReview Logo" />
     </div>
-    <h1 class="splash-title anim-on-load" id="main-title">Welcome to RadsReview</h1>
-    <p class="splash-subtitle anim-on-load" id="tagline">Your comprehensive radiology resource center</p>
-    <img src="./images/splash_image.png" alt="Splash Image" class="splash-image anim-on-load" id="splash-img">
-    <div class="splash-features anim-on-load" id="features">
-      <div class="feature">
-        <span class="feature-icon">📚</span>
-        <span>Teaching Files</span>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">🔍</span>
-        <span>Quick References</span>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">🧠</span>
-        <span>AI Tools</span>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">⚡</span>
-        <span>Interactive Algorithms</span>
-      </div>
+    <div class="splash-main-image anim-on-load" id="splash-main-image">
+      <img src="./images/splash_image.png" alt="Medical Imaging" class="central-image" />
     </div>
-    <button class="splash-enter-btn anim-on-load" id="enter-btn" onclick="enterSite()">Enter Reading Room</button>
-    <p class="splash-built-for anim-on-load" id="built-for">Built For Radiologists</p>
+    <div class="splash-text anim-on-load" id="splash-text">
+      <h1 class="splash-title">READING ROOM RESOURCES</h1>
+      <p class="splash-subtitle">Instant access to trusted radiology references, tools, and teaching files.</p>
+    </div>
+    <button class="splash-enter-btn anim-on-load" id="enter-btn" onclick="enterSite()">
+      Enter Site
+    </button>
+    <div class="splash-built-for anim-on-load" id="built-for">
+      Built For Radiologists
+    </div>
   </div>
-  <div class="splash-overlay"></div>
 </div>
 
 <!-- Main Site Content -->
@@ -75,7 +64,7 @@
 <section id="abd" class="content active">
   <h2>ABD</h2>
   <ul>
-    <li><a href="https://www.radsreview.com/reading-room-resources/adrenal-nodules" target="_blank" rel="noopener">Incidental Adrenal Nodules</a></li>
+    <li><a href="https://www.radsreview.net/reading-room-resources/adrenal-nodules" target="_blank" rel="noopener">Incidental Adrenal Nodules</a></li>
     <li><a href="./abdomen.html" target="_blank" rel="noopener">Flow Chart</a></li>
   </ul>
 </section>
@@ -91,7 +80,7 @@
   <ul>
     <li><a href="https://www.imaios.com/en/e-anatomy/thorax/ct-axial-chest" target="_blank" rel="noopener">Normal Chest CT (e-anatomy)</a></li>
     <li><a href="https://www.radsreview.net/reading-room-resources/fleischner-cheat-sheet" target="_blank" rel="noopener">Fleischner Nodule Cheat Sheet</a></li>
-    <li><a href="./fleischer.html" target="_blank" rel="noopener">Fleischner Nodule Flow Chart</a></li>
+    <li><a href="./fleischner.html" target="_blank" rel="noopener">Fleischner Nodule Flow Chart</a></li>
   </ul>
 </section>
 <section id="breast" class="content">
@@ -144,7 +133,7 @@
 <section id="us" class="content">
   <h2>ULTRASOUND</h2>
   <ul>
-    <li><a href="https://www.radsreview.com/reading-room-resources/1st-trimester-lexicon" target="_blank" rel="noopener">1st Trimester Guidelines</a></li>
+    <li><a href="https://www.radsreview.net/reading-room-resources/1st-trimester-lexicon" target="_blank" rel="noopener">1st Trimester Guidelines</a></li>
     <li><a href="https://www.radsreview.net/reading-room-resources/fetal-anatomy-us" target="_blank" rel="noopener">Fetal Anatomy Ultrasound</a></li>
     <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/O-RADS/O-RADS--Ultrasound-v2022-Assessment-Categories.pdf" target="_blank" rel="noopener">O-RADS</a></li>
     <li><a href="https://www.radsreview.net/reading-room-resources/gb-polyps" target="_blank" rel="noopener">Gallbladder Polyps</a></li>
@@ -153,8 +142,8 @@
 <section id="ai" class="content">
   <h2>AI</h2>
   <ul>
-    <li><a href="https://www.chatgpt.com" target="_blank" rel="noopener">ChatGPT</a></li>
-    <li><a href="https://www.openevidence.com" target="_blank" rel="noopener">Open Evidence</a></li>
+    <li><a href="https://chat.openai.com/" target="_blank" rel="noopener">ChatGPT</a></li>
+    <li><a href="https://openevidence.com" target="_blank" rel="noopener">Open Evidence</a></li>
     <li><a href="cerebrai.html" target="_blank" rel="noopener">CerebrAI</a></li>
   </ul>
 </section>
@@ -163,7 +152,7 @@
   <ul>
     <li><a href="https://app.statdx.com/" target="_blank" rel="noopener">Statdx</a></li>
     <li><a href="https://radhq.net/" target="_blank" rel="noopener">RADHQ.net</a></li>
-    <li>AI: <a href="https://openevidence.ai/" target="_blank" rel="noopener">OpenEvidence</a> | <a href="https://chat.openai.com/" target="_blank" rel="noopener">Chatgpt</a></li>
+    <li>AI: <a href="https://openevidence.com/" target="_blank" rel="noopener">OpenEvidence</a> | <a href="https://chat.openai.com/" target="_blank" rel="noopener">Chatgpt</a></li>
     <li><a href="https://www.rsna.org/practice-tools/sample-reports" target="_blank" rel="noopener">Sample Reports (RSNA)</a></li>
   </ul>
 </section>
@@ -203,20 +192,16 @@ function triggerSplashAnimations() {
   // Wait until the entire HTML document has been loaded and parsed
   // Find the elements we want to animate
   const splashLogo = document.getElementById('splash-logo');
-  const mainTitle = document.getElementById('main-title');
-  const tagline = document.getElementById('tagline');
-  const splashImg = document.getElementById('splash-img');
-  const features = document.getElementById('features');
+  const splashMainImage = document.getElementById('splash-main-image');
+  const splashText = document.getElementById('splash-text');
   const enterBtn = document.getElementById('enter-btn');
   const builtFor = document.getElementById('built-for');
 
   // Add the 'is-animated' class to trigger the animations.
   // The delay will be handled by our CSS.
   splashLogo.classList.add('is-animated');
-  mainTitle.classList.add('is-animated');
-  tagline.classList.add('is-animated');
-  splashImg.classList.add('is-animated');
-  features.classList.add('is-animated');
+  splashMainImage.classList.add('is-animated');
+  splashText.classList.add('is-animated');
   enterBtn.classList.add('is-animated');
   builtFor.classList.add('is-animated');
 }

@@ -31,8 +31,7 @@
             background: #2d2d2d;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding-top: 20px;
+            align-items: center;
         }
         
         /* SVG Container */
@@ -40,16 +39,21 @@
             width: 1200px;
             height: 2000px;
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform-origin: top center;
+            transform-origin: center center;
+            cursor: grab;
         }
         
         .flowchart-svg.full-view {
-            transform: scale(0.45) translateY(20px);
+            transform: scale(0.65) translateY(-100px);
         }
         
         .flowchart-svg.zoomed {
             transform: scale(2.5) translate(var(--zoom-x, 0px), var(--zoom-y, 0px));
             transform-origin: top left;
+        }
+        
+        .flowchart-svg.panning {
+            cursor: grabbing;
         }
         
         /* Node Styles */
@@ -397,6 +401,7 @@
     </div>
     
     <div class="controls">
+        <button class="control-btn" onclick="togglePan()" id="panBtn">Pan Mode</button>
         <button class="control-btn" onclick="zoomOut()" id="zoomOutBtn">Zoom Out</button>
         <button class="control-btn" onclick="resetView()" id="fullViewBtn">See Full Algorithm</button>
         <button class="control-btn hidden" onclick="previousStep()" id="prevBtn">Previous</button>
@@ -410,6 +415,12 @@
         let stepHistory = [1];
         let isZoomed = false;
         let navigationHistory = [];
+        let isPanMode = false;
+        let isPanning = false;
+        let panStartX = 0;
+        let panStartY = 0;
+        let currentPanX = 0;
+        let currentPanY = 0;
         
         const zoomPositions = {
             'start': { x: -200, y: -20 },
@@ -495,6 +506,7 @@
 
         function zoomToArea(x, y) {
             const flowchart = document.getElementById('flowchart');
+            flowchart.classList.remove('full-view');
             flowchart.classList.add('zoomed');
             flowchart.style.setProperty('--zoom-x', x + 'px');
             flowchart.style.setProperty('--zoom-y', y + 'px');
@@ -516,8 +528,29 @@
             document.getElementById('fullViewBtn').textContent = 'Zoom In';
             document.getElementById('zoomOutBtn').style.display = 'none';
             
+            // Reset pan position
+            currentPanX = 0;
+            currentPanY = 0;
+            
             // Highlight current step nodes
             highlightCurrentStep();
+        }
+
+        function togglePan() {
+            isPanMode = !isPanMode;
+            const panBtn = document.getElementById('panBtn');
+            const flowchart = document.getElementById('flowchart');
+            
+            if (isPanMode) {
+                panBtn.textContent = 'Exit Pan';
+                panBtn.style.background = '#e74c3c';
+                flowchart.style.cursor = 'grab';
+            } else {
+                panBtn.textContent = 'Pan Mode';
+                panBtn.style.background = '#2aa198';
+                flowchart.style.cursor = 'default';
+                flowchart.classList.remove('panning');
+            }
         }
 
         function getCurrentHighlights() {
@@ -541,7 +574,8 @@
         }
 
         function highlightNode(nodeId) {
-            document.getElementById(nodeId).classList.add('highlighted');
+            const node = document.getElementById(nodeId);
+            if (node) node.classList.add('highlighted');
         }
 
         function highlightNodes(nodeIds) {
@@ -554,15 +588,67 @@
             });
         }
 
-        function resetView() {
+        // Pan functionality
+        function initPanEvents() {
             const flowchart = document.getElementById('flowchart');
+            
+            flowchart.addEventListener('mousedown', (e) => {
+                if (!isPanMode) return;
+                isPanning = true;
+                panStartX = e.clientX;
+                panStartY = e.clientY;
+                flowchart.classList.add('panning');
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (!isPanning || !isPanMode) return;
+                
+                const deltaX = e.clientX - panStartX;
+                const deltaY = e.clientY - panStartY;
+                
+                currentPanX += deltaX;
+                currentPanY += deltaY;
+                
+                updatePanTransform();
+                
+                panStartX = e.clientX;
+                panStartY = e.clientY;
+            });
+            
+            document.addEventListener('mouseup', () => {
+                if (isPanning) {
+                    isPanning = false;
+                    flowchart.classList.remove('panning');
+                }
+            });
+        }
+        
+        function updatePanTransform() {
+            const flowchart = document.getElementById('flowchart');
+            if (isZoomed) {
+                const currentX = parseFloat(flowchart.style.getPropertyValue('--zoom-x').replace('px', '')) || 0;
+                const currentY = parseFloat(flowchart.style.getPropertyValue('--zoom-y').replace('px', '')) || 0;
+                flowchart.style.setProperty('--zoom-x', (currentX + currentPanX / 2.5) + 'px');
+                flowchart.style.setProperty('--zoom-y', (currentY + currentPanY / 2.5) + 'px');
+            } else {
+                // For full view, we need to modify the transform directly
+                const baseTransform = 'scale(0.65) translateY(-100px)';
+                const panTransform = `translate(${currentPanX}px, ${currentPanY}px)`;
+                flowchart.style.transform = `${baseTransform} ${panTransform}`;
+            }
+            currentPanX = 0;
+            currentPanY = 0;
+        }
+
+        function resetView() {
             if (isZoomed) {
                 showFullAlgorithm();
             } else {
-                // If already in full view, zoom to start
-                zoomToArea(-200, -20);
-                highlightNodes(['node-benign', 'node-indeterminate']);
-                document.getElementById('fullViewBtn').textContent = 'See Full Algorithm';
+                // If already in full view, zoom to start level
+                highlightNodes(['node-start']);
+                updateStep('Step 1: Starting Point - Click to proceed with assessment');
+                // Don't zoom, just highlight the start node
             }
         }
 
@@ -572,21 +658,27 @@
             currentStep = 1;
             stepHistory = [1];
             
-            // Show full algorithm at start
+            // Reset pan mode
+            if (isPanMode) {
+                togglePan();
+            }
+            
+            // Show full algorithm at start - this is the FIRST level
             const flowchart = document.getElementById('flowchart');
             flowchart.classList.remove('zoomed');
             flowchart.classList.add('full-view');
+            flowchart.style.transform = 'scale(0.65) translateY(-100px)'; // Reset any pan transforms
             isZoomed = false;
             
             updateStep('Step 1: Initial Assessment - Click on appropriate imaging findings');
             updateProgress();
             updateNavigation();
             
-            // Hide zoom out button initially
+            // Reset button states
             document.getElementById('zoomOutBtn').style.display = 'none';
             document.getElementById('fullViewBtn').textContent = 'Zoom In';
             
-            // Highlight initial choices
+            // Highlight the very first decision points (Level 1)
             setTimeout(() => {
                 highlightNodes(['node-benign', 'node-indeterminate']);
             }, 100);
@@ -653,6 +745,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            initPanEvents();
             resetFlow();
         });
     </script>

@@ -14,7 +14,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #2aa198 0%, #268bd2 50%, #6c71c4 100%);
+  background: #23272f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,28 +53,20 @@
   animation-delay: 0.2s;
 }
 
-#main-title.is-animated {
+#splash-main-image.is-animated {
   animation-delay: 0.6s;
 }
 
-#tagline.is-animated {
+#splash-text.is-animated {
   animation-delay: 1.0s;
 }
 
-#splash-img.is-animated {
+#enter-btn.is-animated {
   animation-delay: 1.4s;
 }
 
-#features.is-animated {
-  animation-delay: 1.8s;
-}
-
-#enter-btn.is-animated {
-  animation-delay: 2.2s;
-}
-
 #built-for.is-animated {
-  animation-delay: 2.6s;
+  animation-delay: 1.8s;
 }
 
 .splash-overlay {
@@ -89,10 +81,14 @@
 
 .splash-content {
   text-align: center;
-  color: white;
-  max-width: 600px;
+  color: #f3f3f3;
+  max-width: 800px;
   padding: 2rem;
   animation: splashFadeIn 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 @keyframes splashFadeIn {
@@ -107,80 +103,62 @@
 }
 
 .splash-logo img {
-  max-width: 300px;
+  max-width: 350px;
   height: auto;
-  margin-bottom: 2rem;
   filter: brightness(0) invert(1);
 }
 
-.splash-image {
-  max-width: 400px;
+.splash-main-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.central-image {
+  max-width: 500px;
+  width: 100%;
   height: auto;
-  margin: 2rem 0;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  animation: splashImageFloat 3s ease-in-out infinite;
+  box-shadow: 0 20px 60px rgba(42, 161, 152, 0.3);
+  animation: gentleFloat 4s ease-in-out infinite;
   transition: transform 0.3s ease;
 }
 
-.splash-image:hover {
-  transform: scale(1.05);
+.central-image:hover {
+  transform: scale(1.02);
 }
 
-@keyframes splashImageFloat {
+@keyframes gentleFloat {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) scale(1);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px) scale(1.01);
   }
+}
+
+.splash-text {
+  text-align: center;
 }
 
 .splash-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin: 1rem 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin: 0 0 1rem 0;
+  color: #2aa198;
+  text-shadow: 0 2px 10px rgba(42, 161, 152, 0.3);
 }
 
 .splash-subtitle {
   font-size: 1.2rem;
-  margin-bottom: 3rem;
+  margin: 0;
+  color: #bfc9d1;
   opacity: 0.9;
 }
 
-.splash-features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.feature {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease;
-}
-
-.feature:hover {
-  transform: translateY(-5px);
-}
-
-.feature-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
 .splash-enter-btn {
-  background: white;
-  color: #2aa198;
+  background: #2aa198;
+  color: #23272f;
   border: none;
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
@@ -188,19 +166,19 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(42, 161, 152, 0.3);
 }
 
 .splash-enter-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-  background: #f8f9fa;
+  box-shadow: 0 6px 30px rgba(42, 161, 152, 0.4);
+  background: #ffd166;
+  color: #23272f;
 }
 
 .splash-built-for {
   font-size: 0.9rem;
-  opacity: 0.8;
+  color: #8d99ae;
   font-style: italic;
 }
 
@@ -223,24 +201,29 @@
 /* Mobile Responsive for Splash */
 @media (max-width: 768px) {
   .splash-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .splash-subtitle {
     font-size: 1rem;
   }
   
-  .splash-features {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+  .splash-logo img {
+    max-width: 250px;
   }
   
-  .splash-logo img {
-    max-width: 200px;
+  .central-image {
+    max-width: 350px;
   }
   
   .splash-content {
     padding: 1rem;
+    gap: 1.5rem;
+  }
+  
+  .splash-enter-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
   }
 }
 

@@ -34,15 +34,25 @@
             border-top: 1px solid #eee;
             padding-top: 15px;
         }
-        /* Custom styles for Mermaid nodes to match the image */
-        .start-node { fill:#cce5ff; stroke:#5b9bd5; stroke-width:2px; }
-        .decision-node { fill:#fff2cc; stroke:#ffc000; stroke-width:2px; }
-        .outcome-node { fill:#e5ccff; stroke:#a066d3; stroke-width:2px; }
-        .action-node { fill:#d9ead3; stroke:#8fbc8f; stroke-width:2px; }
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #2aa198;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 
+    <a href="index.html" class="back-btn">← Back</a>
+    
     <h1>Algorithm for Evaluation of an Incidentally Detected Adrenal Mass</h1>
 
     <!-- The Mermaid diagram definition is inside this div -->
@@ -153,16 +163,16 @@
         washout_lt60 --> washoutImaging
         
         %% --- Styling ---
-        classDef start-node fill:#cce5ff,stroke:#5b9bd5,stroke-width:2px,color:#000;
-        classDef decision-node fill:#fff2cc,stroke:#ffc000,stroke-width:2px,color:#000;
-        classDef outcome-node fill:#e5ccff,stroke:#a066d3,stroke-width:2px,color:#000;
-        classDef action-node fill:#d9ead3,stroke:#8fbc8f,stroke-width:2px,color:#000;
+        classDef startNode fill:#cce5ff,stroke:#5b9bd5,stroke-width:2px,color:#000
+        classDef decisionNode fill:#fff2cc,stroke:#ffc000,stroke-width:2px,color:#000
+        classDef outcomeNode fill:#e5ccff,stroke:#a066d3,stroke-width:2px,color:#000
+        classDef actionNode fill:#d9ead3,stroke:#8fbc8f,stroke-width:2px,color:#000
         
-        class start start-node;
-        class benignFeatures, indeterminateFeatures, size1to4, size4plus, priorImaging, noPrior_noCancer, noPrior_cancer, stable, enlarging, size1to2, size2to4, noEnhancement, adrenalCT, ncct_gt10, washout, washout_ge60, washout_lt60 decision-node;
-        class benignResult, stableResult, noEnhancementResult, ncct_le10, washoutBenign outcome-node;
-        class s4_noCancer, s4_cancer, enlarging_noCancer, enlarging_cancer, washoutImaging action-node;
-        class sizeDecision, centralPathDecision, stabilityDecision, enlargingDecision, npncPathDecision, ncctDecision, washoutDecision decision-node;
+        class start startNode
+        class sizeDecision,centralPathDecision,stabilityDecision,enlargingDecision,npncPathDecision,ncctDecision,washoutDecision decisionNode
+        class benignResult,stableResult,noEnhancementResult,ncct_le10,washoutBenign outcomeNode
+        class s4_noCancer,s4_cancer,enlarging_noCancer,enlarging_cancer,washoutImaging,size1to2 actionNode
+        class benignFeatures,indeterminateFeatures,size1to4,size4plus,priorImaging,noPrior_noCancer,noPrior_cancer,stable,enlarging,size2to4,noEnhancement,adrenalCT,ncct_gt10,washout,washout_ge60,washout_lt60 decisionNode
 
     </div>
 
@@ -175,7 +185,14 @@
 
     <!-- 2. Initialize the library -->
     <script>
-        mermaid.initialize({ startOnLoad: true });
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
     </script>
 
 </body>

@@ -1,13 +1,13 @@
 /* Main Color Palette - CSS Custom Properties */
 :root {
   --aquamarine: #30fab5;
-  --jungle-green: #25a67e;
-  --night: #091212;
-  --rich-black: #0e1a1a;
-  --ash-gray: #b9cac9;
-  --platinum: #cad9d8;
+  --jungle-green: #22bf8d;
+  --night: #191c1c;
+  --rich-black: #232626;
+  --ash-gray: #d5dbdb;
+  --platinum: #dae3e3;
   --red-ncs: #b20d30;
-  --bronze: #cc8427;
+  --bronze: #d68b2a;
   --medium-blue: #3023ba;
   --space-cadet: #121d45;
 }

@@ -37,20 +37,6 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-/* Import color palette */
-:root {
-  --aquamarine: #30fab5;
-  --jungle-green: #25a67e;
-  --night: #091212;
-  --rich-black: #0e1a1a;
-  --ash-gray: #b9cac9;
-  --platinum: #cad9d8;
-  --red-ncs: #b20d30;
-  --bronze: #cc8427;
-  --medium-blue: #3023ba;
-  --space-cadet: #121d45;
-}
-
 /* Dark Theme Variables (default) */
 [data-theme="dark"], :root {
   --bg-primary: var(--night);
@@ -107,44 +93,47 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 1rem 2rem;
-  border-bottom: 1px solid var(--border-color);
   background: var(--bg-primary);
   transition: all 0.3s ease;
+  position: relative;
 }
 
 header img {
   height: 48px;
+  margin-top: 10px;
+  margin-left: 5px;
 }
 
 .header-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
 }
 
 .theme-toggle {
   background: var(--bg-search);
   border: none;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .theme-icon {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   transition: transform 0.3s ease;
 }
 
@@ -327,8 +316,13 @@ header img {
 
 /* Enhanced Search Bar */
 .search {
-  max-width: 500px;
+  max-width: 300px; /* Start smaller */
   margin: 0 auto;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy transition */
+}
+
+.search.expanded {
+  max-width: 500px; /* Expand to full size */
 }
 
 .search-container {
@@ -337,14 +331,28 @@ header img {
   align-items: center;
   background: var(--bg-search);
   border-radius: 50px;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.3s ease;
+  padding: 0.6rem 1.2rem; /* Slightly smaller initially */
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy liquid effect */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* Edge compatibility fixes */
+  -ms-flex-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  transform: scale(0.95); /* Start slightly smaller */
 }
 
 .search-container.expanded {
-  transform: scale(1.05);
-  box-shadow: 0 4px 20px rgba(48, 250, 181, 0.2);
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1); /* Bigger expansion for liquid effect */
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 6px 25px rgba(48, 250, 181, 0.25);
+}
+
+/* Light theme specific shadow */
+[data-theme="light"] .search-container.expanded {
+  box-shadow: 0 6px 25px rgba(19, 21, 21, 0.25); /* Custom night color #131515 */
 }
 
 .search-icon {
@@ -352,6 +360,9 @@ header img {
   margin-right: 0.75rem;
   opacity: 0.7;
   transition: all 0.3s ease;
+  /* Edge compatibility */
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .search input {
@@ -362,9 +373,22 @@ header img {
   font-size: 1rem;
   color: var(--text-primary);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  /* Edge compatibility fixes */
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 0; /* Prevents overflow in Edge */
 }
 
 .search input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* Edge-specific placeholder styling */
+.search input::-ms-input-placeholder {
   color: var(--text-secondary);
   opacity: 0.7;
 }

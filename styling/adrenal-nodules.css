@@ -1,30 +1,37 @@
+/* Flat 2.0 Design for Adrenal Nodules Tool */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--night);
+    background: linear-gradient(135deg, var(--night) 0%, var(--rich-black) 100%);
     color: var(--platinum);
     line-height: 1.6;
     padding: 20px;
     display: flex;
     justify-content: center;
     margin: 0;
+    min-height: 100vh;
 }
 
 .tool-container {
-    max-width: 900px;
+    max-width: 1200px;
     width: 100%;
-    background-color: var(--rich-black);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    border: 1px solid var(--ash-gray);
+    background: var(--rich-black);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(48, 250, 181, 0.1);
+    backdrop-filter: blur(10px);
+    border: none;
 }
 
 h1 {
     text-align: center;
     color: var(--aquamarine);
-    margin-bottom: 10px;
-    font-size: 1.8em;
-    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 2.2em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(48, 250, 181, 0.3);
+    letter-spacing: -0.02em;
 }
 
 h2 {
@@ -32,8 +39,9 @@ h2 {
     color: var(--ash-gray);
     font-size: 1.1em;
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     font-weight: 400;
+    opacity: 0.9;
 }
 
 .form-grid {
@@ -42,48 +50,303 @@ h2 {
     gap: 40px;
 }
 
+/* Notes container */
+.notes-container {
+    background: linear-gradient(135deg, var(--night), var(--rich-black));
+    border: none;
+    border-radius: 16px;
+    padding: 32px;
+    max-height: 700px;
+    overflow-y: auto;
+    position: sticky;
+    top: 20px;
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(48, 250, 181, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.notes-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid transparent;
+    background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green)) 
+                padding-box,
+                linear-gradient(90deg, var(--aquamarine), var(--jungle-green)) 
+                border-box;
+    border-bottom: 2px solid transparent;
+    background-clip: padding-box, border-box;
+}
+
+.notes-header h3 {
+    color: var(--aquamarine);
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(48, 250, 181, 0.3);
+    letter-spacing: 0.02em;
+}
+
+.notes-section {
+    margin-bottom: 24px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--rich-black), rgba(35, 38, 38, 0.8));
+    border-radius: 12px;
+    border-left: 4px solid var(--ash-gray);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.notes-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--aquamarine), var(--jungle-green));
+    transition: width 0.3s ease;
+}
+
+.notes-section:hover::before {
+    width: 6px;
+}
+
+.notes-section:hover {
+    transform: translateX(4px);
+    box-shadow: 
+        0 4px 16px rgba(0,0,0,0.2),
+        -4px 0 0 0 rgba(48, 250, 181, 0.3);
+}
+
+.notes-section h4 {
+    color: var(--aquamarine);
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.1em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.notes-section ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--platinum);
+}
+
+.notes-section li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+    position: relative;
+}
+
+.notes-section li::marker {
+    color: var(--aquamarine);
+}
+
+.notes-section strong {
+    color: var(--aquamarine);
+    font-weight: 600;
+}
+
+/* Washout calculation specific styles */
+.washout-calculation {
+    border-left-color: var(--bronze);
+    background: linear-gradient(135deg, rgba(214, 139, 42, 0.1), rgba(35, 38, 38, 0.8));
+}
+
+.washout-calculation::before {
+    background: linear-gradient(180deg, var(--bronze), var(--aquamarine));
+}
+
+.washout-calculation h4 {
+    color: var(--bronze);
+    text-shadow: 0 2px 4px rgba(214, 139, 42, 0.3);
+}
+
+.calculation-box {
+    background: linear-gradient(135deg, var(--night), var(--rich-black));
+    padding: 20px;
+    margin: 16px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(214, 139, 42, 0.2);
+    box-shadow: 
+        0 4px 12px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(214, 139, 42, 0.1);
+    transition: all 0.3s ease;
+}
+
+.calculation-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 20px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(214, 139, 42, 0.2);
+}
+
+.calculation-box p {
+    margin: 8px 0;
+    color: var(--platinum);
+    font-weight: 600;
+}
+
+.formula {
+    background: linear-gradient(135deg, var(--rich-black), rgba(25, 28, 28, 0.9));
+    padding: 16px;
+    margin: 12px 0;
+    border-radius: 8px;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-size: 0.95em;
+    color: var(--aquamarine);
+    border-left: 4px solid var(--bronze);
+    box-shadow: inset 0 1px 0 rgba(48, 250, 181, 0.1);
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.criteria {
+    color: var(--jungle-green) !important;
+    font-weight: 700 !important;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(34, 191, 141, 0.15), rgba(34, 191, 141, 0.05));
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1.05em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(34, 191, 141, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.timing-note {
+    background: linear-gradient(135deg, var(--rich-black), rgba(35, 38, 38, 0.9));
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(213, 219, 219, 0.2);
+    margin-top: 16px;
+    box-shadow: inset 0 1px 0 rgba(213, 219, 219, 0.1);
+}
+
+.timing-note p {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--ash-gray);
+    font-style: italic;
+    font-weight: 500;
+}
+
 fieldset {
-    border: 1px solid var(--ash-gray);
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: var(--night);
+    background: var(--night);
+    border: none;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 
+        0 4px 16px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(48, 250, 181, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+fieldset::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green));
+    opacity: 0.6;
+}
+
+fieldset:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 24px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(48, 250, 181, 0.2);
 }
 
 legend {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--aquamarine);
-    padding: 0 10px;
-    background-color: var(--night);
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--rich-black), var(--night));
+    border-radius: 20px;
+    border: 1px solid rgba(48, 250, 181, 0.3);
+    font-size: 0.95em;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
 }
 
 .radio-group label {
-    display: block;
-    margin: 5px 0;
-    background: var(--rich-black);
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--rich-black), rgba(35, 38, 38, 0.8));
     color: var(--platinum);
-    padding: 10px;
-    border-radius: 4px;
+    padding: 16px 20px;
+    border-radius: 10px;
     cursor: pointer;
-    border: 1px solid var(--ash-gray);
-    transition: all 0.2s ease-in-out;
+    border: 1px solid rgba(213, 219, 219, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+}
+
+.radio-group label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(48, 250, 181, 0.1), transparent);
+    transition: left 0.6s ease;
 }
 
 .radio-group label:hover {
     border-color: var(--aquamarine);
-    background: var(--night);
+    background: linear-gradient(135deg, var(--night), rgba(25, 28, 28, 0.9));
+    transform: translateX(4px);
+    box-shadow: 
+        0 4px 12px rgba(0,0,0,0.2),
+        -4px 0 0 0 var(--aquamarine);
+}
+
+.radio-group label:hover::before {
+    left: 100%;
 }
 
 .radio-group input[type="radio"] {
-    margin-right: 10px;
+    margin-right: 16px;
     accent-color: var(--aquamarine);
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
 }
 
 .radio-group input[type="radio"]:checked + span,
 .radio-group label:has(input[type="radio"]:checked) {
-    background: var(--jungle-green);
+    background: linear-gradient(135deg, var(--jungle-green), var(--aquamarine));
     border-color: var(--jungle-green);
     color: var(--night);
+    font-weight: 600;
+    box-shadow: 
+        0 6px 20px rgba(34, 191, 141, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateX(6px);
+}
+
+.radio-group input[type="radio"]:checked {
+    transform: scale(1.3);
 }
 
 .hidden {
@@ -93,72 +356,138 @@ legend {
 /* Back button */
 .back-btn {
     position: fixed;
-    top: 15px;
-    left: 15px;
-    background: var(--aquamarine);
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
     color: var(--night);
-    padding: 8px 12px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     text-decoration: none;
     z-index: 1000;
     font-size: 14px;
     font-family: inherit;
-    transition: all 0.2s ease;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 12px rgba(48, 250, 181, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .back-btn:hover {
-    background: var(--jungle-green);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, var(--jungle-green), var(--bronze));
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 8px 20px rgba(48, 250, 181, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.back-btn:active {
+    transform: translateY(0) scale(1);
 }
 
 #calculate-btn {
     grid-column: 1 / -1;
-    padding: 15px 30px;
-    background: var(--aquamarine);
+    padding: 18px 40px;
+    background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
     color: var(--night);
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1.1em;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    margin-top: 20px;
-    transition: all 0.3s ease;
+    margin-top: 32px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 8px 24px rgba(48, 250, 181, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+#calculate-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
 }
 
 #calculate-btn:hover {
-    background: var(--jungle-green);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(48, 250, 181, 0.3);
+    background: linear-gradient(135deg, var(--jungle-green), var(--bronze));
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 12px 32px rgba(48, 250, 181, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+#calculate-btn:hover::before {
+    left: 100%;
+}
+
+#calculate-btn:active {
+    transform: translateY(-1px) scale(1);
 }
 
 #result-container {
     grid-column: 1 / -1;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: var(--night);
-    border: 1px solid var(--aquamarine);
-    border-left: 5px solid var(--aquamarine);
-    border-radius: 5px;
+    margin-top: 32px;
+    padding: 32px;
+    background: linear-gradient(135deg, var(--night), var(--rich-black));
+    border: none;
+    border-radius: 16px;
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(48, 250, 181, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+#result-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green), var(--bronze));
 }
 
 #result-container h3 {
     margin-top: 0;
     color: var(--aquamarine);
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(48, 250, 181, 0.3);
 }
 
 #recommendation {
-    font-weight: bold;
-    font-size: 1.1em;
+    font-weight: 700;
+    font-size: 1.2em;
     color: var(--platinum);
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(48, 250, 181, 0.1), rgba(34, 191, 141, 0.05));
+    border-radius: 12px;
+    border-left: 4px solid var(--aquamarine);
+    margin-bottom: 16px;
 }
 
 #comments {
-    margin-top: 10px;
+    margin-top: 16px;
     font-style: italic;
     color: var(--ash-gray);
+    padding: 16px;
+    background: rgba(213, 219, 219, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--ash-gray);
+    line-height: 1.6;
 }
 
 .footer-notes {
@@ -200,6 +529,12 @@ legend {
     .form-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+    
+    .notes-container {
+        position: static;
+        max-height: none;
+        order: 2;
     }
     
     h1 {
@@ -264,6 +599,33 @@ legend {
         font-size: 0.8em;
         margin-top: 20px;
         padding-top: 15px;
+    }
+    
+    /* Notes section mobile adjustments */
+    .notes-container {
+        padding: 15px;
+    }
+    
+    .notes-header h3 {
+        font-size: 1.1em;
+    }
+    
+    .notes-section {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .notes-section h4 {
+        font-size: 0.95em;
+    }
+    
+    .calculation-box {
+        padding: 10px;
+    }
+    
+    .formula {
+        font-size: 0.8em;
+        padding: 6px;
     }
 }
 

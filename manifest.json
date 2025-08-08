@@ -1,0 +1,20 @@
+{
+  "name": "RadsReview - Radiology Teaching Files",
+  "short_name": "RadsReview",
+  "description": "Instant access to trusted radiology references, tools, and teaching files",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#191c1c",
+  "theme_color": "#191c1c",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./images/favcon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["medical", "education", "reference"],
+  "lang": "en",
+  "scope": "/"
+}

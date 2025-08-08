@@ -221,4 +221,163 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+
+  // Mobile-specific optimizations
+  addMobileOptimizations();
 });
+
+// Mobile optimization functions
+function addMobileOptimizations() {
+  // Detect if device is mobile
+  const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  if (isMobile) {
+    // Add touch event handlers for better mobile interaction
+    addTouchHandlers();
+    
+    // Prevent zoom on input focus for iOS
+    preventInputZoom();
+    
+    // Optimize scroll behavior
+    optimizeScrolling();
+    
+    // Add viewport height fix for mobile browsers
+    fixMobileViewport();
+  }
+}
+
+function addTouchHandlers() {
+  // Add touch feedback for tabs
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('touchstart', function() {
+      this.style.transform = 'scale(0.95)';
+    });
+    
+    tab.addEventListener('touchend', function() {
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
+  });
+  
+  // Add touch feedback for buttons
+  const buttons = document.querySelectorAll('button, .splash-enter-btn');
+  buttons.forEach(button => {
+    button.addEventListener('touchstart', function() {
+      this.style.transform = 'scale(0.95)';
+    });
+    
+    button.addEventListener('touchend', function() {
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
+  });
+}
+
+function preventInputZoom() {
+  // Prevent zoom on input focus for iOS devices
+  const inputs = document.querySelectorAll('input[type="text"], input[type="search"]');
+  inputs.forEach(input => {
+    input.addEventListener('focus', function() {
+      // Temporarily set font-size to 16px to prevent zoom
+      this.style.fontSize = '16px';
+    });
+    
+    input.addEventListener('blur', function() {
+      // Reset font-size after blur
+      this.style.fontSize = '';
+    });
+  });
+}
+
+function optimizeScrolling() {
+  // Add smooth scrolling behavior
+  document.documentElement.style.scrollBehavior = 'smooth';
+  
+  // Debounce scroll events for better performance
+  let scrollTimer = null;
+  const originalScrollHandler = window.onscroll;
+  
+  window.addEventListener('scroll', function() {
+    if (scrollTimer !== null) {
+      clearTimeout(scrollTimer);
+    }
+    scrollTimer = setTimeout(function() {
+      if (originalScrollHandler) {
+        originalScrollHandler();
+      }
+    }, 16); // ~60fps
+  }, { passive: true });
+}
+
+function fixMobileViewport() {
+  // Fix for mobile browsers that change viewport height when address bar shows/hides
+  function setVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  
+  setVH();
+  window.addEventListener('resize', setVH);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(setVH, 100);
+  });
+}
+
+// Enhanced search function for mobile
+function filterResources(query) {
+  const allSections = document.querySelectorAll('.content');
+  let hasResults = false;
+
+  allSections.forEach(section => {
+    // Store original content if not already stored
+    if (!section.hasAttribute('data-original-content')) {
+      section.setAttribute('data-original-content', section.innerHTML);
+    }
+
+    const originalContent = section.getAttribute('data-original-content');
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = originalContent;
+
+    if (query.trim() === '') {
+      // If query is empty, restore original content
+      section.innerHTML = originalContent;
+      section.style.display = section.classList.contains('active') ? 'block' : 'none';
+    } else {
+      const links = tempDiv.querySelectorAll('a');
+      const matchingLinks = Array.from(links).filter(link =>
+        link.textContent.toLowerCase().includes(query.toLowerCase()) ||
+        link.href.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (matchingLinks.length > 0) {
+        hasResults = true;
+        // Show section and highlight matching content
+        section.style.display = 'block';
+        section.classList.add('active');
+        
+        // Create filtered content
+        const filteredHTML = `
+          <h2>${tempDiv.querySelector('h2').textContent}</h2>
+          <ul>
+            ${matchingLinks.map(link => `<li>${link.outerHTML}</li>`).join('')}
+          </ul>
+        `;
+        section.innerHTML = filteredHTML;
+      } else {
+        section.style.display = 'none';
+        section.classList.remove('active');
+      }
+    }
+  });
+
+  // On mobile, scroll to first result if search has results
+  if (hasResults && query.trim() !== '' && window.innerWidth <= 768) {
+    const firstVisibleSection = document.querySelector('.content[style*="block"]');
+    if (firstVisibleSection) {
+      firstVisibleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}

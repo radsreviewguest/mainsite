@@ -119,6 +119,66 @@
             <button type="button" id="calculate-btn" onclick="calculateRecommendation()">Get Recommendation</button>
         </form>
 
+        <!-- Notes Section -->
+        <div class="notes-container">
+            <div class="notes-header">
+                <h3>📋 Clinical Notes</h3>
+            </div>
+            
+            <div class="notes-section">
+                <h4>Definite Benign Features</h4>
+                <ul>
+                    <li><strong>Myelolipoma:</strong> Contains macroscopic fat (visible fat density)</li>
+                    <li><strong>≤10 HU:</strong> Unenhanced CT attenuation ≤10 HU indicates lipid-rich adenoma</li>
+                    <li><strong>No Enhancement:</strong> Lack of contrast enhancement suggests benign nature</li>
+                    <li><strong>Calcified:</strong> Peripheral or central calcification patterns</li>
+                    <li><strong>CS-MR Signal Drop:</strong> Signal loss on opposed-phase chemical shift MRI</li>
+                </ul>
+            </div>
+
+            <div class="notes-section">
+                <h4>Indeterminate Features</h4>
+                <ul>
+                    <li><strong>Size matters:</strong> Larger masses (≥4 cm) have higher malignancy risk</li>
+                    <li><strong>Stability:</strong> Stable for ≥1 year suggests benign nature</li>
+                    <li><strong>Enhancement pattern:</strong> Irregular or heterogeneous enhancement</li>
+                    <li><strong>Density:</strong> >10 HU on unenhanced CT requires further evaluation</li>
+                </ul>
+            </div>
+
+            <div class="notes-section washout-calculation" id="washout-notes" style="display: none;">
+                <h4>🧮 Washout Calculations</h4>
+                <div class="calculation-box">
+                    <p><strong>Absolute Percentage Washout (APW):</strong></p>
+                    <div class="formula">
+                        APW = [(Enhanced HU - Delayed HU) / Enhanced HU] × 100
+                    </div>
+                    <p class="criteria"><strong>Adenoma if APW ≥60%</strong></p>
+                </div>
+                
+                <div class="calculation-box">
+                    <p><strong>Relative Percentage Washout (RPW):</strong></p>
+                    <div class="formula">
+                        RPW = [(Enhanced HU - Delayed HU) / (Enhanced HU - Unenhanced HU)] × 100
+                    </div>
+                    <p class="criteria"><strong>Adenoma if RPW ≥40%</strong></p>
+                </div>
+                
+                <div class="timing-note">
+                    <p><strong>Timing:</strong> Enhanced = 60-70 seconds, Delayed = 15 minutes post-contrast</p>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <h4>Risk Factors</h4>
+                <ul>
+                    <li><strong>High Risk:</strong> Known cancer history, suspicious imaging features</li>
+                    <li><strong>Size >4 cm:</strong> Consider surgical evaluation</li>
+                    <li><strong>Functional evaluation:</strong> May be needed for symptomatic patients</li>
+                </ul>
+            </div>
+        </div>
+
         <div id="result-container" class="hidden">
             <h3>Management Recommendation</h3>
             <div id="recommendation"></div>
@@ -183,8 +243,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (e.target.name === 'ct_hu') {
             document.getElementById('washout-study').classList.add('hidden');
+            document.getElementById('washout-notes').style.display = 'none';
             if (e.target.value === 'high') {
                 document.getElementById('washout-study').classList.remove('hidden');
+                document.getElementById('washout-notes').style.display = 'block';
             }
         }
     });

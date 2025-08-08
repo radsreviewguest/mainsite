@@ -1,30 +1,38 @@
+/* Flat 2.0 Design for Fleischner Guidelines Tool */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--night);
+    background: linear-gradient(135deg, var(--night) 0%, var(--rich-black) 100%);
     color: var(--platinum);
     line-height: 1.6;
     padding: 20px;
     display: flex;
     justify-content: center;
     margin: 0;
+    min-height: 100vh;
 }
 
 .tool-container {
-    max-width: 900px;
+    max-width: 1000px;
     width: 100%;
-    background-color: var(--rich-black);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    border: 1px solid var(--ash-gray);
+    background: var(--rich-black);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(48, 250, 181, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: none;
 }
 
 h1 {
     text-align: center;
     color: var(--aquamarine);
-    margin-bottom: 10px;
-    font-size: 1.8em;
-    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 2.2em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(48, 250, 181, 0.3);
+    letter-spacing: -0.02em;
 }
 
 h2 {
@@ -32,85 +40,238 @@ h2 {
     color: var(--ash-gray);
     font-size: 1.1em;
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     font-weight: 400;
+    opacity: 0.9;
 }
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr;
+    gap: 32px;
 }
 
 fieldset {
-    border: 1px solid var(--ash-gray);
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: var(--night);
+    background: var(--night);
+    border: none;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 
+        0 4px 16px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(48, 250, 181, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+fieldset::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green));
+    opacity: 0.6;
+}
+
+fieldset:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 24px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(48, 250, 181, 0.2);
 }
 
 legend {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--aquamarine);
-    padding: 0 10px;
-    background-color: var(--night);
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--rich-black), var(--night));
+    border-radius: 20px;
+    border: 1px solid rgba(48, 250, 181, 0.3);
+    font-size: 0.95em;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
 }
 
 .radio-group label {
-    display: block;
-    margin: 5px 0;
-    background: var(--rich-black);
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--rich-black), rgba(35, 38, 38, 0.8));
     color: var(--platinum);
-    padding: 10px;
-    border-radius: 4px;
+    padding: 16px 20px;
+    border-radius: 10px;
     cursor: pointer;
-    border: 1px solid var(--ash-gray);
-    transition: all 0.2s ease-in-out;
+    border: 1px solid rgba(213, 219, 219, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+}
+
+.radio-group label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(48, 250, 181, 0.1), transparent);
+    transition: left 0.6s ease;
 }
 
 .radio-group label:hover {
     border-color: var(--aquamarine);
-    background: var(--night);
+    background: linear-gradient(135deg, var(--night), rgba(25, 28, 28, 0.9));
+    transform: translateX(4px);
+    box-shadow: 
+        0 4px 12px rgba(0,0,0,0.2),
+        -4px 0 0 0 var(--aquamarine);
+}
+
+.radio-group label:hover::before {
+    left: 100%;
 }
 
 .radio-group input[type="radio"] {
-    margin-right: 10px;
+    margin-right: 16px;
     accent-color: var(--aquamarine);
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
 }
 
 .radio-group input[type="radio"]:checked + span,
 .radio-group label:has(input[type="radio"]:checked) {
-    background: var(--jungle-green);
+    background: linear-gradient(135deg, var(--jungle-green), var(--aquamarine));
     border-color: var(--jungle-green);
     color: var(--night);
+    font-weight: 600;
+    box-shadow: 
+        0 6px 20px rgba(34, 191, 141, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateX(6px);
 }
 
-.hidden {
-    display: none;
+.radio-group input[type="radio"]:checked {
+    transform: scale(1.3);
 }
 
-/* Back button */
-.back-btn {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    background: var(--aquamarine);
+button {
+    background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
     color: var(--night);
-    padding: 8px 12px;
     border: none;
-    border-radius: 5px;
+    padding: 16px 32px;
+    font-size: 1.1em;
+    font-weight: 700;
+    border-radius: 12px;
     cursor: pointer;
-    text-decoration: none;
-    z-index: 1000;
-    font-size: 14px;
-    font-family: inherit;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 32px auto 0;
+    display: block;
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+    letter-spacing: 0.02em;
+    box-shadow: 
+        0 4px 16px rgba(34, 191, 141, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.back-btn:hover {
-    background: var(--jungle-green);
-    transform: translateY(-1px);
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 24px rgba(34, 191, 141, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, var(--jungle-green), var(--aquamarine));
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 2px 8px rgba(34, 191, 141, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 
+        0 8px 24px rgba(34, 191, 141, 0.4),
+        0 0 0 3px rgba(48, 250, 181, 0.3);
+}
+
+.result-container {
+    background: linear-gradient(135deg, var(--night), rgba(35, 38, 38, 0.9));
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 32px;
+    border: 1px solid rgba(48, 250, 181, 0.2);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 10px 30px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(48, 250, 181, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.result-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green), var(--bronze));
+}
+
+.result-container h3 {
+    color: var(--aquamarine);
+    margin-bottom: 16px;
+    font-size: 1.4em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    margin-top: 0;
+}
+
+.result-container p {
+    color: var(--platinum);
+    line-height: 1.7;
+    margin-bottom: 12px;
+    font-size: 1.05em;
+}
+
+.result-container strong {
+    color: var(--jungle-green);
+    font-weight: 600;
+}
+
+#result {
+    display: none;
+    animation: fadeInUp 0.6s ease-out;
 }
 
 #result-container {
@@ -122,16 +283,133 @@ legend {
     border-radius: 5px;
 }
 
-#result-container h3 {
-    margin-top: 0;
-    color: var(--aquamarine);
-    font-weight: 600;
-}
-
 #recommendation {
     font-weight: bold;
     font-size: 1.1em;
     color: var(--platinum);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+/* Back button with enhanced flat 2.0 styling */
+.back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
+    color: var(--night);
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 1000;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 12px rgba(34, 191, 141, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, var(--jungle-green), var(--aquamarine));
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 16px rgba(34, 191, 141, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    fieldset {
+        padding: 20px;
+    }
+    
+    .radio-group label {
+        padding: 14px 16px;
+        font-size: 0.95em;
+    }
+    
+    button {
+        width: 100%;
+        margin: 24px 0 0;
+        padding: 14px 24px;
+        min-width: unset;
+    }
+    
+    .result-container {
+        padding: 24px;
+        margin-top: 24px;
+    }
+    
+    .back-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 16px;
+    }
+    
+    fieldset {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+    
+    legend {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+    
+    .radio-group {
+        gap: 8px;
+    }
+    
+    .radio-group label {
+        padding: 12px 14px;
+        font-size: 0.9em;
+    }
+    
+    .result-container {
+        padding: 20px;
+    }
+    
+    .result-container h3 {
+        font-size: 1.2em;
+    }
+    
+    .result-container p {
+        font-size: 1em;
+    }
+    
+    .back-btn {
+        top: 10px;
+        left: 10px;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
 }
 
 #comments {

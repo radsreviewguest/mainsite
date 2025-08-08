@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Adrenal Mass Flowchart</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+        
+        /* Flowchart Container */
+        .flowchart-container {
+            width: 100vw;
+            height: calc(100vh - 100px);
+            position: relative;
+            overflow: hidden;
+            background: #2d2d2d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* SVG Container */
+        .flowchart-svg {
+            width: 1200px;
+            height: 2000px;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: center center;
+        }
+        
+        .flowchart-svg.full-view {
+            transform: scale(0.7) translateY(-50px);
+        }
+        
+        .flowchart-svg.zoomed {
+            transform: scale(2.5) translate(var(--zoom-x, 0px), var(--zoom-y, 0px));
+            transform-origin: top left;
+        }
+        
+        .flowchart-svg.pan-mode {
+            cursor: grab;
+        }
+        
+        .flowchart-svg.panning {
+            cursor: grabbing;
+        }
+        
+        /* Node Styles */
+        .node {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .node:hover .node-rect {
+            filter: brightness(1.1);
+            stroke-width: 3;
+        }
+        
+        .node.highlighted .node-rect {
+            stroke-width: 4;
+            stroke: #ff6b6b;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5));
+        }
+        
+        .start-node .node-rect {
+            fill: #3d5a80;
+            stroke: #5b9bd5;
+            stroke-width: 2;
+        }
+        
+        .decision-node .node-rect {
+            fill: #6b5b95;
+            stroke: #9b59b6;
+            stroke-width: 2;
+        }
+        
+        .outcome-node .node-rect {
+            fill: #2d4739;
+            stroke: #27ae60;
+            stroke-width: 2;
+        }
+        
+        .action-node .node-rect {
+            fill: #8b4513;
+            stroke: #e67e22;
+            stroke-width: 2;
+        }
+        
+        .node-text {
+            font-size: 11px;
+            font-weight: 500;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            fill: #ffffff;
+            pointer-events: none;
+        }
+        
+        .start-node .node-text {
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        /* Connectors */
+        .connector {
+            stroke: #888;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+        
+        .connector-label {
+            font-size: 10px;
+            fill: #ccc;
+            text-anchor: middle;
+        }
+        
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            background: #2aa198;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+        
+        .control-btn:hover {
+            background: #238e85;
+            transform: translateY(-2px);
+        }
+        
+        /* Progress indicator */
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #2aa198;
+            height: 4px;
+            width: 0%;
+            transition: width 0.5s ease;
+            z-index: 1001;
+        }
+        
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #2aa198;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1000;
+        }
+        
+        /* Step indicator */
+        .step-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(42, 161, 152, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            z-index: 1000;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Back</a>
+    
+    <h1>Interactive Adrenal Mass Algorithm</h1>
+
+    <div class="progress" id="progress"></div>
+    
+    <div class="flowchart-container">
+        <svg class="flowchart-svg" id="flowchart" viewBox="0 0 1200 2000">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                        refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#888" />
+                </marker>
+            </defs>
+            
+            <!-- Start Node -->
+            <g class="node start-node" id="node-start" onclick="zoomToNode('start')" data-step="1">
+                <rect class="node-rect" x="450" y="50" width="300" height="80" rx="10"/>
+                <text class="node-text" x="600" y="90">
+                    <tspan x="600" dy="0">Incidental, Asymptomatic Adrenal Mass (≥1 cm)</tspan>
+                    <tspan x="600" dy="15">Detected on any CT or MR exam</tspan>
+                </text>
+            </g>
+            
+            <!-- Benign Features -->
+            <g class="node decision-node" id="node-benign" onclick="selectPath('benign')" data-step="2">
+                <rect class="node-rect" x="150" y="200" width="250" height="100" rx="10"/>
+                <text class="node-text" x="275" y="245">
+                    <tspan x="275" dy="0">Diagnostic Benign</tspan>
+                    <tspan x="275" dy="15">Imaging Features</tspan>
+                    <tspan x="275" dy="30">(Myelolipoma, No enhancement,</tspan>
+                    <tspan x="275" dy="45">Ca++, ≤10 HU, ↓ signal CS-MR)</tspan>
+                </text>
+            </g>
+            
+            <!-- Indeterminate Features -->
+            <g class="node decision-node" id="node-indeterminate" onclick="selectPath('indeterminate')" data-step="2">
+                <rect class="node-rect" x="750" y="200" width="250" height="100" rx="10"/>
+                <text class="node-text" x="875" y="245">
+                    <tspan x="875" dy="0">Indeterminate</tspan>
+                    <tspan x="875" dy="15">Imaging Features</tspan>
+                </text>
+            </g>
+            
+            <!-- Benign Result -->
+            <g class="node outcome-node" id="node-benign-result" data-step="3a">
+                <rect class="node-rect" x="50" y="380" width="300" height="120" rx="10"/>
+                <text class="node-text" x="200" y="435">
+                    <tspan x="200" dy="0">Myelolipoma, No enhancement, Ca++ = Benign, no F/U</tspan>
+                    <tspan x="200" dy="15">≤10 HU or ↓ signal on CS-MR</tspan>
+                    <tspan x="200" dy="30">= Benign adenoma, no F/U</tspan>
+                </text>
+            </g>
+            
+            <!-- Size Assessment -->
+            <g class="node decision-node" id="node-size-small" onclick="selectPath('size-small')" data-step="3b">
+                <rect class="node-rect" x="650" y="380" width="150" height="80" rx="10"/>
+                <text class="node-text" x="725" y="420">
+                    <tspan x="725" dy="0">≥1-<4 cm</tspan>
+                </text>
+            </g>
+            
+            <g class="node decision-node" id="node-size-large" onclick="selectPath('size-large')" data-step="3b">
+                <rect class="node-rect" x="850" y="380" width="150" height="80" rx="10"/>
+                <text class="node-text" x="925" y="420">
+                    <tspan x="925" dy="0">≥4 cm</tspan>
+                </text>
+            </g>
+            
+            <!-- Large Mass Management -->
+            <g class="node action-node" id="node-large-no-cancer" onclick="selectPath('final')" data-step="4a">
+                <rect class="node-rect" x="800" y="520" width="150" height="80" rx="10"/>
+                <text class="node-text" x="875" y="555">
+                    <tspan x="875" dy="0">No Cancer Hx:</tspan>
+                    <tspan x="875" dy="15">Consider resection</tspan>
+                </text>
+            </g>
+            
+            <g class="node action-node" id="node-large-cancer" onclick="selectPath('final')" data-step="4a">
+                <rect class="node-rect" x="970" y="520" width="150" height="80" rx="10"/>
+                <text class="node-text" x="1045" y="555">
+                    <tspan x="1045" dy="0">+ Cancer Hx:</tspan>
+                    <tspan x="1045" dy="15">Consider Bx or PET-CT</tspan>
+                </text>
+            </g>
+            
+            <!-- Prior Imaging Assessment -->
+            <g class="node decision-node" id="node-prior" onclick="selectPath('prior')" data-step="4b">
+                <rect class="node-rect" x="450" y="520" width="150" height="60" rx="10"/>
+                <text class="node-text" x="525" y="550">
+                    <tspan x="525" dy="0">Prior Imaging</tspan>
+                    <tspan x="525" dy="15">Available</tspan>
+                </text>
+            </g>
+            
+            <g class="node decision-node" id="node-no-prior" onclick="selectPath('no-prior')" data-step="4b">
+                <rect class="node-rect" x="620" y="520" width="150" height="80" rx="10"/>
+                <text class="node-text" x="695" y="555">
+                    <tspan x="695" dy="0">No Prior Imaging</tspan>
+                    <tspan x="695" dy="15">No Cancer Hx</tspan>
+                </text>
+            </g>
+            
+            <!-- Stability Assessment -->
+            <g class="node outcome-node" id="node-stable" onclick="selectPath('final')" data-step="5">
+                <rect class="node-rect" x="350" y="680" width="150" height="80" rx="10"/>
+                <text class="node-text" x="425" y="715">
+                    <tspan x="425" dy="0">Stable ≥1 year</tspan>
+                    <tspan x="425" dy="15">→ Benign, no F/U</tspan>
+                </text>
+            </g>
+            
+            <g class="node decision-node" id="node-enlarging" onclick="selectPath('enlarging')" data-step="5">
+                <rect class="node-rect" x="520" y="680" width="150" height="80" rx="10"/>
+                <text class="node-text" x="595" y="720">
+                    <tspan x="595" dy="0">New or Enlarging</tspan>
+                </text>
+            </g>
+            
+            <!-- Further Evaluation Paths -->
+            <g class="node action-node" id="node-small-benign" onclick="selectPath('final')" data-step="6">
+                <rect class="node-rect" x="550" y="820" width="180" height="100" rx="10"/>
+                <text class="node-text" x="640" y="865">
+                    <tspan x="640" dy="0">1-2 cm: Probably benign</tspan>
+                    <tspan x="640" dy="15">Consider 12 month</tspan>
+                    <tspan x="640" dy="30">F/U adrenal CT</tspan>
+                </text>
+            </g>
+            
+            <g class="node decision-node" id="node-medium" onclick="selectPath('ct')" data-step="6">
+                <rect class="node-rect" x="750" y="820" width="150" height="80" rx="10"/>
+                <text class="node-text" x="825" y="855">
+                    <tspan x="825" dy="0">>2cm, <4cm</tspan>
+                    <tspan x="825" dy="15">→ Adrenal CT</tspan>
+                </text>
+            </g>
+            
+            <!-- CT Assessment -->
+            <g class="node outcome-node" id="node-ct-benign" onclick="selectPath('final')" data-step="7">
+                <rect class="node-rect" x="650" y="980" width="150" height="80" rx="10"/>
+                <text class="node-text" x="725" y="1015">
+                    <tspan x="725" dy="0">≤10 HU</tspan>
+                    <tspan x="725" dy="15">→ Benign adenoma</tspan>
+                    <tspan x="725" dy="30">no F/U</tspan>
+                </text>
+            </g>
+            
+            <g class="node decision-node" id="node-ct-washout" onclick="selectPath('washout')" data-step="7">
+                <rect class="node-rect" x="820" y="980" width="150" height="80" rx="10"/>
+                <text class="node-text" x="895" y="1015">
+                    <tspan x="895" dy="0">>10 HU</tspan>
+                    <tspan x="895" dy="15">→ Washout study</tspan>
+                </text>
+            </g>
+            
+            <!-- Washout Results -->
+            <g class="node outcome-node" id="node-washout-benign" onclick="selectPath('final')" data-step="8">
+                <rect class="node-rect" x="750" y="1140" width="150" height="80" rx="10"/>
+                <text class="node-text" x="825" y="1175">
+                    <tspan x="825" dy="0">APW/RPW ≥60/40%</tspan>
+                    <tspan x="825" dy="15">→ Benign adenoma</tspan>
+                    <tspan x="825" dy="30">no F/U</tspan>
+                </text>
+            </g>
+            
+            <g class="node action-node" id="node-washout-indeterminate" onclick="selectPath('final')" data-step="8">
+                <rect class="node-rect" x="920" y="1140" width="180" height="100" rx="10"/>
+                <text class="node-text" x="1010" y="1185">
+                    <tspan x="1010" dy="0">APW/RPW <60/40%</tspan>
+                    <tspan x="1010" dy="15">→ Imaging F/U, Bx,</tspan>
+                    <tspan x="1010" dy="30">PET-CT, or resection</tspan>
+                    <tspan x="1010" dy="45">depending on scenario</tspan>
+                </text>
+            </g>
+            
+            <!-- Connectors -->
+            <path class="connector" d="M 600 130 L 275 200"/>
+            <path class="connector" d="M 600 130 L 875 200"/>
+            <path class="connector" d="M 275 300 L 200 380"/>
+            <path class="connector" d="M 875 300 L 725 380"/>
+            <path class="connector" d="M 875 300 L 925 380"/>
+            <path class="connector" d="M 925 460 L 875 520"/>
+            <path class="connector" d="M 925 460 L 1045 520"/>
+            <path class="connector" d="M 725 460 L 525 520"/>
+            <path class="connector" d="M 725 460 L 695 520"/>
+            <path class="connector" d="M 525 580 L 425 680"/>
+            <path class="connector" d="M 525 580 L 595 680"/>
+            <path class="connector" d="M 695 600 L 640 820"/>
+            <path class="connector" d="M 695 600 L 825 820"/>
+            <path class="connector" d="M 825 900 L 725 980"/>
+            <path class="connector" d="M 825 900 L 895 980"/>
+            <path class="connector" d="M 895 1060 L 825 1140"/>
+            <path class="connector" d="M 895 1060 L 1010 1140"/>
+        </svg>
+    </div>
+    
+    <div class="controls">
+        <button class="control-btn" onclick="togglePan()" id="panBtn">Pan Mode</button>
+        <button class="control-btn" onclick="zoomOut()" id="zoomOutBtn">Zoom Out</button>
+        <button class="control-btn" onclick="resetView()" id="fullViewBtn">See Full Algorithm</button>
+        <button class="control-btn hidden" onclick="previousStep()" id="prevBtn">Previous</button>
+        <button class="control-btn" onclick="resetFlow()">Start Over</button>
+    </div>
+    
+    <div class="step-indicator" id="stepIndicator">Step 1: Initial Assessment</div>
+
+    <!-- External JavaScript -->
+    <script src="./js/abdomen-flowchart.js"></script>
+
+</body>
+</html>

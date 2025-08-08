@@ -7,14 +7,14 @@
   src: url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
 }
 
-/* Splash Screen Styles */
+/* Splash Screen Styles - Neumorphism Design */
 .splash-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #23272f;
+  background: linear-gradient(135deg, #e8ecf0 0%, #f5f7fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,14 +81,20 @@
 
 .splash-content {
   text-align: center;
-  color: #f3f3f3;
+  color: #2c3e50;
   max-width: 800px;
-  padding: 2rem;
+  padding: 3rem;
+  background: linear-gradient(145deg, #f0f4f8, #d6dde6);
+  border-radius: 30px;
+  box-shadow: 
+    20px 20px 60px #c8d0d8,
+    -20px -20px 60px #ffffff;
   animation: splashFadeIn 1s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
+  position: relative;
 }
 
 @keyframes splashFadeIn {
@@ -105,27 +111,46 @@
 .splash-logo img {
   max-width: 350px;
   height: auto;
-  filter: brightness(0) invert(1);
+  filter: none;
+  background: transparent;
+  border-radius: 20px;
+  padding: 1rem;
+  background: linear-gradient(145deg, #f0f4f8, #d6dde6);
+  box-shadow: 
+    10px 10px 30px #c8d0d8,
+    -10px -10px 30px #ffffff;
 }
 
 .splash-main-image {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #f0f4f8, #d6dde6);
+  border-radius: 25px;
+  box-shadow: 
+    15px 15px 40px #c8d0d8,
+    -15px -15px 40px #ffffff;
 }
 
 .central-image {
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
   height: auto;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(42, 161, 152, 0.3);
+  border-radius: 20px;
+  background: transparent;
   animation: gentleFloat 4s ease-in-out infinite;
   transition: transform 0.3s ease;
+  box-shadow: 
+    8px 8px 20px rgba(200, 208, 216, 0.6),
+    -8px -8px 20px rgba(255, 255, 255, 0.8);
 }
 
 .central-image:hover {
   transform: scale(1.02);
+  box-shadow: 
+    12px 12px 30px rgba(200, 208, 216, 0.8),
+    -12px -12px 30px rgba(255, 255, 255, 1);
 }
 
 @keyframes gentleFloat {
@@ -139,6 +164,12 @@
 
 .splash-text {
   text-align: center;
+  padding: 1rem;
+  background: linear-gradient(145deg, #f0f4f8, #d6dde6);
+  border-radius: 20px;
+  box-shadow: 
+    inset 5px 5px 15px #c8d0d8,
+    inset -5px -5px 15px #ffffff;
 }
 
 .splash-title {
@@ -146,40 +177,63 @@
   font-weight: 700;
   margin: 0 0 1rem 0;
   color: #2aa198;
-  text-shadow: 0 2px 10px rgba(42, 161, 152, 0.3);
+  text-shadow: 
+    2px 2px 4px rgba(200, 208, 216, 0.8),
+    -1px -1px 2px rgba(255, 255, 255, 0.9);
 }
 
 .splash-subtitle {
   font-size: 1.2rem;
   margin: 0;
-  color: #bfc9d1;
+  color: #5a6c7d;
   opacity: 0.9;
+  font-weight: 500;
 }
 
 .splash-enter-btn {
-  background: #2aa198;
-  color: #23272f;
+  background: linear-gradient(145deg, #2aa198, #238e85);
+  color: #ffffff;
   border: none;
-  padding: 1rem 2.5rem;
+  padding: 1.2rem 3rem;
   font-size: 1.1rem;
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(42, 161, 152, 0.3);
+  box-shadow: 
+    8px 8px 20px #c8d0d8,
+    -8px -8px 20px #ffffff;
+  position: relative;
+  overflow: hidden;
 }
 
 .splash-enter-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 30px rgba(42, 161, 152, 0.4);
-  background: #ffd166;
-  color: #23272f;
+  box-shadow: 
+    12px 12px 30px #c8d0d8,
+    -12px -12px 30px #ffffff;
+  background: linear-gradient(145deg, #ffd166, #f7c052);
+  color: #2c3e50;
+}
+
+.splash-enter-btn:active {
+  transform: translateY(0);
+  box-shadow: 
+    inset 4px 4px 10px #c8d0d8,
+    inset -4px -4px 10px #ffffff;
 }
 
 .splash-built-for {
   font-size: 0.9rem;
-  color: #8d99ae;
+  color: #5a6c7d;
   font-style: italic;
+  font-weight: 500;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(145deg, #e8ecf0, #d1d9e0);
+  border-radius: 15px;
+  box-shadow: 
+    inset 3px 3px 8px #c0c8d0,
+    inset -3px -3px 8px #f8fbff;
 }
 
 .main-content {
@@ -198,8 +252,18 @@
   display: inline-block;
 }
 
-/* Mobile Responsive for Splash */
+/* Mobile Responsive for Splash - Neumorphism */
 @media (max-width: 768px) {
+  .splash-content {
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+    max-width: 90vw;
+    border-radius: 25px;
+    box-shadow: 
+      15px 15px 40px #c8d0d8,
+      -15px -15px 40px #ffffff;
+  }
+  
   .splash-title {
     font-size: 1.8rem;
   }
@@ -210,20 +274,53 @@
   
   .splash-logo img {
     max-width: 250px;
+    padding: 0.8rem;
+    border-radius: 15px;
+    box-shadow: 
+      8px 8px 20px #c8d0d8,
+      -8px -8px 20px #ffffff;
+  }
+  
+  .splash-main-image {
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 
+      10px 10px 25px #c8d0d8,
+      -10px -10px 25px #ffffff;
   }
   
   .central-image {
-    max-width: 350px;
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 
+      6px 6px 15px rgba(200, 208, 216, 0.6),
+      -6px -6px 15px rgba(255, 255, 255, 0.8);
   }
   
-  .splash-content {
-    padding: 1rem;
-    gap: 1.5rem;
+  .splash-text {
+    padding: 0.8rem;
+    border-radius: 15px;
+    box-shadow: 
+      inset 4px 4px 10px #c8d0d8,
+      inset -4px -4px 10px #ffffff;
   }
   
   .splash-enter-btn {
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
     font-size: 1rem;
+    border-radius: 40px;
+    box-shadow: 
+      6px 6px 15px #c8d0d8,
+      -6px -6px 15px #ffffff;
+  }
+  
+  .splash-built-for {
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    box-shadow: 
+      inset 2px 2px 6px #c0c8d0,
+      inset -2px -2px 6px #f8fbff;
   }
 }
 

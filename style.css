@@ -167,7 +167,7 @@ header img {
   color: var(--platinum);
   max-width: 600px;
   padding: 3rem;
-  background: linear-gradient(145deg, var(--rich-black), rgba(14, 26, 26, 0.8));
+  background: #000000;
   border-radius: 20px;
   border: 1px solid rgba(48, 250, 181, 0.1);
   box-shadow: 
@@ -181,7 +181,7 @@ header img {
 }
 
 .splash-logo img {
-  max-width: 300px;
+  max-width: 330px;
   height: auto;
   filter: brightness(1.1) contrast(1.1);
   transition: all 0.3s ease;
@@ -192,9 +192,8 @@ header img {
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  background: rgba(14, 26, 26, 0.5);
+  background: transparent;
   border-radius: 15px;
-  border: 1px solid rgba(48, 250, 181, 0.2);
 }
 
 .central-image {

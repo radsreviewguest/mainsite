@@ -341,17 +341,18 @@ nav a:hover {
 .search input {
   width: 100%;
   border: none;
-  border-bottom: 2.5px solid #ffd166;
+  border-bottom: 3px solid #ffd166;
   background: transparent;
   color: #23272f;
-  font-size: 1.3rem;
-  padding: 0.4em 0 0.4em 0;
+  font-size: 1.6rem;
+  padding: 0.8em 0 0.8em 0;
   outline: none;
   transition: border-color 0.2s;
   caret-color: #23272f;
   text-align: left;
   box-shadow: none;
   border-radius: 0;
+  font-weight: 500;
 }
 
 .search input::placeholder {
@@ -362,7 +363,7 @@ nav a:hover {
 }
 
 .search input:focus {
-  border-bottom: 3px solid #ffd166;
+  border-bottom: 4px solid #ffd166;
   background: transparent;
 }
 
@@ -508,8 +509,8 @@ footer {
   }
 
   .search input {
-    font-size: 1.1rem;
-    padding: 0.5em 0;
+    font-size: 1.4rem;
+    padding: 0.7em 0;
   }
 
   .hero-subtitle {

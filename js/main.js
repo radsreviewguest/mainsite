@@ -118,6 +118,9 @@ function filterResources(query) {
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Check for first visit and handle splash screen
+  checkFirstVisit();
+  
   // Set initial active tab
   showTab('abd', document.querySelector('.tabs .tab'));
   
@@ -134,3 +137,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+// Splash screen functionality
+function checkFirstVisit() {
+  const hasVisited = sessionStorage.getItem('radsreview-visited');
+  const splashScreen = document.getElementById('splashScreen');
+  const mainContent = document.getElementById('mainContent');
+  
+  if (!hasVisited) {
+    // First visit in this browser session - show splash screen
+    splashScreen.style.display = 'flex';
+    mainContent.style.display = 'none';
+    
+    // Trigger staggered animations
+    triggerSplashAnimations();
+  } else {
+    // Already visited in this browser session - hide splash screen
+    splashScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+  }
+}
+
+function triggerSplashAnimations() {
+  // Wait until the entire HTML document has been loaded and parsed
+  // Find the elements we want to animate
+  const splashLogo = document.getElementById('splash-logo');
+  const splashMainImage = document.getElementById('splash-main-image');
+  const splashText = document.getElementById('splash-text');
+  const enterBtn = document.getElementById('enter-btn');
+  const builtFor = document.getElementById('built-for');
+
+  // Add the 'is-animated' class to trigger the animations.
+  // The delay will be handled by our CSS.
+  splashLogo.classList.add('is-animated');
+  splashMainImage.classList.add('is-animated');
+  splashText.classList.add('is-animated');
+  enterBtn.classList.add('is-animated');
+  builtFor.classList.add('is-animated');
+}
+
+function enterSite() {
+  // Mark as visited for this browser session
+  sessionStorage.setItem('radsreview-visited', 'true');
+  
+  // Hide splash screen with animation
+  const splashScreen = document.getElementById('splashScreen');
+  const mainContent = document.getElementById('mainContent');
+  
+  splashScreen.style.opacity = '0';
+  splashScreen.style.transform = 'scale(0.95)';
+  
+  setTimeout(() => {
+    splashScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    mainContent.style.opacity = '0';
+    
+    // Fade in main content
+    setTimeout(() => {
+      mainContent.style.opacity = '1';
+    }, 50);
+  }, 300);
+}

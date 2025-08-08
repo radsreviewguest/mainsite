@@ -1,0 +1,384 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #23272f;
+    color: #e6e6e6;
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.tool-container {
+    max-width: 900px;
+    width: 100%;
+    background-color: #2d3748;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid #4a5568;
+}
+
+h1 {
+    text-align: center;
+    color: #2aa198;
+    margin-bottom: 10px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+h2 {
+    text-align: center;
+    color: #a0aec0;
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+fieldset {
+    border: 1px solid #4a5568;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #1a202c;
+}
+
+legend {
+    font-weight: 600;
+    color: #2aa198;
+    padding: 0 10px;
+    background-color: #1a202c;
+}
+
+.radio-group label {
+    display: block;
+    margin: 5px 0;
+    background: #2d3748;
+    color: #e6e6e6;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #4a5568;
+    transition: all 0.2s ease-in-out;
+}
+
+.radio-group label:hover {
+    border-color: #2aa198;
+    background: #374151;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #2aa198;
+}
+
+.radio-group input[type="radio"]:checked + span,
+.radio-group label:has(input[type="radio"]:checked) {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: #1f2937;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Back button */
+.back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #2aa198;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 1000;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #238e85;
+    transform: translateY(-1px);
+}
+
+#result-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #1a202c;
+    border: 1px solid #2aa198;
+    border-left: 5px solid #2aa198;
+    border-radius: 5px;
+}
+
+#result-container h3 {
+    margin-top: 0;
+    color: #2aa198;
+    font-weight: 600;
+}
+
+#recommendation {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #e6e6e6;
+}
+
+#comments {
+    margin-top: 10px;
+    font-style: italic;
+    color: #a0aec0;
+}
+
+.footer-notes {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #4a5568;
+    font-size: 0.85em;
+    color: #a0aec0;
+}
+
+.footer-notes strong {
+    color: #2aa198;
+}
+
+.footer-notes a {
+    color: #2aa198;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-notes a:hover {
+    color: #81e6d9;
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px;
+        line-height: 1.5;
+    }
+    
+    .tool-container {
+        padding: 20px 15px;
+        margin: 0;
+        border-radius: 6px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    fieldset {
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+    
+    legend {
+        font-size: 0.95rem;
+        padding: 0 8px;
+        font-weight: 700;
+    }
+    
+    .radio-group label {
+        padding: 12px 10px;
+        margin: 4px 0;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        line-height: 1.3;
+        min-height: 44px; /* Touch target size */
+        display: flex;
+        align-items: center;
+    }
+    
+    .radio-group input[type="radio"] {
+        margin-right: 12px;
+        transform: scale(1.2);
+    }
+    
+    #result-container {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 6px;
+    }
+    
+    #result-container h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    #recommendation {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    #comments {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .footer-notes {
+        margin-top: 20px;
+        padding-top: 15px;
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+    
+    /* Mobile back button */
+    .back-btn {
+        top: 10px;
+        left: 10px;
+        padding: 6px 10px;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px 5px;
+    }
+    
+    .tool-container {
+        padding: 15px 10px;
+        border-radius: 4px;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+        margin-bottom: 6px;
+    }
+    
+    h2 {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .form-grid {
+        gap: 12px;
+    }
+    
+    fieldset {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+    
+    legend {
+        font-size: 0.9rem;
+        padding: 0 6px;
+    }
+    
+    .radio-group label {
+        padding: 10px 8px;
+        margin: 3px 0;
+        font-size: 0.9rem;
+        border-radius: 4px;
+        min-height: 48px; /* Larger touch target for small screens */
+    }
+    
+    .radio-group input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.3);
+    }
+    
+    #result-container {
+        margin-top: 12px;
+        padding: 12px;
+    }
+    
+    #result-container h3 {
+        font-size: 1rem;
+    }
+    
+    #recommendation {
+        font-size: 0.95rem;
+    }
+    
+    #comments {
+        font-size: 0.85rem;
+    }
+    
+    .footer-notes {
+        margin-top: 15px;
+        padding-top: 12px;
+        font-size: 0.75rem;
+    }
+    
+    /* Small screen back button */
+    .back-btn {
+        top: 8px;
+        left: 8px;
+        padding: 5px 8px;
+        font-size: 11px;
+        min-height: 32px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .radio-group label {
+        min-height: 48px;
+        padding: 14px 12px;
+    }
+    
+    .radio-group label:hover {
+        background: #2d3748; /* Disable hover effects on touch */
+        border-color: #4a5568;
+    }
+    
+    .radio-group label:active {
+        background: #374151;
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .radio-group input[type="radio"] {
+        transform: scale(1.4);
+        margin-right: 14px;
+    }
+    
+    /* Touch-optimized back button */
+    .back-btn {
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    .back-btn:hover {
+        background: #2aa198; /* Disable hover on touch */
+        transform: none;
+    }
+    
+    .back-btn:active {
+        background: #238e85;
+        transform: scale(0.95);
+    }
+}

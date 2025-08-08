@@ -107,8 +107,49 @@ function updateRecommendation() {
     if (result) {
         recommendationEl.textContent = result.rec;
         commentsEl.textContent = result.com || ""; // Use empty string if no comment
+        
+        // Scroll to result on mobile after selection
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                document.getElementById('result-container').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
     } else {
         recommendationEl.textContent = "Please complete all selections to see the guideline.";
         commentsEl.textContent = "";
     }
 }
+
+// Mobile optimization: Add touch event handling
+document.addEventListener('DOMContentLoaded', function() {
+    // Add touch feedback for radio button labels
+    if ('ontouchstart' in window) {
+        const labels = document.querySelectorAll('.radio-group label');
+        labels.forEach(label => {
+            label.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            }, { passive: true });
+            
+            label.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            }, { passive: true });
+            
+            label.addEventListener('touchcancel', function() {
+                this.style.transform = 'scale(1)';
+            }, { passive: true });
+        });
+    }
+    
+    // Prevent zoom on double-tap for iOS
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+});

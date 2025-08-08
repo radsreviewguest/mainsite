@@ -1,70 +1,55 @@
-/* CSS HEX */
---aquamarine: #30fab5ff;
---jungle-green: #25a67eff;
---night: #091212ff;
---rich-black: #0e1a1aff;
---ash-gray: #b9cac9ff;
---platinum: #cad9d8ff;
---red-ncs: #b20d30ff;
---bronze: #cc8427ff;
---medium-blue: #3023baff;
---space-cadet: #121d45ff;
+/* Main Color Palette - CSS Custom Properties */
+:root {
+  --aquamarine: #30fab5;
+  --jungle-green: #25a67e;
+  --night: #091212;
+  --rich-black: #0e1a1a;
+  --ash-gray: #b9cac9;
+  --platinum: #cad9d8;
+  --red-ncs: #b20d30;
+  --bronze: #cc8427;
+  --medium-blue: #3023ba;
+  --space-cadet: #121d45;
+}
 
-/* CSS HSL */
---aquamarine: hsla(160, 95%, 58%, 1);
---jungle-green: hsla(161, 64%, 40%, 1);
---night: hsla(180, 33%, 5%, 1);
---rich-black: hsla(180, 30%, 8%, 1);
---ash-gray: hsla(176, 14%, 76%, 1);
---platinum: hsla(176, 16%, 82%, 1);
---red-ncs: hsla(347, 86%, 37%, 1);
---bronze: hsla(34, 68%, 48%, 1);
---medium-blue: hsla(245, 68%, 43%, 1);
---space-cadet: hsla(227, 59%, 17%, 1);
-
-/* SCSS HEX */
-$aquamarine: #30fab5ff;
-$jungle-green: #25a67eff;
-$night: #091212ff;
-$rich-black: #0e1a1aff;
-$ash-gray: #b9cac9ff;
-$platinum: #cad9d8ff;
-$red-ncs: #b20d30ff;
-$bronze: #cc8427ff;
-$medium-blue: #3023baff;
-$space-cadet: #121d45ff;
-
-/* SCSS HSL */
-$aquamarine: hsla(160, 95%, 58%, 1);
-$jungle-green: hsla(161, 64%, 40%, 1);
-$night: hsla(180, 33%, 5%, 1);
-$rich-black: hsla(180, 30%, 8%, 1);
-$ash-gray: hsla(176, 14%, 76%, 1);
-$platinum: hsla(176, 16%, 82%, 1);
-$red-ncs: hsla(347, 86%, 37%, 1);
-$bronze: hsla(34, 68%, 48%, 1);
-$medium-blue: hsla(245, 68%, 43%, 1);
-$space-cadet: hsla(227, 59%, 17%, 1);
-
-/* SCSS RGB */
-$aquamarine: rgba(48, 250, 181, 1);
-$jungle-green: rgba(37, 166, 126, 1);
-$night: rgba(9, 18, 18, 1);
-$rich-black: rgba(14, 26, 26, 1);
-$ash-gray: rgba(185, 202, 201, 1);
-$platinum: rgba(202, 217, 216, 1);
-$red-ncs: rgba(178, 13, 48, 1);
-$bronze: rgba(204, 132, 39, 1);
-$medium-blue: rgba(48, 35, 186, 1);
-$space-cadet: rgba(18, 29, 69, 1);
-
-/* SCSS Gradient */
-$gradient-top: linear-gradient(0deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-right: linear-gradient(90deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-bottom: linear-gradient(180deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-left: linear-gradient(270deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-top-right: linear-gradient(45deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-bottom-right: linear-gradient(135deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-top-left: linear-gradient(225deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-bottom-left: linear-gradient(315deg, #30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
-$gradient-radial: radial-gradient(#30fab5ff, #25a67eff, #091212ff, #0e1a1aff, #b9cac9ff, #cad9d8ff, #b20d30ff, #cc8427ff, #3023baff, #121d45ff);
+/* 
+  REFERENCE SECTION (Commented Out)
+  
+  Alternative formats for reference:
+  
+  HEX with Alpha:
+  --aquamarine: #30fab5ff;
+  --jungle-green: #25a67eff;
+  --night: #091212ff;
+  --rich-black: #0e1a1aff;
+  --ash-gray: #b9cac9ff;
+  --platinum: #cad9d8ff;
+  --red-ncs: #b20d30ff;
+  --bronze: #cc8427ff;
+  --medium-blue: #3023baff;
+  --space-cadet: #121d45ff;
+  
+  HSL Format:
+  --aquamarine: hsla(160, 95%, 58%, 1);
+  --jungle-green: hsla(161, 64%, 40%, 1);
+  --night: hsla(180, 33%, 5%, 1);
+  --rich-black: hsla(180, 30%, 8%, 1);
+  --ash-gray: hsla(176, 14%, 76%, 1);
+  --platinum: hsla(176, 16%, 82%, 1);
+  --red-ncs: hsla(347, 86%, 37%, 1);
+  --bronze: hsla(34, 68%, 48%, 1);
+  --medium-blue: hsla(245, 68%, 43%, 1);
+  --space-cadet: hsla(227, 59%, 17%, 1);
+  
+  RGB Format:
+  --aquamarine: rgba(48, 250, 181, 1);
+  --jungle-green: rgba(37, 166, 126, 1);
+  --night: rgba(9, 18, 18, 1);
+  --rich-black: rgba(14, 26, 26, 1);
+  --ash-gray: rgba(185, 202, 201, 1);
+  --platinum: rgba(202, 217, 216, 1);
+  --red-ncs: rgba(178, 13, 48, 1);
+  --bronze: rgba(204, 132, 39, 1);
+  --medium-blue: rgba(48, 35, 186, 1);
+  --space-cadet: rgba(18, 29, 69, 1);
+*/

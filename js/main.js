@@ -17,20 +17,24 @@ function toggleTheme() {
 function updateThemeIcon(theme) {
   const themeIcon = document.querySelector('.theme-icon');
   if (themeIcon) {
-    themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    themeIcon.textContent = theme === 'dark' ? '☀' : '◐';
   }
 }
 
 // Search Animation Functions
 function expandSearch(input) {
   const container = input.closest('.search-container');
+  const searchWrapper = input.closest('.search');
   container.classList.add('expanded');
+  searchWrapper.classList.add('expanded');
 }
 
 function contractSearch(input) {
   const container = input.closest('.search-container');
+  const searchWrapper = input.closest('.search');
   setTimeout(() => {
     container.classList.remove('expanded');
+    searchWrapper.classList.remove('expanded');
   }, 100);
 }
 

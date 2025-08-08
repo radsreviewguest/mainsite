@@ -60,13 +60,84 @@
       100% { transform: rotate(360deg) scale(1); }
     }
 
+    /* Starfield layer */
+    .stars {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,0.25) 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 40%, rgba(255,255,255,0.18) 0 1px, transparent 2px),
+        radial-gradient(circle at 30% 75%, rgba(255,255,255,0.22) 0 1px, transparent 2px),
+        radial-gradient(circle at 85% 85%, rgba(255,255,255,0.20) 0 1px, transparent 2px),
+        radial-gradient(circle at 55% 20%, rgba(255,255,255,0.30) 0 1px, transparent 2px);
+      background-size: 600px 600px, 800px 800px, 700px 700px, 900px 900px, 750px 750px;
+      animation: starDrift 140s linear infinite;
+      opacity: 0.35;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes starDrift {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-600px) rotate(1turn); }
+    }
+
+    /* Floating gradient blobs */
+    .bg-blobs {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(40px) saturate(140%);
+    }
+    .blob {
+      position: absolute;
+      width: 38vmax;
+      height: 38vmax;
+      background: radial-gradient(circle at 30% 30%, rgba(180,90,255,0.9), rgba(40,20,95,0.05) 70%);
+      border-radius: 50%;
+      animation: blobMove 38s ease-in-out infinite, blobPulse 11s ease-in-out infinite;
+      mix-blend-mode: lighten;
+    }
+    .blob.b1 {
+      top: -10vmax;
+      left: -8vmax;
+      animation-delay: 0s, 0s;
+    }
+    .blob.b2 {
+      top: 45%;
+      left: 55%;
+      background: radial-gradient(circle at 60% 40%, rgba(70,170,255,0.85), rgba(10,30,90,0.05) 70%);
+      animation-delay: 6s, 2s;
+      animation-duration: 46s, 13s;
+    }
+    .blob.b3 {
+      top: 60%;
+      left: -12vmax;
+      background: radial-gradient(circle at 35% 55%, rgba(255,145,65,0.75), rgba(90,25,0,0.05) 70%);
+      animation-delay: 12s, 4s;
+      animation-duration: 52s, 15s;
+    }
+    @keyframes blobMove {
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      25%  { transform: translate3d(12vmax, -4vmax,0) scale(1.15); }
+      50%  { transform: translate3d(5vmax, 6vmax,0) scale(0.95); }
+      75%  { transform: translate3d(-10vmax, 3vmax,0) scale(1.2); }
+      100% { transform: translate3d(0,0,0) scale(1); }
+    }
+    @keyframes blobPulse {
+      0%,100% { filter: hue-rotate(0deg) brightness(1); }
+      50% { filter: hue-rotate(180deg) brightness(1.25); }
+    }
+
     .center-container {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
     .colorful-image {
       max-width: 90vw;
@@ -79,10 +150,18 @@
       box-shadow: 0 8px 32px rgba(0,0,0,0.2);
       background: white;
       backdrop-filter: saturate(140%) brightness(1.05);
+      position: relative;
+      z-index: 4;
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
+  <div class="bg-blobs">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
   <div class="center-container">
     <img src="images/Cerebrai_coming_Soon..gif" alt="Image" class="colorful-image" />
   </div>

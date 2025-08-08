@@ -1,0 +1,138 @@
+/* inter-regular - cyrillic_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */     
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+}
+/* Solarized Dark Theme (official colors) */
+body {
+  background: #23272f;
+  color: #f3f3f3;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #353945;
+  background: #2c313a;
+}
+header img {
+  height: 48px;
+}
+nav a {
+  margin: 0 0.75rem;
+  color: #bfc9d1;
+  text-decoration: none;
+  font-weight: 600;
+}
+nav a:hover {
+  color: #2aa198;
+}
+.hero {
+  text-align: center;
+  padding: 2rem;
+}
+.hero h1 {
+  color: #2aa198;
+}
+.search {
+  max-width: 400px;
+  margin: 1rem auto;
+}
+.search input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #353945;
+  border-radius: 6px;
+  background: #2c313a;
+  color: #f3f3f3;
+}
+/* --- TABS --- */
+.tabs {
+  display: flex;          /* Enables Flexbox layout */
+  justify-content: center;/* This is the rule that CENTERS the tabs */
+  flex-wrap: wrap;        /* Allows tabs to wrap onto the next line if needed */
+  gap: 1rem;
+  padding: 1rem;
+}
+/* Base style for ALL tabs (default is faded) */
+.tab {
+  background: #2c313a;
+  width: 150px;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.35; /* Faded by default */
+  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+}
+/* On hover, ANY tab becomes fully opaque */
+.tab:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
+  opacity: 1;
+}
+/* The ACTIVE tab is fully opaque. NO background color change. */
+.tab.active {
+  opacity: 1;
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
+  background-color: transparent !important; /* Force no background color */
+}
+/* Text color for default (inactive) tabs */
+.tab h2 {
+  color: #2aa198; /* Solarized cyan */
+  margin: 0;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+/* Text color and underline for the ACTIVE tab's h2 element */
+.tab.active h2 {
+  color: #ffd166 !important; /* The yellow-orange accent color, with !important to ensure it applies */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.content {
+  display: none;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #2c313a;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
+}
+.content.active {
+  display: block;
+}
+.content ul {
+  list-style: none;
+  padding-left: 0;
+}
+.content li {
+  margin: 0.5rem 0;
+  color: #bfc9d1;
+}
+.content a {
+  color: #ffd166;
+  text-decoration: none;
+}
+.content a:hover {
+  text-decoration: underline;
+  color: #2aa198;
+}
+footer {
+  text-align: center;
+  color: #8d99ae;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  background: #23272f;
+}

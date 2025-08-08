@@ -946,3 +946,646 @@ footer p {
     outline-offset: 2px;
   }
 }
+
+/* Splash Screen Styles - Dark Neumorphism Design */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e2124 0%, #23272f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial state for animated elements */
+.anim-on-load {
+  opacity: 0;
+}
+
+/* Animation class that JavaScript will add */
+.is-animated {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: forwards;
+}
+
+/* Stagger the animations with delays */
+#splash-logo.is-animated {
+  animation-delay: 0.2s;
+}
+
+#splash-main-image.is-animated {
+  animation-delay: 0.6s;
+}
+
+#splash-text.is-animated {
+  animation-delay: 1.0s;
+}
+
+#enter-btn.is-animated {
+  animation-delay: 1.4s;
+}
+
+#built-for.is-animated {
+  animation-delay: 1.8s;
+}
+
+.splash-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.splash-content {
+  text-align: center;
+  color: #e6e6e6;
+  max-width: 800px;
+  padding: 3rem;
+  background: linear-gradient(145deg, #2c2f33, #23272f);
+  border-radius: 30px;
+  box-shadow: 
+    20px 20px 60px #1a1d20,
+    -20px -20px 60px #36393e;
+  animation: splashFadeIn 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  position: relative;
+}
+
+@keyframes splashFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.splash-logo img {
+  max-width: 350px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  background: transparent;
+  border-radius: 20px;
+  padding: 1rem;
+  background: linear-gradient(145deg, #2c2f33, #23272f);
+  box-shadow: 
+    10px 10px 30px #1a1d20,
+    -10px -10px 30px #36393e;
+}
+
+.splash-main-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #2c2f33, #23272f);
+  border-radius: 25px;
+  box-shadow: 
+    15px 15px 40px #1a1d20,
+    -15px -15px 40px #36393e;
+}
+
+.central-image {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  background: transparent;
+  animation: gentleFloat 4s ease-in-out infinite;
+  transition: transform 0.3s ease;
+  box-shadow: 
+    8px 8px 20px rgba(26, 29, 32, 0.8),
+    -8px -8px 20px rgba(54, 57, 62, 0.6);
+}
+
+.central-image:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    12px 12px 30px rgba(26, 29, 32, 1),
+    -12px -12px 30px rgba(54, 57, 62, 0.8);
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.01);
+  }
+}
+
+.splash-text {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(145deg, #2c2f33, #23272f);
+  border-radius: 20px;
+  box-shadow: 
+    inset 5px 5px 15px #1a1d20,
+    inset -5px -5px 15px #36393e;
+}
+
+.splash-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: #2aa198;
+  text-shadow: 
+    2px 2px 4px rgba(26, 29, 32, 0.8),
+    -1px -1px 2px rgba(54, 57, 62, 0.4);
+}
+
+.splash-subtitle {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #b3b3b3;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.splash-enter-btn {
+  background: linear-gradient(145deg, #2aa198, #238e85);
+  color: #ffffff;
+  border: none;
+  padding: 1.2rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    8px 8px 20px #1a1d20,
+    -8px -8px 20px #36393e;
+  position: relative;
+  overflow: hidden;
+}
+
+.splash-enter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    12px 12px 30px #1a1d20,
+    -12px -12px 30px #36393e;
+  background: linear-gradient(145deg, #ffd166, #f7c052);
+  color: #2c3e50;
+}
+
+.splash-enter-btn:active {
+  transform: translateY(0);
+  box-shadow: 
+    inset 4px 4px 10px #1a1d20,
+    inset -4px -4px 10px #36393e;
+}
+
+.splash-built-for {
+  font-size: 0.9rem;
+  color: #b3b3b3;
+  font-style: italic;
+  font-weight: 500;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(145deg, #23272f, #1e2124);
+  border-radius: 15px;
+  box-shadow: 
+    inset 3px 3px 8px #16191c,
+    inset -3px -3px 8px #2a2e33;
+}
+
+.main-content {
+  transition: opacity 0.3s ease;
+}
+
+/* Footer Logo */
+.footer-logo {
+  width: 100%;
+  text-align: center;
+  margin: 2em 0;
+}
+
+.footer-logo img {
+  max-width: 120px;
+  display: inline-block;
+}
+
+/* Mobile Responsive for Splash - Neumorphism */
+@media (max-width: 768px) {
+  .splash-content {
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+    max-width: 90vw;
+    border-radius: 25px;
+    box-shadow: 
+      15px 15px 40px #c8d0d8,
+      -15px -15px 40px #ffffff;
+  }
+  
+  .splash-title {
+    font-size: 1.8rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1rem;
+  }
+  
+  .splash-logo img {
+    max-width: 250px;
+    padding: 0.8rem;
+    border-radius: 15px;
+    box-shadow: 
+      8px 8px 20px #c8d0d8,
+      -8px -8px 20px #ffffff;
+  }
+  
+  .splash-main-image {
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 
+      10px 10px 25px #1a1d20,
+      -10px -10px 25px #36393e;
+  }
+  
+  .central-image {
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 
+      6px 6px 15px rgba(26, 29, 32, 0.8),
+      -6px -6px 15px rgba(54, 57, 62, 0.6);
+  }
+  
+  .splash-text {
+    padding: 0.8rem;
+    border-radius: 15px;
+    box-shadow: 
+      inset 4px 4px 10px #1a1d20,
+      inset -4px -4px 10px #36393e;
+  }
+  
+  .splash-enter-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    box-shadow: 
+      6px 6px 15px #1a1d20,
+      -6px -6px 15px #36393e;
+  }
+  
+  .splash-built-for {
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    box-shadow: 
+      inset 2px 2px 6px #c0c8d0,
+      inset -2px -2px 6px #f8fbff;
+  }
+}
+
+.logo
+{
+  width: 100%;
+  height: auto;
+  max-width: 400px; /* Adjust as needed */
+  margin: 0 auto; /* Center the logo */
+}
+
+/* Solarized Dark Theme (official colors) */
+body {
+  background: #23272f;
+  color: #f3f3f3;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #353945;
+  background: #2c313a;
+}
+
+header img {
+  height: 48px;
+}
+
+nav a {
+  margin: 0 0.75rem;
+  color: #bfc9d1;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: #2aa198;
+}
+
+.hero {
+  background: #2aa198;
+  border-radius: 0 0 12px 12px;
+  width: 100vw;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  padding: 0;
+  box-shadow: none;
+  max-width: none;
+}
+
+.hero.highlight {
+  background: #263238;
+  box-shadow: none;
+}
+
+
+.hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* Center horizontally */
+  gap: 2rem;
+  width: 100%;
+  padding: 2.5rem 2rem 0.5rem 2rem;
+  background: #2aa198;
+  border-bottom: none;       /* Remove any border between hero-row and subtitle */
+}
+
+.hero-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #23272f;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-right: 2rem;
+}
+
+.hero-subtitle {
+  display: block;
+  width: 100vw;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
+  background: #2aa198;
+  text-align: center;
+  font-style: italic;
+  font-weight: 200;
+  color: #bfc9d1;
+  margin-bottom: 1.2em;
+  font-size: 0.95rem;
+  padding: 0.8em 0 1.2em 0;
+  box-sizing: border-box;
+  border-top: none;          /* Ensure no border at the top */
+}
+
+.superhero {
+  background: #2aa198;
+  width: 100vw;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
+  padding: 0;
+  max-width: none;
+}
+
+.search {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+}
+
+.search input {
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid #ffd166;
+  background: transparent;
+  color: #23272f;
+  font-size: 1.6rem;
+  padding: 0.8em 0 0.8em 0;
+  outline: none;
+  transition: border-color 0.2s;
+  caret-color: #23272f;
+  text-align: left;
+  box-shadow: none;
+  border-radius: 0;
+  font-weight: 500;
+}
+
+.search input::placeholder {
+  color: #23272f;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.search input:focus {
+  border-bottom: 4px solid #ffd166;
+  background: transparent;
+}
+
+
+
+/* --- TABS --- */
+.tabs-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;      /* Center vertically */
+  min-height: 120px;        /* Ensures enough height for vertical centering */
+}
+
+.tabs {
+  margin: 0;                /* Remove top margin */
+  width: 100%;
+  max-width: 75vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;      /* Center items vertically */
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem 0;        /* Equal spacing top and bottom */
+}
+
+
+/* Base style for ALL tabs (default is faded) */
+.tab {
+  background: #2c313a;
+  width: 150px;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.35; /* Faded by default */
+  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+}
+
+/* On hover, ANY tab becomes fully opaque */
+.tab:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
+  opacity: 1; 
+}
+
+/* The ACTIVE tab is fully opaque. NO background color change. */
+.tab.active {
+  opacity: 1;
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
+  background-color: transparent !important; /* Force no background color */
+}
+
+/* Text color for default (inactive) tabs */
+.tab h2 {
+  color: #2aa198; /* Solarized cyan */
+  margin: 0;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* Text color and underline for the ACTIVE tab's h2 element */
+.tab.active h2 {
+  color: #ffd166 !important; /* The yellow-orange accent color, with !important to ensure it applies */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.content {
+  display: none;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #2c313a;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
+}
+
+.content.active {
+  display: block;
+}
+
+.content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.content li {
+  margin: 0.5rem 0;
+  color: #bfc9d1;
+}
+
+.content a {
+  color: #ffd166;
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+  color: #2aa198;
+}
+
+footer {
+  text-align: center;
+  color: #8d99ae;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  background: #23272f;
+}
+
+
+@media (max-width: 700px) {
+  .hero {
+    border-radius: 0 0 12px 12px;
+    width: 100vw;
+    margin-left: calc(-1 * ((100vw - 100%) / 2));
+    padding: 0;
+    max-width: none;
+  }
+
+  .hero-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.2rem 1rem 0.3rem 1rem;
+    border-radius: 0;
+  }
+
+  .hero-title {
+    font-size: 1.05rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .search {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .search input {
+    font-size: 1.4rem;
+    padding: 0.7em 0;
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem;
+    padding: 0.6em 0 1em 0;
+    margin-bottom: 1em;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .tabs-container {
+    min-height: unset;
+    padding: 0 0.5rem;
+  }
+
+  .tabs {
+    max-width: 100vw;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 0 0.5rem 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tab {
+    width: 100%;
+    min-width: 0;
+    padding: 0.7rem 0.3rem;
+    font-size: 0.95rem;
+    margin: 0 auto;
+  }
+
+  .tab h2 {
+    font-size: 0.95rem;
+  }
+
+  .content {
+    max-width: 98vw;
+    padding: 1rem 0.5rem;
+    margin: 1rem auto;
+  }
+}

@@ -1,3 +1,26 @@
+// Theme Management
+function initializeTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.body.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+  const currentTheme = document.body.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.body.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+  const themeIcon = document.querySelector('.theme-icon');
+  if (themeIcon) {
+    themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+}
+
 // Tab functionality
 function showTab(tabId, clickedTab) {
   // Hide all content sections
@@ -175,6 +198,12 @@ function triggerSplashAnimations() {
   enterBtn.classList.add('is-animated');
   builtFor.classList.add('is-animated');
 }
+
+// Initialize theme when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  initializeTheme();
+  checkFirstVisit();
+});
 
 function enterSite() {
   // Mark as visited for this browser session

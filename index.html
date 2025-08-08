@@ -8,16 +8,48 @@
 <link rel="icon" type="image/png" href="./images/favcon.png">
 </head>
 <body>
+<!-- Splash Screen -->
+<div id="splashScreen" class="splash-screen">
+  <div class="splash-content">
+    <div class="splash-logo">
+      <img src="./images/radreview_text.png" alt="RadsReview Logo" />
+    </div>
+    <div class="splash-main-image">
+      <img src="./images/logo.png" alt="Medical Imaging" class="central-image" />
+    </div>
+    <div class="splash-text">
+      <h1 class="splash-title">READING ROOM RESOURCES</h1>
+      <p class="splash-subtitle">Instant access to trusted radiology references, tools, and teaching files.</p>
+    </div>
+    <button class="splash-enter-btn" onclick="enterSite()">
+      Enter Site
+    </button>
+    <div class="splash-built-for">
+      Built For Radiologists
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent" class="main-content" style="display: none;">
 <header>
   <img src="./images/radreview_text.png" alt="RadsReview Logo">
+  <div class="header-controls">
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="theme-icon">🌙</span>
+    </button>
+  </div>
 </header>
 <section class="hero">
   <h1>Reading Room Resources</h1>
-  <p>Instant access to trusted radiology references, tools, and teaching files.<br><strong>Built For Radiologists</strong></p>    
   <div class="search">
-    <input type="text" placeholder="🔍 Search resources..." oninput="filterResources(this.value)" />
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search resources..." oninput="filterResources(this.value)" onfocus="expandSearch(this)" onblur="contractSearch(this)" />
+    </div>
   </div>
 </section>
+<div class="tabs-wrapper">
 <section class="tabs">
   <div class="tab active" onclick="showTab('abd', this)"><h2>ABD</h2></div>
   <div class="tab" onclick="showTab('anatomy', this)"><h2>ANATOMY</h2></div>
@@ -30,6 +62,7 @@
   <div class="tab" onclick="showTab('us', this)"><h2>ULTRASOUND</h2></div>
   <div class="tab" onclick="window.open('https://sites.google.com/view/radsreview/numbers-and-measurements','_blank')"><h2>NUMBERS ETC.</h2></div>
 </section>
+</div> <!-- End tabs-wrapper -->
 <section id="abd" class="content active">
   <h2>ABD</h2>
   <ul>
@@ -120,6 +153,7 @@
 <footer>
   <p>© 2025 RadsReview — Built For Radiologists</p>
 </footer>
+</div> <!-- End of main content -->
 <script src="js/main.js"></script>
 </body>
 </html>

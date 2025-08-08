@@ -1,52 +1,270 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--night);
+    color: var(--platinum);
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
     margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    overflow-x: hidden;
+}
+
+.tool-container {
+    max-width: 900px;
+    width: 100%;
+    background-color: var(--rich-black);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid var(--ash-gray);
 }
 
 h1 {
-    color: #ffffff;
     text-align: center;
-    margin: 20px 0;
-    padding: 0 20px;
+    color: var(--aquamarine);
+    margin-bottom: 10px;
+    font-size: 1.8em;
+    font-weight: 600;
 }
 
-/* Flowchart Container */
-.flowchart-container {
-    width: 100vw;
-    height: calc(100vh - 100px);
-    position: relative;
-    overflow: hidden;
-    background: #2d2d2d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+h2 {
+    text-align: center;
+    color: var(--ash-gray);
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 400;
 }
 
-/* SVG Container */
-.flowchart-svg {
-    width: 1200px;
-    height: 2000px;
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transform-origin: center top;
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
 }
 
-.flowchart-svg.full-view {
-    transform: scale(0.4) translateY(50px);
+fieldset {
+    border: 1px solid var(--ash-gray);
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: var(--night);
 }
 
-.flowchart-svg.zoomed {
-    transform: scale(1.5) translate(var(--zoom-x, 0px), var(--zoom-y, 0px));
-    transform-origin: center top;
+legend {
+    font-weight: 600;
+    color: var(--aquamarine);
+    padding: 0 10px;
+    background-color: var(--night);
 }
 
-.flowchart-svg.pan-mode {
-    cursor: grab;
+.radio-group label {
+    display: block;
+    margin: 5px 0;
+    background: var(--rich-black);
+    color: var(--platinum);
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--ash-gray);
+    transition: all 0.2s ease-in-out;
+}
+
+.radio-group label:hover {
+    border-color: var(--aquamarine);
+    background: var(--night);
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 10px;
+    accent-color: var(--aquamarine);
+}
+
+.radio-group input[type="radio"]:checked + span,
+.radio-group label:has(input[type="radio"]:checked) {
+    background: var(--jungle-green);
+    border-color: var(--jungle-green);
+    color: var(--night);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Back button */
+.back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: var(--aquamarine);
+    color: var(--night);
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 1000;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: var(--jungle-green);
+    transform: translateY(-1px);
+}
+
+#calculate-btn {
+    grid-column: 1 / -1;
+    padding: 15px 30px;
+    background: var(--aquamarine);
+    color: var(--night);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+#calculate-btn:hover {
+    background: var(--jungle-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(48, 250, 181, 0.3);
+}
+
+#result-container {
+    grid-column: 1 / -1;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--night);
+    border: 1px solid var(--aquamarine);
+    border-left: 5px solid var(--aquamarine);
+    border-radius: 5px;
+}
+
+#result-container h3 {
+    margin-top: 0;
+    color: var(--aquamarine);
+    font-weight: 600;
+}
+
+#recommendation {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--platinum);
+}
+
+#comments {
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--ash-gray);
+}
+
+.footer-notes {
+    grid-column: 1 / -1;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--ash-gray);
+    font-size: 0.85em;
+    color: var(--ash-gray);
+}
+
+.footer-notes strong {
+    color: var(--aquamarine);
+}
+
+.footer-notes a {
+    color: var(--aquamarine);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-notes a:hover {
+    color: var(--jungle-green);
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px;
+        line-height: 1.5;
+    }
+    
+    .tool-container {
+        padding: 20px;
+        margin: 0 5px;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+    }
+    
+    h2 {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+    
+    fieldset {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .radio-group label {
+        padding: 12px;
+        font-size: 0.95em;
+    }
+    
+    .radio-group label:hover {
+        background: var(--rich-black); /* Disable hover effects on touch */
+        border-color: var(--ash-gray);
+    }
+    
+    .radio-group label:active {
+        background: var(--night);
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .radio-group input[type="radio"] {
+        transform: scale(1.4);
+        margin-right: 14px;
+    }
+    
+    /* Touch-optimized back button */
+    .back-btn {
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    .back-btn:hover {
+        background: var(--aquamarine); /* Disable hover on touch */
+        transform: none;
+    }
+    
+    .back-btn:active {
+        background: var(--jungle-green);
+        transform: scale(0.95);
+    }
+    
+    #calculate-btn {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    
+    .footer-notes {
+        font-size: 0.8em;
+        margin-top: 20px;
+        padding-top: 15px;
+    }
 }
 
 .flowchart-svg.panning {

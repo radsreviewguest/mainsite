@@ -1,3 +1,57 @@
+// Theme Management
+function initializeTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.body.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+  const currentTheme = document.body.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.body.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+  const themeIcon = document.querySelector('.theme-icon');
+  if (themeIcon) {
+    themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+}
+
+// Search Animation Functions
+function expandSearch(input) {
+  const container = input.closest('.search-container');
+  container.classList.add('expanded');
+}
+
+function contractSearch(input) {
+  const container = input.closest('.search-container');
+  setTimeout(() => {
+    container.classList.remove('expanded');
+  }, 100);
+}
+
+// Splash Screen functionality
+function enterSite() {
+  const splashScreen = document.getElementById('splashScreen');
+  const mainContent = document.getElementById('mainContent');
+  
+  // Fade out splash screen
+  splashScreen.classList.add('fade-out');
+  
+  // After animation completes, hide splash and show main content
+  setTimeout(() => {
+    splashScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    mainContent.classList.add('show');
+    // Initialize theme after entering main content
+    initializeTheme();
+  }, 500);
+}
+
 // Tab functionality
 function showTab(tabId, clickedTab) {
   // Hide all content sections
@@ -116,6 +170,12 @@ function filterResources(query) {
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Initialize theme if main content is visible (not on splash)
+  const mainContent = document.getElementById('mainContent');
+  if (mainContent && mainContent.style.display !== 'none') {
+    initializeTheme();
+  }
+  
   // Set initial active tab
   showTab('abd', document.querySelector('.tabs .tab'));
 

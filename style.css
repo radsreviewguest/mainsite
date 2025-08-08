@@ -1,57 +1,381 @@
 /* inter-regular - cyrillic_latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */     
+  font-display: swap;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   src: url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
 }
-/* Solarized Dark Theme (official colors) */
-body {
-  background: #23272f;
-  color: #f3f3f3;
-  font-family: 'Inter', sans-serif;
-  margin: 0;
+
+/* Fallback for other font weights using system fonts */
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Inter Medium'), local('Inter-Medium'), url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
 }
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Inter SemiBold'), local('Inter-SemiBold'), url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Inter Bold'), local('Inter-Bold'), url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+}
+
+/* Ensure Inter font is applied to ALL elements */
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Import color palette */
+:root {
+  --aquamarine: #30fab5;
+  --jungle-green: #25a67e;
+  --night: #091212;
+  --rich-black: #0e1a1a;
+  --ash-gray: #b9cac9;
+  --platinum: #cad9d8;
+  --red-ncs: #b20d30;
+  --bronze: #cc8427;
+  --medium-blue: #3023ba;
+  --space-cadet: #121d45;
+}
+
+/* Dark Theme Variables (default) */
+[data-theme="dark"], :root {
+  --bg-primary: var(--night);
+  --bg-secondary: var(--rich-black);
+  --bg-search: var(--ash-gray);
+  --text-primary: var(--platinum);
+  --text-secondary: var(--ash-gray);
+  --accent-primary: var(--aquamarine);
+  --accent-secondary: var(--bronze);
+  --border-color: var(--rich-black);
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+  --bg-primary: var(--platinum);
+  --bg-secondary: #ffffff;
+  --bg-search: var(--ash-gray);
+  --text-primary: var(--night);
+  --text-secondary: var(--rich-black);
+  --accent-primary: var(--jungle-green);
+  --accent-secondary: var(--bronze);
+  --border-color: var(--ash-gray);
+}
+
+/* Ensure Inter font is applied to ALL elements */
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Additional coverage for pseudo-elements and special cases */
+*::before, *::after {
+  font-family: inherit;
+}
+
+/* Specific font declarations for form elements and interactive elements */
+input, button, textarea, select, optgroup, option {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Ensure headings use Inter */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Standardized Theme using colors.css palette */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  border-bottom: 1px solid #353945;
-  background: #2c313a;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
 }
+
 header img {
   height: 48px;
 }
-nav a {
-  margin: 0 0.75rem;
-  color: #bfc9d1;
-  text-decoration: none;
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  background: var(--bg-search);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.theme-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .theme-icon {
+  transform: rotate(15deg);
+}
+
+/* Splash Screen Styles - Dark Theme */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--night) 0%, var(--rich-black) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+.splash-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-content {
+  text-align: center;
+  color: var(--platinum);
+  max-width: 600px;
+  padding: 3rem;
+  background: linear-gradient(145deg, var(--rich-black), rgba(14, 26, 26, 0.8));
+  border-radius: 20px;
+  border: 1px solid rgba(48, 250, 181, 0.1);
+  box-shadow: 
+    0 20px 60px rgba(9, 18, 18, 0.8),
+    inset 0 1px 0 rgba(48, 250, 181, 0.1);
+  animation: splashFadeIn 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.splash-logo img {
+  max-width: 300px;
+  height: auto;
+  filter: brightness(1.1) contrast(1.1);
+  transition: all 0.3s ease;
+}
+
+.splash-main-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(14, 26, 26, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(48, 250, 181, 0.2);
+}
+
+.central-image {
+  max-width: 200px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: transparent;
+  animation: gentleFloat 3s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.splash-text {
+  text-align: center;
+}
+
+.splash-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--aquamarine);
+  text-shadow: 0 0 20px rgba(48, 250, 181, 0.3);
+}
+
+.splash-subtitle {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--ash-gray);
+  opacity: 0.9;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.splash-enter-btn {
+  background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
+  color: var(--night);
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 25px rgba(48, 250, 181, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
 }
-nav a:hover {
-  color: #2aa198;
+
+.splash-enter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 30px rgba(48, 250, 181, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, var(--jungle-green), var(--aquamarine));
 }
+
+.splash-enter-btn:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 4px 15px rgba(48, 250, 181, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.splash-built-for {
+  font-size: 0.9rem;
+  color: var(--bronze);
+  font-style: italic;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: rgba(14, 26, 26, 0.3);
+  border-radius: 20px;
+  border: 1px solid rgba(204, 132, 39, 0.2);
+}
+
+@keyframes splashFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Main content initially hidden */
+.main-content {
+  display: none;
+  transition: opacity 0.5s ease;
+}
+
+.main-content.show {
+  display: block;
+  opacity: 1;
+}
+
 .hero {
   text-align: center;
   padding: 2rem;
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
 }
+
 .hero h1 {
-  color: #2aa198;
+  color: var(--accent-primary);
+  margin-bottom: 2rem;
+  transition: color 0.3s ease;
 }
+
+/* Enhanced Search Bar */
 .search {
-  max-width: 400px;
-  margin: 1rem auto;
+  max-width: 500px;
+  margin: 0 auto;
 }
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-search);
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-container.expanded {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(48, 250, 181, 0.2);
+}
+
+.search-icon {
+  font-size: 1.1rem;
+  margin-right: 0.75rem;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
 .search input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #353945;
-  border-radius: 6px;
-  background: #2c313a;
-  color: #f3f3f3;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
+
+.search input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* Tabs Wrapper */
+.tabs-wrapper {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
 /* --- TABS --- */
 .tabs {
   display: flex;          /* Enables Flexbox layout */
@@ -62,32 +386,32 @@ nav a:hover {
 }
 /* Base style for ALL tabs (default is faded) */
 .tab {
-  background: #2c313a;
+  background: var(--bg-secondary);
   width: 150px;
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
   cursor: pointer;
   opacity: 0.35; /* Faded by default */
-  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
-  transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s, background-color 0.3s ease;
 }
 /* On hover, ANY tab becomes fully opaque */
 .tab:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   opacity: 1;
 }
 /* The ACTIVE tab is fully opaque. NO background color change. */
 .tab.active {
   opacity: 1;
   transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(35, 39, 47, 0.6);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   background-color: transparent !important; /* Force no background color */
 }
 /* Text color for default (inactive) tabs */
 .tab h2 {
-  color: #2aa198; /* Solarized cyan */
+  color: var(--accent-primary); /* Primary accent for tab text */
   margin: 0;
   font-size: 1rem;
   text-decoration: none;
@@ -95,7 +419,7 @@ nav a:hover {
 }
 /* Text color and underline for the ACTIVE tab's h2 element */
 .tab.active h2 {
-  color: #ffd166 !important; /* The yellow-orange accent color, with !important to ensure it applies */
+  color: var(--accent-secondary) !important; /* Secondary accent for active tab */
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
@@ -104,10 +428,11 @@ nav a:hover {
   display: none;
   max-width: 800px;
   margin: 2rem auto;
-  background: #2c313a;
+  background: var(--bg-secondary);
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(35, 39, 47, 0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 .content.active {
   display: block;
@@ -118,21 +443,24 @@ nav a:hover {
 }
 .content li {
   margin: 0.5rem 0;
-  color: #bfc9d1;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
 .content a {
-  color: #ffd166;
+  color: var(--accent-secondary);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 .content a:hover {
   text-decoration: underline;
-  color: #2aa198;
+  color: var(--accent-primary);
 }
 footer {
   text-align: center;
-  color: #8d99ae;
+  color: var(--text-secondary);
   padding: 1rem;
   margin-top: 2rem;
   font-size: 0.9rem;
-  background: #23272f;
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
 }

@@ -146,6 +146,62 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial state for animated elements */
+.anim-on-load {
+  opacity: 0;
+}
+
+/* Animation class that JavaScript will add */
+.is-animated {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: forwards;
+}
+
+/* Stagger the animations with delays */
+#splash-logo.is-animated {
+  animation-delay: 0.2s;
+}
+
+#splash-main-image.is-animated {
+  animation-delay: 0.6s;
+}
+
+#splash-text.is-animated {
+  animation-delay: 1.0s;
+}
+
+#enter-btn.is-animated {
+  animation-delay: 1.4s;
+}
+
+#built-for.is-animated {
+  animation-delay: 1.8s;
+}
+
+.splash-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
 .splash-content {
   text-align: center;
   color: var(--text-primary);

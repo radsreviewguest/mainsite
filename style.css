@@ -7,6 +7,243 @@
   src: url('./fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
 }
 
+/* Splash Screen Styles */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #2aa198 0%, #268bd2 50%, #6c71c4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial state for animated elements */
+.anim-on-load {
+  opacity: 0;
+}
+
+/* Animation class that JavaScript will add */
+.is-animated {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: forwards;
+}
+
+/* Stagger the animations with delays */
+#splash-logo.is-animated {
+  animation-delay: 0.2s;
+}
+
+#main-title.is-animated {
+  animation-delay: 0.6s;
+}
+
+#tagline.is-animated {
+  animation-delay: 1.0s;
+}
+
+#splash-img.is-animated {
+  animation-delay: 1.4s;
+}
+
+#features.is-animated {
+  animation-delay: 1.8s;
+}
+
+#enter-btn.is-animated {
+  animation-delay: 2.2s;
+}
+
+#built-for.is-animated {
+  animation-delay: 2.6s;
+}
+
+.splash-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.splash-content {
+  text-align: center;
+  color: white;
+  max-width: 600px;
+  padding: 2rem;
+  animation: splashFadeIn 1s ease-out;
+}
+
+@keyframes splashFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.splash-logo img {
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 2rem;
+  filter: brightness(0) invert(1);
+}
+
+.splash-image {
+  max-width: 400px;
+  height: auto;
+  margin: 2rem 0;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: splashImageFloat 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.splash-image:hover {
+  transform: scale(1.05);
+}
+
+@keyframes splashImageFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.splash-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.splash-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+.splash-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.splash-enter-btn {
+  background: white;
+  color: #2aa198;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+.splash-enter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+  background: #f8f9fa;
+}
+
+.splash-built-for {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.main-content {
+  transition: opacity 0.3s ease;
+}
+
+/* Footer Logo */
+.footer-logo {
+  width: 100%;
+  text-align: center;
+  margin: 2em 0;
+}
+
+.footer-logo img {
+  max-width: 120px;
+  display: inline-block;
+}
+
+/* Mobile Responsive for Splash */
+@media (max-width: 768px) {
+  .splash-title {
+    font-size: 2rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1rem;
+  }
+  
+  .splash-features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .splash-logo img {
+    max-width: 200px;
+  }
+  
+  .splash-content {
+    padding: 1rem;
+  }
+}
+
 .logo
 {
   width: 100%;

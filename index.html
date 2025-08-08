@@ -8,6 +8,41 @@
 <link rel="icon" type="image/png" href="/images/favcon.png">
 </head>
 <body>
+<!-- Splash Screen -->
+<div id="splashScreen" class="splash-screen">
+  <div class="splash-content">
+    <div class="splash-logo anim-on-load" id="splash-logo">
+      <img src="./images/radreview_text.png" alt="RadsReview Logo" />
+    </div>
+    <h1 class="splash-title anim-on-load" id="main-title">Welcome to RadsReview</h1>
+    <p class="splash-subtitle anim-on-load" id="tagline">Your comprehensive radiology resource center</p>
+    <img src="./images/splash_image.png" alt="Splash Image" class="splash-image anim-on-load" id="splash-img">
+    <div class="splash-features anim-on-load" id="features">
+      <div class="feature">
+        <span class="feature-icon">📚</span>
+        <span>Teaching Files</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🔍</span>
+        <span>Quick References</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🧠</span>
+        <span>AI Tools</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <span>Interactive Algorithms</span>
+      </div>
+    </div>
+    <button class="splash-enter-btn anim-on-load" id="enter-btn" onclick="enterSite()">Enter Reading Room</button>
+    <p class="splash-built-for anim-on-load" id="built-for">Built For Radiologists</p>
+  </div>
+  <div class="splash-overlay"></div>
+</div>
+
+<!-- Main Site Content -->
+<div id="mainContent" class="main-content">
 <header>
   <img id="Logo" src= "./images/radreview_text.png" alt="Logo">
 </header>
@@ -135,11 +170,81 @@
 <footer>
   <p>© 2025 RadsReview — Built For Radiologists</p>
 </footer>
-<div style="width:100%;text-align:center;margin:2em 0;">
-  <img src="./images/logo.png" alt="Logo" style="max-width:120px;display:inline-block;">
+<div class="footer-logo">
+  <img src="./images/logo.png" alt="Logo">
+</div>
 </div>
 
 <!-- External JavaScript -->
 <script src="./js/main.js"></script>
+<script>
+// Splash screen functionality
+function checkFirstVisit() {
+  const hasVisited = localStorage.getItem('radsreview-visited');
+  const splashScreen = document.getElementById('splashScreen');
+  const mainContent = document.getElementById('mainContent');
+  
+  if (!hasVisited) {
+    // First visit - show splash screen
+    splashScreen.style.display = 'flex';
+    mainContent.style.display = 'none';
+    
+    // Trigger staggered animations
+    triggerSplashAnimations();
+  } else {
+    // Returning visitor - hide splash screen
+    splashScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+  }
+}
+
+function triggerSplashAnimations() {
+  // Wait until the entire HTML document has been loaded and parsed
+  // Find the elements we want to animate
+  const splashLogo = document.getElementById('splash-logo');
+  const mainTitle = document.getElementById('main-title');
+  const tagline = document.getElementById('tagline');
+  const splashImg = document.getElementById('splash-img');
+  const features = document.getElementById('features');
+  const enterBtn = document.getElementById('enter-btn');
+  const builtFor = document.getElementById('built-for');
+
+  // Add the 'is-animated' class to trigger the animations.
+  // The delay will be handled by our CSS.
+  splashLogo.classList.add('is-animated');
+  mainTitle.classList.add('is-animated');
+  tagline.classList.add('is-animated');
+  splashImg.classList.add('is-animated');
+  features.classList.add('is-animated');
+  enterBtn.classList.add('is-animated');
+  builtFor.classList.add('is-animated');
+}
+
+function enterSite() {
+  // Mark as visited
+  localStorage.setItem('radsreview-visited', 'true');
+  
+  // Hide splash screen with animation
+  const splashScreen = document.getElementById('splashScreen');
+  const mainContent = document.getElementById('mainContent');
+  
+  splashScreen.style.opacity = '0';
+  splashScreen.style.transform = 'scale(0.95)';
+  
+  setTimeout(() => {
+    splashScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    mainContent.style.opacity = '0';
+    
+    // Fade in main content
+    setTimeout(() => {
+      mainContent.style.opacity = '1';
+    }, 50);
+  }, 300);
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', checkFirstVisit);
+</script>
 </body>
 </html>

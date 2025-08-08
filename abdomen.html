@@ -10,121 +10,143 @@
             line-height: 1.5;
             background-color: #f9f9f9;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         h1 {
             color: #333;
             text-align: center;
-            margin-bottom: 30px;
+            margin: 20px 0;
+            padding: 0 20px;
         }
         
-        /* Interactive Flowchart Container */
+        /* Flowchart Container */
         .flowchart-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            width: 100vw;
+            height: calc(100vh - 100px);
+            position: relative;
             overflow: hidden;
+            background: white;
         }
         
-        /* Step Container */
-        .step {
-            padding: 40px;
-            min-height: 200px;
-            display: none;
-            border-bottom: 2px solid #eee;
-            scroll-margin-top: 20px;
+        /* SVG Container */
+        .flowchart-svg {
+            width: 1200px;
+            height: 2000px;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: top left;
         }
         
-        .step.active {
-            display: block;
-            animation: slideIn 0.5s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .flowchart-svg.zoomed {
+            transform: scale(2.5) translate(var(--zoom-x, 0px), var(--zoom-y, 0px));
         }
         
         /* Node Styles */
         .node {
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 16px;
-            line-height: 1.4;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
         }
         
-        .node:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        .node:hover .node-rect {
+            filter: brightness(1.1);
+            stroke-width: 3;
         }
         
-        .start-node {
-            background: #cce5ff;
-            border-color: #5b9bd5;
+        .node.highlighted .node-rect {
+            stroke-width: 4;
+            stroke: #ff6b6b;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5));
+        }
+        
+        .start-node .node-rect {
+            fill: #cce5ff;
+            stroke: #5b9bd5;
+            stroke-width: 2;
+        }
+        
+        .decision-node .node-rect {
+            fill: #fff2cc;
+            stroke: #ffc000;
+            stroke-width: 2;
+        }
+        
+        .outcome-node .node-rect {
+            fill: #e5ccff;
+            stroke: #a066d3;
+            stroke-width: 2;
+        }
+        
+        .action-node .node-rect {
+            fill: #d9ead3;
+            stroke: #8fbc8f;
+            stroke-width: 2;
+        }
+        
+        .node-text {
+            font-size: 12px;
+            font-weight: 500;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            fill: #333;
+            pointer-events: none;
+        }
+        
+        .start-node .node-text {
             font-weight: 600;
-            font-size: 18px;
+            font-size: 13px;
         }
         
-        .decision-node {
-            background: #fff2cc;
-            border-color: #ffc000;
-            font-weight: 500;
+        /* Connectors */
+        .connector {
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
         }
         
-        .outcome-node {
-            background: #e5ccff;
-            border-color: #a066d3;
-            font-weight: 500;
+        .connector-label {
+            font-size: 10px;
+            fill: #666;
+            text-anchor: middle;
         }
         
-        .action-node {
-            background: #d9ead3;
-            border-color: #8fbc8f;
-            font-weight: 500;
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            background: #2aa198;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: #238e85;
+            transform: translateY(-2px);
         }
         
         /* Progress indicator */
         .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
             background: #2aa198;
             height: 4px;
             width: 0%;
             transition: width 0.5s ease;
-        }
-        
-        /* Navigation */
-        .nav-buttons {
-            padding: 20px;
-            text-align: center;
-            background: #f8f9fa;
-        }
-        
-        .btn {
-            background: #2aa198;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin: 0 10px;
-            font-size: 14px;
-            transition: background 0.3s ease;
-        }
-        
-        .btn:hover {
-            background: #238e85;
-        }
-        
-        .btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
+            z-index: 1001;
         }
         
         /* Back button */
@@ -142,20 +164,23 @@
             z-index: 1000;
         }
         
-        .instruction {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            margin-bottom: 20px;
+        /* Step indicator */
+        .step-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            z-index: 1000;
         }
         
-        .step-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
+        .hidden {
+            display: none;
         }
+    </style>
     </style>
 </head>
 <body>
@@ -164,318 +189,374 @@
     
     <h1>Interactive Adrenal Mass Algorithm</h1>
 
+    <div class="progress" id="progress"></div>
+    
     <div class="flowchart-container">
-        <div class="progress" id="progress"></div>
-        
-        <!-- Step 1: Initial Assessment -->
-        <div class="step active" id="step-1">
-            <div class="step-title">Initial Assessment</div>
-            <div class="instruction">Click on the appropriate path based on imaging findings</div>
+        <svg class="flowchart-svg" id="flowchart" viewBox="0 0 1200 2000">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                        refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+                </marker>
+            </defs>
             
-            <div class="node start-node">
-                Incidental, Asymptomatic Adrenal Mass (≥1 cm)<br>
-                Detected on any CT or MR exam
-            </div>
+            <!-- Start Node -->
+            <g class="node start-node" id="node-start" onclick="zoomToNode('start')" data-step="1">
+                <rect class="node-rect" x="450" y="50" width="300" height="80" rx="10"/>
+                <text class="node-text" x="600" y="90">
+                    <tspan x="600" dy="0">Incidental, Asymptomatic Adrenal Mass (≥1 cm)</tspan>
+                    <tspan x="600" dy="15">Detected on any CT or MR exam</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(2, 'benign')">
-                Diagnostic Benign Imaging Features<br>
-                (Myelolipoma, No enhancement, Ca++, ≤10 HU, ↓ signal on CS-MR)
-            </div>
+            <!-- Benign Features -->
+            <g class="node decision-node" id="node-benign" onclick="selectPath('benign')" data-step="2">
+                <rect class="node-rect" x="150" y="200" width="250" height="100" rx="10"/>
+                <text class="node-text" x="275" y="245">
+                    <tspan x="275" dy="0">Diagnostic Benign</tspan>
+                    <tspan x="275" dy="15">Imaging Features</tspan>
+                    <tspan x="275" dy="30">(Myelolipoma, No enhancement,</tspan>
+                    <tspan x="275" dy="45">Ca++, ≤10 HU, ↓ signal CS-MR)</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(2, 'indeterminate')">
-                Indeterminate Imaging Features
-            </div>
-        </div>
-
-        <!-- Step 2A: Benign Features Result -->
-        <div class="step" id="step-2a">
-            <div class="step-title">Benign Features - Final Result</div>
+            <!-- Indeterminate Features -->
+            <g class="node decision-node" id="node-indeterminate" onclick="selectPath('indeterminate')" data-step="2">
+                <rect class="node-rect" x="750" y="200" width="250" height="100" rx="10"/>
+                <text class="node-text" x="875" y="245">
+                    <tspan x="875" dy="0">Indeterminate</tspan>
+                    <tspan x="875" dy="15">Imaging Features</tspan>
+                </text>
+            </g>
             
-            <div class="node outcome-node">
-                Myelolipoma, No enhancement, Ca++ = Benign, no F/U.<br>
-                ≤10 HU or ↓ signal on CS-MR = Benign adenoma, no F/U
-            </div>
-        </div>
-
-        <!-- Step 2B: Size Assessment -->
-        <div class="step" id="step-2b">
-            <div class="step-title">Size Assessment</div>
-            <div class="instruction">Select the appropriate size category</div>
+            <!-- Benign Result -->
+            <g class="node outcome-node" id="node-benign-result" data-step="3a">
+                <rect class="node-rect" x="50" y="380" width="300" height="120" rx="10"/>
+                <text class="node-text" x="200" y="435">
+                    <tspan x="200" dy="0">Myelolipoma, No enhancement, Ca++ = Benign, no F/U</tspan>
+                    <tspan x="200" dy="15">≤10 HU or ↓ signal on CS-MR</tspan>
+                    <tspan x="200" dy="30">= Benign adenoma, no F/U</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(3, 'small')">
-                ≥1-<4 cm
-            </div>
+            <!-- Size Assessment -->
+            <g class="node decision-node" id="node-size-small" onclick="selectPath('size-small')" data-step="3b">
+                <rect class="node-rect" x="650" y="380" width="150" height="80" rx="10"/>
+                <text class="node-text" x="725" y="420">
+                    <tspan x="725" dy="0">≥1-<4 cm</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(3, 'large')">
-                ≥4 cm
-            </div>
-        </div>
-
-        <!-- Step 3A: Large Mass Management -->
-        <div class="step" id="step-3a">
-            <div class="step-title">Large Mass (≥4 cm) - Management</div>
-            <div class="instruction">Choose based on cancer history</div>
+            <g class="node decision-node" id="node-size-large" onclick="selectPath('size-large')" data-step="3b">
+                <rect class="node-rect" x="850" y="380" width="150" height="80" rx="10"/>
+                <text class="node-text" x="925" y="420">
+                    <tspan x="925" dy="0">≥4 cm</tspan>
+                </text>
+            </g>
             
-            <div class="node action-node" onclick="goToStep(9, 'final')">
-                No Cancer History:<br>Consider resection
-            </div>
+            <!-- Large Mass Management -->
+            <g class="node action-node" id="node-large-no-cancer" onclick="selectPath('final')" data-step="4a">
+                <rect class="node-rect" x="800" y="520" width="150" height="80" rx="10"/>
+                <text class="node-text" x="875" y="555">
+                    <tspan x="875" dy="0">No Cancer Hx:</tspan>
+                    <tspan x="875" dy="15">Consider resection</tspan>
+                </text>
+            </g>
             
-            <div class="node action-node" onclick="goToStep(9, 'final')">
-                + Cancer History:<br>Consider Bx or PET-CT
-            </div>
-        </div>
-
-        <!-- Step 3B: Prior Imaging Assessment -->
-        <div class="step" id="step-3b">
-            <div class="step-title">Prior Imaging & Cancer History Assessment</div>
-            <div class="instruction">Select the appropriate clinical scenario</div>
+            <g class="node action-node" id="node-large-cancer" onclick="selectPath('final')" data-step="4a">
+                <rect class="node-rect" x="970" y="520" width="150" height="80" rx="10"/>
+                <text class="node-text" x="1045" y="555">
+                    <tspan x="1045" dy="0">+ Cancer Hx:</tspan>
+                    <tspan x="1045" dy="15">Consider Bx or PET-CT</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(4, 'prior')">
-                Prior Imaging Available
-            </div>
+            <!-- Prior Imaging Assessment -->
+            <g class="node decision-node" id="node-prior" onclick="selectPath('prior')" data-step="4b">
+                <rect class="node-rect" x="450" y="520" width="150" height="60" rx="10"/>
+                <text class="node-text" x="525" y="550">
+                    <tspan x="525" dy="0">Prior Imaging</tspan>
+                    <tspan x="525" dy="15">Available</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(5, 'noPrior')">
-                No Prior Imaging<br>No Cancer History
-            </div>
+            <g class="node decision-node" id="node-no-prior" onclick="selectPath('no-prior')" data-step="4b">
+                <rect class="node-rect" x="620" y="520" width="150" height="80" rx="10"/>
+                <text class="node-text" x="695" y="555">
+                    <tspan x="695" dy="0">No Prior Imaging</tspan>
+                    <tspan x="695" dy="15">No Cancer Hx</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(6, 'cancer')">
-                No Prior Imaging<br>+ Cancer History & Isolated Adrenal Mass
-            </div>
-        </div>
-
-        <!-- Step 4: Stability Assessment -->
-        <div class="step" id="step-4">
-            <div class="step-title">Stability Assessment</div>
-            <div class="instruction">Based on comparison with prior imaging</div>
+            <!-- Stability Assessment -->
+            <g class="node outcome-node" id="node-stable" onclick="selectPath('final')" data-step="5">
+                <rect class="node-rect" x="350" y="680" width="150" height="80" rx="10"/>
+                <text class="node-text" x="425" y="715">
+                    <tspan x="425" dy="0">Stable ≥1 year</tspan>
+                    <tspan x="425" dy="15">→ Benign, no F/U</tspan>
+                </text>
+            </g>
             
-            <div class="node outcome-node" onclick="goToStep(9, 'final')">
-                Stable ≥1 year<br>→ Benign, no F/U
-            </div>
+            <g class="node decision-node" id="node-enlarging" onclick="selectPath('enlarging')" data-step="5">
+                <rect class="node-rect" x="520" y="680" width="150" height="80" rx="10"/>
+                <text class="node-text" x="595" y="720">
+                    <tspan x="595" dy="0">New or Enlarging</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(7, 'enlarging')">
-                New or Enlarging
-            </div>
-        </div>
-
-        <!-- Step 5: No Prior Imaging Path -->
-        <div class="step" id="step-5">
-            <div class="step-title">Further Evaluation (No Prior, No Cancer History)</div>
-            <div class="instruction">Choose appropriate evaluation path</div>
+            <!-- Further Evaluation Paths -->
+            <g class="node action-node" id="node-small-benign" onclick="selectPath('final')" data-step="6">
+                <rect class="node-rect" x="550" y="820" width="180" height="100" rx="10"/>
+                <text class="node-text" x="640" y="865">
+                    <tspan x="640" dy="0">1-2 cm: Probably benign</tspan>
+                    <tspan x="640" dy="15">Consider 12 month</tspan>
+                    <tspan x="640" dy="30">F/U adrenal CT</tspan>
+                </text>
+            </g>
             
-            <div class="node action-node" onclick="goToStep(9, 'final')">
-                1-2 cm: Probably benign<br>Consider 12 month F/U adrenal CT
-            </div>
+            <g class="node decision-node" id="node-medium" onclick="selectPath('ct')" data-step="6">
+                <rect class="node-rect" x="750" y="820" width="150" height="80" rx="10"/>
+                <text class="node-text" x="825" y="855">
+                    <tspan x="825" dy="0">>2cm, <4cm</tspan>
+                    <tspan x="825" dy="15">→ Adrenal CT</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(6, 'imaging')">
-                >2cm, <4cm<br>→ Proceed to adrenal CT
-            </div>
+            <!-- CT Assessment -->
+            <g class="node outcome-node" id="node-ct-benign" onclick="selectPath('final')" data-step="7">
+                <rect class="node-rect" x="650" y="980" width="150" height="80" rx="10"/>
+                <text class="node-text" x="725" y="1015">
+                    <tspan x="725" dy="0">≤10 HU</tspan>
+                    <tspan x="725" dy="15">→ Benign adenoma</tspan>
+                    <tspan x="725" dy="30">no F/U</tspan>
+                </text>
+            </g>
             
-            <div class="node outcome-node" onclick="goToStep(9, 'final')">
-                No enhancement (<10 HU)<br>→ Cyst or hemorrhage, Benign, no F/U
-            </div>
-        </div>
-
-        <!-- Step 6: Adrenal CT Assessment -->
-        <div class="step" id="step-6">
-            <div class="step-title">Adrenal CT Assessment</div>
-            <div class="instruction">Based on NCCT findings</div>
+            <g class="node decision-node" id="node-ct-washout" onclick="selectPath('washout')" data-step="7">
+                <rect class="node-rect" x="820" y="980" width="150" height="80" rx="10"/>
+                <text class="node-text" x="895" y="1015">
+                    <tspan x="895" dy="0">>10 HU</tspan>
+                    <tspan x="895" dy="15">→ Washout study</tspan>
+                </text>
+            </g>
             
-            <div class="node outcome-node" onclick="goToStep(9, 'final')">
-                ≤10 HU<br>→ Benign adenoma, no F/U
-            </div>
+            <!-- Washout Results -->
+            <g class="node outcome-node" id="node-washout-benign" onclick="selectPath('final')" data-step="8">
+                <rect class="node-rect" x="750" y="1140" width="150" height="80" rx="10"/>
+                <text class="node-text" x="825" y="1175">
+                    <tspan x="825" dy="0">APW/RPW ≥60/40%</tspan>
+                    <tspan x="825" dy="15">→ Benign adenoma</tspan>
+                    <tspan x="825" dy="30">no F/U</tspan>
+                </text>
+            </g>
             
-            <div class="node decision-node" onclick="goToStep(8, 'washout')">
-                >10 HU<br>→ Proceed to washout study
-            </div>
-        </div>
-
-        <!-- Step 7: Enlarging Mass Assessment -->
-        <div class="step" id="step-7">
-            <div class="step-title">Enlarging Mass Management</div>
-            <div class="instruction">Based on cancer history</div>
+            <g class="node action-node" id="node-washout-indeterminate" onclick="selectPath('final')" data-step="8">
+                <rect class="node-rect" x="920" y="1140" width="180" height="100" rx="10"/>
+                <text class="node-text" x="1010" y="1185">
+                    <tspan x="1010" dy="0">APW/RPW <60/40%</tspan>
+                    <tspan x="1010" dy="15">→ Imaging F/U, Bx,</tspan>
+                    <tspan x="1010" dy="30">PET-CT, or resection</tspan>
+                    <tspan x="1010" dy="45">depending on scenario</tspan>
+                </text>
+            </g>
             
-            <div class="node action-node" onclick="goToStep(9, 'final')">
-                No Cancer History:<br>Consider F/U adrenal CT or resection
-            </div>
-            
-            <div class="node action-node" onclick="goToStep(9, 'final')">
-                + Cancer History:<br>Consider Bx or PET-CT
-            </div>
-        </div>
-
-        <!-- Step 8: Washout Study -->
-        <div class="step" id="step-8">
-            <div class="step-title">Adrenal CT Washout</div>
-            <div class="instruction">Based on APW/RPW percentages</div>
-            
-            <div class="node outcome-node" onclick="goToStep(9, 'final')">
-                APW/RPW ≥60/40%<br>→ Benign adenoma, no F/U
-            </div>
-            
-            <div class="node action-node" onclick="goToStep(9, 'final')">
-                APW/RPW <60/40%<br>→ Imaging F/U, Bx, PET-CT, or resection<br>depending on clinical scenario
-            </div>
-        </div>
-
-        <!-- Step 9: Final Summary -->
-        <div class="step" id="step-9">
-            <div class="step-title">Assessment Complete</div>
-            
-            <div class="node start-node">
-                Algorithm Complete<br>
-                Follow the recommended management path
-            </div>
-            
-            <div class="instruction">
-                <strong>Key Points:</strong><br>
-                • Consider biochemical assays before biopsy/resection<br>
-                • "No enhancement" requires contrast comparison<br>
-                • "Isolated" = no other metastatic disease<br>
-                • Consider chemical-shift MRI when appropriate
-            </div>
-        </div>
-
-        <div class="nav-buttons">
-            <button class="btn" onclick="previousStep()" id="prevBtn" disabled>Previous</button>
-            <button class="btn" onclick="resetFlow()">Start Over</button>
-            <span id="stepIndicator">Step 1 of 9</span>
-        </div>
+            <!-- Connectors -->
+            <path class="connector" d="M 600 130 L 275 200"/>
+            <path class="connector" d="M 600 130 L 875 200"/>
+            <path class="connector" d="M 275 300 L 200 380"/>
+            <path class="connector" d="M 875 300 L 725 380"/>
+            <path class="connector" d="M 875 300 L 925 380"/>
+            <path class="connector" d="M 925 460 L 875 520"/>
+            <path class="connector" d="M 925 460 L 1045 520"/>
+            <path class="connector" d="M 725 460 L 525 520"/>
+            <path class="connector" d="M 725 460 L 695 520"/>
+            <path class="connector" d="M 525 580 L 425 680"/>
+            <path class="connector" d="M 525 580 L 595 680"/>
+            <path class="connector" d="M 695 600 L 640 820"/>
+            <path class="connector" d="M 695 600 L 825 820"/>
+            <path class="connector" d="M 825 900 L 725 980"/>
+            <path class="connector" d="M 825 900 L 895 980"/>
+            <path class="connector" d="M 895 1060 L 825 1140"/>
+            <path class="connector" d="M 895 1060 L 1010 1140"/>
+        </svg>
     </div>
+    
+    <div class="controls">
+        <button class="control-btn" onclick="resetView()" id="fullViewBtn">See Full Algorithm</button>
+        <button class="control-btn hidden" onclick="previousStep()" id="prevBtn">Previous</button>
+        <button class="control-btn" onclick="resetFlow()">Start Over</button>
+    </div>
+    
+    <div class="step-indicator" id="stepIndicator">Step 1: Initial Assessment</div>
 
     <script>
         let currentStep = 1;
-        const totalSteps = 9;
         let stepHistory = [1];
+        let isZoomed = false;
+        const zoomPositions = {
+            'start': { x: -200, y: -20 },
+            'indeterminate': { x: -350, y: -80 },
+            'size': { x: -280, y: -150 },
+            'large': { x: -350, y: -200 },
+            'small': { x: -250, y: -200 },
+            'prior': { x: -200, y: -250 },
+            'enlarging': { x: -250, y: -300 },
+            'ct': { x: -320, y: -350 },
+            'washout': { x: -350, y: -450 }
+        };
 
-        function goToStep(stepNum, path) {
-            // Hide current step
-            document.querySelector('.step.active').classList.remove('active');
+        function selectPath(path) {
+            clearHighlights();
             
-            // Determine which step to show based on path
-            let targetStep;
-            switch(stepNum) {
-                case 2:
-                    targetStep = path === 'benign' ? '2a' : '2b';
+            switch(path) {
+                case 'benign':
+                    highlightNode('node-benign-result');
+                    updateStep('Assessment Complete: Benign lesion, no follow-up needed');
+                    zoomToArea(-75, -150);
                     break;
-                case 3:
-                    targetStep = path === 'large' ? '3a' : '3b';
+                case 'indeterminate':
+                    highlightNodes(['node-size-small', 'node-size-large']);
+                    updateStep('Size Assessment: Choose appropriate size category');
+                    zoomToArea(-280, -150);
                     break;
-                case 5:
-                    targetStep = '5';
+                case 'size-large':
+                    highlightNodes(['node-large-no-cancer', 'node-large-cancer']);
+                    updateStep('Large Mass Management: Based on cancer history');
+                    zoomToArea(-350, -200);
                     break;
-                case 6:
-                    targetStep = '6';
+                case 'size-small':
+                    highlightNodes(['node-prior', 'node-no-prior']);
+                    updateStep('Clinical Assessment: Prior imaging and cancer history');
+                    zoomToArea(-250, -200);
                     break;
-                case 7:
-                    targetStep = '7';
+                case 'prior':
+                    highlightNodes(['node-stable', 'node-enlarging']);
+                    updateStep('Stability Assessment: Compare with prior imaging');
+                    zoomToArea(-200, -270);
                     break;
-                case 8:
-                    targetStep = '8';
+                case 'no-prior':
+                    highlightNodes(['node-small-benign', 'node-medium']);
+                    updateStep('Further Evaluation: Size-based approach');
+                    zoomToArea(-250, -330);
                     break;
-                case 9:
-                    targetStep = '9';
+                case 'enlarging':
+                    updateStep('Assessment Complete: Consider advanced imaging or resection');
+                    zoomToArea(-250, -300);
                     break;
-                default:
-                    targetStep = stepNum.toString();
+                case 'ct':
+                    highlightNodes(['node-ct-benign', 'node-ct-washout']);
+                    updateStep('CT Assessment: Based on unenhanced CT values');
+                    zoomToArea(-320, -390);
+                    break;
+                case 'washout':
+                    highlightNodes(['node-washout-benign', 'node-washout-indeterminate']);
+                    updateStep('Washout Study: APW/RPW percentage evaluation');
+                    zoomToArea(-350, -450);
+                    break;
+                case 'final':
+                    updateStep('Assessment Complete: Follow recommended management');
+                    break;
             }
             
-            // Show target step
-            const targetElement = document.getElementById(`step-${targetStep}`);
-            if (targetElement) {
-                targetElement.classList.add('active');
-                
-                // Smooth scroll to the step
-                targetElement.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
-                
-                // Update step tracking
-                currentStep = stepNum;
-                stepHistory.push(stepNum);
-                updateProgress();
-                updateNavigation();
-            }
+            stepHistory.push(currentStep + 1);
+            currentStep++;
+            updateProgress();
+            updateNavigation();
         }
 
-        function previousStep() {
-            if (stepHistory.length > 1) {
-                // Remove current step from history
-                stepHistory.pop();
-                
-                // Get previous step
-                const prevStep = stepHistory[stepHistory.length - 1];
-                
-                // Hide current step
-                document.querySelector('.step.active').classList.remove('active');
-                
-                // Show previous step
-                let targetStep;
-                switch(prevStep) {
-                    case 1:
-                        targetStep = '1';
-                        break;
-                    case 2:
-                        targetStep = '2b'; // Default to indeterminate path
-                        break;
-                    case 3:
-                        targetStep = '3b'; // Default to small mass path
-                        break;
-                    default:
-                        targetStep = prevStep.toString();
-                }
-                
-                const targetElement = document.getElementById(`step-${targetStep}`);
-                if (targetElement) {
-                    targetElement.classList.add('active');
-                    targetElement.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                }
-                
-                currentStep = prevStep;
-                updateProgress();
-                updateNavigation();
+        function zoomToArea(x, y) {
+            const flowchart = document.getElementById('flowchart');
+            flowchart.classList.add('zoomed');
+            flowchart.style.setProperty('--zoom-x', x + 'px');
+            flowchart.style.setProperty('--zoom-y', y + 'px');
+            isZoomed = true;
+            
+            document.getElementById('fullViewBtn').textContent = 'See Full Algorithm';
+        }
+
+        function highlightNode(nodeId) {
+            document.getElementById(nodeId).classList.add('highlighted');
+        }
+
+        function highlightNodes(nodeIds) {
+            nodeIds.forEach(id => highlightNode(id));
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll('.node.highlighted').forEach(node => {
+                node.classList.remove('highlighted');
+            });
+        }
+
+        function resetView() {
+            const flowchart = document.getElementById('flowchart');
+            if (isZoomed) {
+                flowchart.classList.remove('zoomed');
+                isZoomed = false;
+                document.getElementById('fullViewBtn').textContent = 'Zoom In';
+                clearHighlights();
+            } else {
+                // If already in full view, zoom to start
+                zoomToArea(-200, -20);
+                highlightNodes(['node-benign', 'node-indeterminate']);
+                document.getElementById('fullViewBtn').textContent = 'See Full Algorithm';
             }
         }
 
         function resetFlow() {
-            // Hide all steps
-            document.querySelectorAll('.step').forEach(step => {
-                step.classList.remove('active');
-            });
-            
-            // Show first step
-            document.getElementById('step-1').classList.add('active');
-            
-            // Reset tracking
+            clearHighlights();
+            resetView();
             currentStep = 1;
             stepHistory = [1];
+            updateStep('Initial Assessment: Click on appropriate imaging findings');
             updateProgress();
             updateNavigation();
             
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Highlight initial choices
+            setTimeout(() => {
+                highlightNodes(['node-benign', 'node-indeterminate']);
+            }, 100);
+        }
+
+        function previousStep() {
+            if (stepHistory.length > 1) {
+                stepHistory.pop();
+                currentStep = stepHistory[stepHistory.length - 1];
+                clearHighlights();
+                
+                // Logic to go back to previous state would go here
+                // For now, just reset to beginning
+                resetFlow();
+            }
+        }
+
+        function updateStep(description) {
+            document.getElementById('stepIndicator').textContent = `Step ${currentStep}: ${description}`;
         }
 
         function updateProgress() {
-            const progressPercent = (stepHistory.length / totalSteps) * 100;
+            const progressPercent = Math.min((currentStep / 8) * 100, 100);
             document.getElementById('progress').style.width = progressPercent + '%';
         }
 
         function updateNavigation() {
             const prevBtn = document.getElementById('prevBtn');
-            const stepIndicator = document.getElementById('stepIndicator');
-            
-            prevBtn.disabled = stepHistory.length <= 1;
-            stepIndicator.textContent = `Step ${stepHistory.length} of ${totalSteps}`;
+            if (stepHistory.length > 1) {
+                prevBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.add('hidden');
+            }
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            updateProgress();
-            updateNavigation();
+            resetFlow();
+            
+            // Start with initial zoom to show the beginning
+            setTimeout(() => {
+                zoomToArea(-200, -20);
+                highlightNodes(['node-benign', 'node-indeterminate']);
+            }, 500);
         });
     </script>
 

@@ -1,7 +1,7 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #23272f;
-    color: #e6e6e6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--night);
+    color: var(--platinum);
     line-height: 1.6;
     padding: 20px;
     display: flex;
@@ -12,16 +12,16 @@ body {
 .tool-container {
     max-width: 900px;
     width: 100%;
-    background-color: #2d3748;
+    background-color: var(--rich-black);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    border: 1px solid #4a5568;
+    border: 1px solid var(--ash-gray);
 }
 
 h1 {
     text-align: center;
-    color: #2aa198;
+    color: var(--aquamarine);
     margin-bottom: 10px;
     font-size: 1.8em;
     font-weight: 600;
@@ -29,7 +29,7 @@ h1 {
 
 h2 {
     text-align: center;
-    color: #a0aec0;
+    color: var(--ash-gray);
     font-size: 1.1em;
     margin-top: 0;
     margin-bottom: 30px;
@@ -43,47 +43,47 @@ h2 {
 }
 
 fieldset {
-    border: 1px solid #4a5568;
+    border: 1px solid var(--ash-gray);
     border-radius: 6px;
     padding: 15px;
     margin-bottom: 20px;
-    background-color: #1a202c;
+    background-color: var(--night);
 }
 
 legend {
     font-weight: 600;
-    color: #2aa198;
+    color: var(--aquamarine);
     padding: 0 10px;
-    background-color: #1a202c;
+    background-color: var(--night);
 }
 
 .radio-group label {
     display: block;
     margin: 5px 0;
-    background: #2d3748;
-    color: #e6e6e6;
+    background: var(--rich-black);
+    color: var(--platinum);
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
-    border: 1px solid #4a5568;
+    border: 1px solid var(--ash-gray);
     transition: all 0.2s ease-in-out;
 }
 
 .radio-group label:hover {
-    border-color: #2aa198;
-    background: #374151;
+    border-color: var(--aquamarine);
+    background: var(--night);
 }
 
 .radio-group input[type="radio"] {
     margin-right: 10px;
-    accent-color: #2aa198;
+    accent-color: var(--aquamarine);
 }
 
 .radio-group input[type="radio"]:checked + span,
 .radio-group label:has(input[type="radio"]:checked) {
-    background: #22c55e;
-    border-color: #22c55e;
-    color: #1f2937;
+    background: var(--jungle-green);
+    border-color: var(--jungle-green);
+    color: var(--night);
 }
 
 .hidden {
@@ -95,8 +95,8 @@ legend {
     position: fixed;
     top: 15px;
     left: 15px;
-    background: #2aa198;
-    color: white;
+    background: var(--aquamarine);
+    color: var(--night);
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
@@ -109,57 +109,57 @@ legend {
 }
 
 .back-btn:hover {
-    background: #238e85;
+    background: var(--jungle-green);
     transform: translateY(-1px);
 }
 
 #result-container {
     margin-top: 20px;
     padding: 20px;
-    background-color: #1a202c;
-    border: 1px solid #2aa198;
-    border-left: 5px solid #2aa198;
+    background-color: var(--night);
+    border: 1px solid var(--aquamarine);
+    border-left: 5px solid var(--aquamarine);
     border-radius: 5px;
 }
 
 #result-container h3 {
     margin-top: 0;
-    color: #2aa198;
+    color: var(--aquamarine);
     font-weight: 600;
 }
 
 #recommendation {
     font-weight: bold;
     font-size: 1.1em;
-    color: #e6e6e6;
+    color: var(--platinum);
 }
 
 #comments {
     margin-top: 10px;
     font-style: italic;
-    color: #a0aec0;
+    color: var(--ash-gray);
 }
 
 .footer-notes {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid #4a5568;
+    border-top: 1px solid var(--ash-gray);
     font-size: 0.85em;
-    color: #a0aec0;
+    color: var(--ash-gray);
 }
 
 .footer-notes strong {
-    color: #2aa198;
+    color: var(--aquamarine);
 }
 
 .footer-notes a {
-    color: #2aa198;
+    color: var(--aquamarine);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .footer-notes a:hover {
-    color: #81e6d9;
+    color: var(--jungle-green);
     text-decoration: underline;
 }
 
@@ -350,12 +350,12 @@ legend {
     }
     
     .radio-group label:hover {
-        background: #2d3748; /* Disable hover effects on touch */
-        border-color: #4a5568;
+        background: var(--rich-black); /* Disable hover effects on touch */
+        border-color: var(--ash-gray);
     }
     
     .radio-group label:active {
-        background: #374151;
+        background: var(--night);
         transform: scale(0.98);
         transition: transform 0.1s ease;
     }
@@ -373,12 +373,12 @@ legend {
     }
     
     .back-btn:hover {
-        background: #2aa198; /* Disable hover on touch */
+        background: var(--aquamarine); /* Disable hover on touch */
         transform: none;
     }
     
     .back-btn:active {
-        background: #238e85;
+        background: var(--jungle-green);
         transform: scale(0.95);
     }
 }

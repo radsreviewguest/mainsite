@@ -764,13 +764,13 @@ header img {
 
 .protocols-tab:hover {
   background: linear-gradient(135deg, 
-    rgba(0, 255, 127, 0.25) 0%, 
-    rgba(50, 205, 50, 0.22) 50%, 
-    rgba(0, 255, 127, 0.18) 100%) !important;
-  border-color: rgba(0, 255, 127, 0.6) !important;
+    rgba(48, 250, 181, 0.25) 0%, 
+    rgba(48, 250, 181, 0.22) 50%, 
+    rgba(48, 250, 181, 0.18) 100%) !important;
+  border-color: rgba(48, 250, 181, 0.6) !important;
   box-shadow: 
-    0 0 25px rgba(0, 255, 127, 0.4),
-    0 6px 20px rgba(0, 255, 127, 0.2),
+    0 0 25px rgba(48, 250, 181, 0.4),
+    0 6px 20px rgba(48, 250, 181, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transform: translateY(-3px) scale(1.02);
   -webkit-transform: translateY(-3px) scale(1.02);

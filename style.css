@@ -748,11 +748,14 @@ footer {
   
   .theme-toggle {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.5rem;
-    min-height: 44px;
-    min-width: 44px;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.4rem;
+    min-height: 36px;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    z-index: 1001;
   }
   
   /* Hero section mobile */
@@ -919,6 +922,17 @@ footer {
   }
   
   /* Very small screens */
+  .theme-toggle {
+    top: 0.25rem;
+    right: 0.25rem;
+    padding: 0.3rem;
+    min-height: 32px;
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    z-index: 1002;
+  }
+  
   .hero h1 {
     font-size: 1.5rem;
   }

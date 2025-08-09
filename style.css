@@ -139,6 +139,7 @@ header img {
 .theme-icon {
   font-size: 1.4rem;
   transition: transform 0.3s ease;
+  filter: grayscale(100%);
 }
 
 .theme-toggle:hover .theme-icon {
@@ -434,7 +435,7 @@ header img {
 /* Light theme specific search styling */
 [data-theme="light"] .search-container {
   background: transparent;
-  border: none;
+  border: 2px solid var(--rich-black);
   box-shadow: 0 0 20px rgba(35, 38, 38, 0.15);
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }

@@ -25,20 +25,6 @@
                 </div>
             </fieldset>
 
-            <!-- Benign Features Options -->
-            <div id="benign-options" class="hidden">
-                <fieldset>
-                    <legend>2. Benign Feature Type</legend>
-                    <div class="radio-group">
-                        <label><input type="radio" name="benign_type" value="myelolipoma"> Myelolipoma</label>
-                        <label><input type="radio" name="benign_type" value="no_enhancement"> No Enhancement</label>
-                        <label><input type="radio" name="benign_type" value="calcified"> Calcified</label>
-                        <label><input type="radio" name="benign_type" value="low_hu"> ≤10 HU on unenhanced CT</label>
-                        <label><input type="radio" name="benign_type" value="cs_mr"> Signal drop on CS-MR</label>
-                    </div>
-                </fieldset>
-            </div>
-
             <!-- Indeterminate Options -->
             <div id="indeterminate-options" class="hidden">
                 <fieldset>
@@ -108,6 +94,7 @@
                                     <div class="radio-group">
                                         <label><input type="radio" name="washout" value="adequate"> APW ≥60% or RPW ≥40%</label>
                                         <label><input type="radio" name="washout" value="inadequate"> APW <60% and RPW <40%</label>
+                                        <label><input type="radio" name="washout" value="no_enhancement"> No Enhancement</label>
                                     </div>
                                 </fieldset>
                             </div>
@@ -122,7 +109,7 @@
         <!-- Notes Section -->
         <div class="notes-container">
             <div class="notes-header">
-                <h3>📋 Clinical Notes</h3>
+                <h3>Clinical Notes</h3>
             </div>
             
             <div class="notes-section">
@@ -169,10 +156,9 @@
                 </div>
             </div>
 
-            <div class="notes-section">
-                <h4>Risk Factors</h4>
+            <div class="notes-section" id="additional-considerations">
+                <h4>Additional Considerations</h4>
                 <ul>
-                    <li><strong>High Risk:</strong> Known cancer history, suspicious imaging features</li>
                     <li><strong>Size >4 cm:</strong> Consider surgical evaluation</li>
                     <li><strong>Functional evaluation:</strong> May be needed for symptomatic patients</li>
                 </ul>
@@ -196,7 +182,13 @@
             <li>This tool is for educational purposes. Clinical correlation and institutional guidelines should always be considered.</li>
         </ul>
         <p><em>Based on ACR Appropriateness Criteria and current literature</em></p>
+        <p><strong>Reference:</strong> <a href="https://www.jacr.org/article/S1546-1440(17)30551-3/fulltext" target="_blank" rel="noopener">ACR White Paper, Adrenal Nodules</a></p>
     </div>
+</div>
+
+<!-- Dialogue box for adrenal CT recommendation -->
+<div id="adrenal-ct-dialogue" class="dialogue-box hidden">
+    Obtain dedicated Adrenal CT
 </div>
 
 <script>
@@ -207,16 +199,24 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('change', function(e) {
         if (e.target.name === 'initial') {
             hideAllSections();
+            clearHighlighting();
+            
             if (e.target.value === 'benign') {
-                document.getElementById('benign-options').classList.remove('hidden');
+                // Automatically show recommendation for benign features
+                highlightBenignFeatures();
+                showBenignRecommendation();
             } else if (e.target.value === 'indeterminate') {
+                // Hide any previous results and show indeterminate options
+                document.getElementById('result-container').classList.add('hidden');
                 document.getElementById('indeterminate-options').classList.remove('hidden');
+                fadeBenignFeatures();
             }
         }
         
         if (e.target.name === 'size') {
             document.getElementById('large-options').classList.add('hidden');
             document.getElementById('small-options').classList.add('hidden');
+            clearRecommendations();
             if (e.target.value === 'large') {
                 document.getElementById('large-options').classList.remove('hidden');
             } else if (e.target.value === 'small') {
@@ -227,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.name === 'prior') {
             document.getElementById('prior-assessment').classList.add('hidden');
             document.getElementById('no-prior-assessment').classList.add('hidden');
+            clearRecommendations();
             if (e.target.value === 'available') {
                 document.getElementById('prior-assessment').classList.remove('hidden');
             } else if (e.target.value === 'none') {
@@ -236,18 +237,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (e.target.name === 'size_detail') {
             document.getElementById('ct-assessment').classList.add('hidden');
+            hideDialogueBox();
+            clearRecommendations();
+            clearAdditionalConsiderationsHighlight();
             if (e.target.value === 'medium') {
                 document.getElementById('ct-assessment').classList.remove('hidden');
+                showDialogueBox();
+                highlightAdditionalConsiderations();
             }
         }
         
         if (e.target.name === 'ct_hu') {
             document.getElementById('washout-study').classList.add('hidden');
             document.getElementById('washout-notes').style.display = 'none';
+            clearRecommendations();
             if (e.target.value === 'high') {
                 document.getElementById('washout-study').classList.remove('hidden');
                 document.getElementById('washout-notes').style.display = 'block';
             }
+        }
+        
+        // Clear recommendations for any other form field changes
+        if (['cancer_history', 'stability', 'washout'].includes(e.target.name)) {
+            clearRecommendations();
         }
     });
 });
@@ -256,6 +268,77 @@ function hideAllSections() {
     const sections = document.querySelectorAll('.hidden');
     sections.forEach(section => section.classList.add('hidden'));
     document.getElementById('result-container').classList.add('hidden');
+    clearHighlighting();
+    clearSubsequentSelections();
+    hideDialogueBox();
+}
+
+function clearSubsequentSelections() {
+    // Clear all radio button selections except the initial assessment
+    const form = document.getElementById('adrenal-form');
+    const radioButtons = form.querySelectorAll('input[type="radio"]:not([name="initial"])');
+    radioButtons.forEach(radio => {
+        radio.checked = false;
+    });
+}
+
+function clearHighlighting() {
+    const notesSections = document.querySelectorAll('.notes-section');
+    notesSections.forEach(section => {
+        section.classList.remove('highlighted', 'faded');
+    });
+}
+
+function clearRecommendations() {
+    const resultContainer = document.getElementById('result-container');
+    if (resultContainer) {
+        resultContainer.classList.add('hidden');
+    }
+}
+
+function showDialogueBox() {
+    const dialogueBox = document.getElementById('adrenal-ct-dialogue');
+    dialogueBox.classList.remove('hidden');
+}
+
+function hideDialogueBox() {
+    const dialogueBox = document.getElementById('adrenal-ct-dialogue');
+    dialogueBox.classList.add('hidden');
+}
+
+function highlightBenignFeatures() {
+    const benignSection = document.querySelector('.notes-section:first-of-type');
+    if (benignSection) {
+        benignSection.classList.add('highlighted');
+    }
+}
+
+function fadeBenignFeatures() {
+    const benignSection = document.querySelector('.notes-section:first-of-type');
+    if (benignSection) {
+        benignSection.classList.add('faded');
+    }
+}
+
+function highlightAdditionalConsiderations() {
+    const additionalSection = document.getElementById('additional-considerations');
+    if (additionalSection) {
+        additionalSection.classList.add('highlighted');
+    }
+}
+
+function clearAdditionalConsiderationsHighlight() {
+    const additionalSection = document.getElementById('additional-considerations');
+    if (additionalSection) {
+        additionalSection.classList.remove('highlighted');
+    }
+}
+
+function showBenignRecommendation() {
+    document.getElementById('recommendation').textContent = 'Benign adrenal adenoma - No follow-up required';
+    document.getElementById('comments').textContent = 'Definite benign imaging features confirm adenoma. No further follow-up is required.';
+    document.getElementById('result-container').classList.remove('hidden');
+    document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' });
 }
 
 function calculateRecommendation() {
@@ -265,29 +348,8 @@ function calculateRecommendation() {
     
     const initial = formData.get('initial');
     
-    if (initial === 'benign') {
-        const benignType = formData.get('benign_type');
-        if (benignType) {
-            recommendation = 'Benign adrenal adenoma - No follow-up required';
-            switch(benignType) {
-                case 'myelolipoma':
-                    comments = 'Myelolipomas contain fat and are pathognomonic for benign lesions.';
-                    break;
-                case 'no_enhancement':
-                    comments = 'Lack of enhancement suggests benign nature.';
-                    break;
-                case 'calcified':
-                    comments = 'Calcification patterns suggest benign etiology.';
-                    break;
-                case 'low_hu':
-                    comments = 'Attenuation ≤10 HU is diagnostic of lipid-rich adenoma.';
-                    break;
-                case 'cs_mr':
-                    comments = 'Signal loss on opposed-phase images confirms lipid-rich adenoma.';
-                    break;
-            }
-        }
-    } else if (initial === 'indeterminate') {
+    // Skip benign processing since it's handled automatically
+    if (initial === 'indeterminate') {
         const size = formData.get('size');
         
         if (size === 'large') {
@@ -308,8 +370,8 @@ function calculateRecommendation() {
                     recommendation = 'Benign - No follow-up required';
                     comments = 'Stability over ≥1 year indicates benign nature.';
                 } else if (stability === 'new_enlarging') {
-                    recommendation = 'Further characterization needed - Consider adrenal CT or MRI';
-                    comments = 'New or enlarging lesions require additional imaging for characterization.';
+                    recommendation = 'Further characterization needed';
+                    comments = 'If no history of cancer, obtain follow up CT Adrenal or consider resection.\n\nIf patient has a history of cancer consider PET/CT or biopsy.';
                 }
             } else if (prior === 'none') {
                 const sizeDetail = formData.get('size_detail');
@@ -332,6 +394,9 @@ function calculateRecommendation() {
                         } else if (washout === 'inadequate') {
                             recommendation = 'Indeterminate - Consider imaging follow-up, biopsy, PET-CT, or resection';
                             comments = 'Inadequate washout requires further evaluation depending on clinical scenario.';
+                        } else if (washout === 'no_enhancement') {
+                            recommendation = 'Benign cystic lesion or hemorrhage. No follow up.';
+                            comments = 'Lack of enhancement indicates benign cystic lesion or hemorrhage.';
                         }
                     }
                 }

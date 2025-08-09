@@ -1,3 +1,25 @@
+/* Cross-browser CSS reset and normalization */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+/* Remove default margin/padding inconsistencies */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Optimize font rendering and performance */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* inter-regular - cyrillic_latin */
 @font-face {
   font-display: swap;
@@ -87,11 +109,18 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Standardized Theme using colors.css palette */
 body {
+  /* Fallback colors for browsers that don't support CSS custom properties */
+  background: #D3D4D9;
+  color: #19201D;
+  
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   margin: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease, color 0.3s ease;
+  -moz-transition: background-color 0.3s ease, color 0.3s ease;
+  -ms-transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header {
@@ -133,20 +162,46 @@ header img {
 
 .theme-toggle:hover {
   transform: translateY(-2px) scale(1.05);
+  -webkit-transform: translateY(-2px) scale(1.05);
+  -moz-transform: translateY(-2px) scale(1.05);
+  -ms-transform: translateY(-2px) scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .theme-icon {
   font-size: 1.4rem;
   transition: transform 0.3s ease;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  -moz-transition: -moz-transform 0.3s ease;
+  -ms-transition: -ms-transform 0.3s ease;
   filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
 }
 
 .theme-toggle:hover .theme-icon {
   transform: rotate(15deg);
+  -webkit-transform: rotate(15deg);
+  -moz-transform: rotate(15deg);
+  -ms-transform: rotate(15deg);
 }
 
-/* Flat 2.0 Splash Screen Styles */
+/* Enhanced will-change properties for better performance */
+.theme-toggle, .ai-button, .search-container, .tab, .splash-enter-btn {
+  will-change: transform;
+}
+
+.theme-toggle:hover, .ai-button:hover, .search-container.expanded {
+  will-change: auto;
+}
+
+/* GPU acceleration for animations */
+.ai-button::before, .theme-icon, .splash-content {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force GPU layer */
+  -webkit-transform: translateZ(0);
+}
 .splash-screen {
   position: fixed;
   top: 0;
@@ -426,6 +481,9 @@ header img {
 
 .search-container.expanded {
   transform: scale(1.03);
+  -webkit-transform: scale(1.03);
+  -moz-transform: scale(1.03);
+  -ms-transform: scale(1.03);
   padding: 0.9rem 2rem;
   box-shadow: 
     0 0 40px rgba(48, 250, 181, 0.4),
@@ -523,7 +581,12 @@ header img {
     transparent 150deg,
     transparent 360deg
   );
+  /* Fallback for browsers that don't support conic-gradient */
+  background: radial-gradient(circle, rgba(48, 250, 181, 0.3) 0%, transparent 70%);
   animation: rotate-glow 3s linear infinite;
+  -webkit-animation: rotate-glow 3s linear infinite;
+  -moz-animation: rotate-glow 3s linear infinite;
+  -ms-animation: rotate-glow 3s linear infinite;
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: -1;
@@ -532,9 +595,15 @@ header img {
 @keyframes rotate-glow {
   from {
     transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
   }
 }
 
@@ -543,6 +612,9 @@ header img {
   border-color: var(--bronze);
   color: var(--bronze);
   transform: translateY(-2px) scale(1.05);
+  -webkit-transform: translateY(-2px) scale(1.05);
+  -moz-transform: translateY(-2px) scale(1.05);
+  -ms-transform: translateY(-2px) scale(1.05);
   box-shadow: 
     0 0 30px rgba(214, 139, 42, 0.6),
     0 8px 24px rgba(214, 139, 42, 0.3);
@@ -560,6 +632,8 @@ header img {
     transparent 150deg,
     transparent 360deg
   );
+  /* Fallback for browsers that don't support conic-gradient */
+  background: radial-gradient(circle, rgba(214, 139, 42, 0.4) 0%, transparent 70%);
 }
 
 .ai-button:active {
@@ -597,6 +671,8 @@ header img {
     transparent 150deg,
     transparent 360deg
   );
+  /* Fallback for browsers that don't support conic-gradient */
+  background: radial-gradient(circle, rgba(34, 191, 141, 0.3) 0%, transparent 70%);
 }
 
 .ai-icon {
@@ -632,6 +708,17 @@ header img {
 
 /* Edge-specific placeholder styling */
 .search input::-ms-input-placeholder {
+  color: #0D0E0E;
+  opacity: 1;
+}
+
+/* Additional browser-specific placeholder styling */
+.search input::-webkit-input-placeholder {
+  color: #0D0E0E;
+  opacity: 1;
+}
+
+.search input::-moz-placeholder {
   color: #0D0E0E;
   opacity: 1;
 }
@@ -1038,8 +1125,8 @@ footer {
   
   [data-theme="light"] .search-container {
     background: transparent;
-    border: none;
-    box-shadow: 0 0 20px rgba(48, 250, 181, 0.15);
+    border: 2px solid var(--rich-black);
+    box-shadow: 0 0 20px rgba(35, 38, 38, 0.15);
   }
   
   [data-theme="light"] .hero h1 {

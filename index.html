@@ -8,6 +8,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="theme-color" content="#191c1c" />
 <meta name="apple-mobile-web-app-title" content="RadsReview" />
+
+<!-- DNS Prefetch for external domains -->
+<link rel="dns-prefetch" href="//www.imaios.com">
+<link rel="dns-prefetch" href="//edge.sitecorecloud.io">
+<link rel="dns-prefetch" href="//sites.google.com">
+<link rel="dns-prefetch" href="//app.statdx.com">
+
+<!-- Preload critical resources -->
+<link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="colors.css" as="style">
+<link rel="preload" href="style.css" as="style">
+<link rel="preload" href="./js/main.js" as="script">
+
 <title>RadsReview | Radiology Teaching Files</title>
 <link rel="stylesheet" href="colors.css">
 <link rel="stylesheet" href="style.css">
@@ -20,10 +33,10 @@
 <div id="splashScreen" class="splash-screen">
   <div class="splash-content">
     <div class="splash-logo">
-      <img src="./images/radreview_text.png" alt="RadsReview Logo" />
+      <img src="./images/radreview_text.png" alt="RadsReview Logo" loading="eager" decoding="sync" />
     </div>
     <div class="splash-main-image">
-  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" />
+  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="lazy" decoding="async" />
     </div>
     <div class="splash-text">
       <h1 class="splash-title">READING ROOM RESOURCES</h1>
@@ -163,6 +176,8 @@
   <p>© 2025 RadsReview — Built For Radiologists</p>
 </footer>
 </div> <!-- End of main content -->
-<script src="js/main.js"></script>
+
+<!-- Load JavaScript asynchronously for better performance -->
+<script src="js/main.js" async></script>
 </body>
 </html>

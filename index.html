@@ -47,11 +47,14 @@
 </header>
 <section class="hero">
   <h1>READING ROOM RESOURCES</h1>
-  <div class="search">
+  <div class="search-and-ai-container">
     <div class="search-container">
       <span class="search-icon">⌕</span>
       <input type="text" placeholder="Search resources..." oninput="filterResources(this.value)" onfocus="expandSearch(this)" onblur="contractSearch(this)" />
     </div>
+    <button class="ai-button" onclick="window.open('cerebrai.html','_blank')" title="AI Tools">
+      <span class="ai-icon">✨</span>
+    </button>
   </div>
 </section>
 <div class="tabs-wrapper">
@@ -65,7 +68,6 @@
   <div class="tab" onclick="showTab('msk', this)"><h2>MSK</h2></div>
   <div class="tab" onclick="showTab('peds', this)"><h2>PEDS</h2></div>
   <div class="tab" onclick="showTab('us', this)"><h2>ULTRASOUND</h2></div>
-  <div class="tab ai-tab" onclick="window.open('cerebrai.html','_blank')"><h2>AI</h2></div>
   <div class="tab" onclick="window.open('https://sites.google.com/view/radsreview/numbers-and-measurements','_blank')"><h2>NUMBERS ETC.</h2></div>
 </section>
 </div> <!-- End tabs-wrapper -->

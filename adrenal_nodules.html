@@ -184,11 +184,11 @@
         <p><em>Based on ACR Appropriateness Criteria and current literature</em></p>
         <p><strong>Reference:</strong> <a href="https://www.jacr.org/article/S1546-1440(17)30551-3/fulltext" target="_blank" rel="noopener">ACR White Paper, Adrenal Nodules</a></p>
     </div>
-</div>
-
-<!-- Dialogue box for adrenal CT recommendation -->
-<div id="adrenal-ct-dialogue" class="dialogue-box hidden">
-    Obtain dedicated Adrenal CT
+    
+    <!-- Dialogue box for adrenal CT recommendation -->
+    <div id="adrenal-ct-dialogue" class="dialogue-box hidden">
+        Obtain dedicated Adrenal CT
+    </div>
 </div>
 
 <script>
@@ -200,11 +200,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.name === 'initial') {
             hideAllSections();
             clearHighlighting();
+            clearRecommendations();
             
             if (e.target.value === 'benign') {
                 // Automatically show recommendation for benign features
                 highlightBenignFeatures();
                 showBenignRecommendation();
+                // Make sure result container is visible
+                document.getElementById('result-container').classList.remove('hidden');
             } else if (e.target.value === 'indeterminate') {
                 // Hide any previous results and show indeterminate options
                 document.getElementById('result-container').classList.add('hidden');

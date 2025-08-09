@@ -69,7 +69,7 @@ h2 {
 
 .notes-header {
     margin-bottom: 24px;
-    padding-bottom: 16px;
+    padding: 16px 0;
     text-align: center;
     border-bottom: 2px solid transparent;
     background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green)) 
@@ -78,6 +78,9 @@ h2 {
                 border-box;
     border-bottom: 2px solid transparent;
     background-clip: padding-box, border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .notes-header h3 {
@@ -133,16 +136,13 @@ h2 {
 
 /* Dialogue box for adrenal CT recommendation */
 .dialogue-box {
-    position: fixed;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+    position: relative;
+    margin: 20px auto 0;
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid var(--jungle-green);
     border-radius: 0px;
     padding: 20px;
     max-width: 300px;
-    z-index: 1000;
     color: var(--platinum);
     font-weight: 600;
     font-size: 1.1em;
@@ -171,12 +171,8 @@ h2 {
 /* Mobile responsiveness for dialogue box */
 @media (max-width: 768px) {
     .dialogue-box {
-        position: fixed;
-        top: auto;
-        bottom: 20px;
-        right: 10px;
-        left: 10px;
-        transform: none;
+        position: relative;
+        margin: 15px auto 0;
         max-width: none;
         font-size: 1em;
         padding: 15px;
@@ -620,12 +616,29 @@ legend {
 .footer-notes a {
     color: var(--aquamarine);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(48, 250, 181, 0.1), rgba(48, 133, 105, 0.1));
+    border: 1px solid rgba(48, 250, 181, 0.2);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(48, 250, 181, 0.15);
 }
 
 .footer-notes a:hover {
-    color: var(--jungle-green);
-    text-decoration: underline;
+    color: var(--night);
+    background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
+    border-color: var(--jungle-green);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(48, 250, 181, 0.3);
+    text-decoration: none;
+}
+
+.footer-notes a:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(48, 250, 181, 0.2);
 }
 
 /* Mobile responsiveness */

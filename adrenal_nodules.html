@@ -199,7 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('change', function(e) {
         if (e.target.name === 'initial') {
             hideAllSections();
-            clearHighlighting();
             clearRecommendations();
             
             if (e.target.value === 'benign') {
@@ -209,10 +208,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Make sure result container is visible
                 document.getElementById('result-container').classList.remove('hidden');
             } else if (e.target.value === 'indeterminate') {
+                // Clear highlighting for other selections
+                clearHighlighting();
                 // Hide any previous results and show indeterminate options
                 document.getElementById('result-container').classList.add('hidden');
                 document.getElementById('indeterminate-options').classList.remove('hidden');
                 fadeBenignFeatures();
+            } else {
+                // Clear highlighting for any other selection
+                clearHighlighting();
             }
         }
         
@@ -310,10 +314,19 @@ function hideDialogueBox() {
 }
 
 function highlightBenignFeatures() {
-    const benignSection = document.querySelector('.notes-section:first-of-type');
-    if (benignSection) {
-        benignSection.classList.add('highlighted');
-    }
+    // Clear any existing highlighting first
+    clearHighlighting();
+    
+    // Add a small delay to ensure DOM is ready
+    setTimeout(() => {
+        const benignSection = document.querySelector('.notes-section:first-of-type');
+        if (benignSection) {
+            benignSection.classList.add('highlighted');
+            console.log('Benign features highlighted'); // Debug log
+        } else {
+            console.log('Benign section not found'); // Debug log
+        }
+    }, 50);
 }
 
 function fadeBenignFeatures() {

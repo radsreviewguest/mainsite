@@ -137,12 +137,13 @@ h2 {
 /* Dialogue box for adrenal CT recommendation */
 .dialogue-box {
     position: relative;
-    margin: 20px auto 0;
+    margin: 20px 0 0 0;
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid var(--jungle-green);
     border-radius: 0px;
     padding: 20px;
-    max-width: 300px;
+    width: 100%;
+    max-width: none;
     color: var(--platinum);
     font-weight: 600;
     font-size: 1.1em;
@@ -151,6 +152,7 @@ h2 {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     animation: slideInRight 0.3s ease-out;
+    box-sizing: border-box;
 }
 
 .dialogue-box.hidden {
@@ -172,10 +174,12 @@ h2 {
 @media (max-width: 768px) {
     .dialogue-box {
         position: relative;
-        margin: 15px auto 0;
+        margin: 15px 0 0 0;
+        width: 100%;
         max-width: none;
         font-size: 1em;
         padding: 15px;
+        box-sizing: border-box;
     }
     
     @keyframes slideInRight {

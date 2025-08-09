@@ -515,10 +515,11 @@ header img {
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    rgba(48, 250, 181, 0.6) 45deg,
-    transparent 90deg,
-    transparent 270deg,
-    rgba(48, 250, 181, 0.6) 315deg,
+    transparent 30deg,
+    rgba(48, 250, 181, 0.3) 60deg,
+    rgba(48, 250, 181, 0.6) 90deg,
+    rgba(48, 250, 181, 0.3) 120deg,
+    transparent 150deg,
     transparent 360deg
   );
   animation: rotate-glow 3s linear infinite;
@@ -551,10 +552,11 @@ header img {
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    rgba(214, 139, 42, 0.8) 45deg,
-    transparent 90deg,
-    transparent 270deg,
-    rgba(214, 139, 42, 0.8) 315deg,
+    transparent 30deg,
+    rgba(214, 139, 42, 0.4) 60deg,
+    rgba(214, 139, 42, 0.8) 90deg,
+    rgba(214, 139, 42, 0.4) 120deg,
+    transparent 150deg,
     transparent 360deg
   );
 }
@@ -587,10 +589,11 @@ header img {
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    rgba(214, 139, 42, 0.6) 45deg,
-    transparent 90deg,
-    transparent 270deg,
-    rgba(214, 139, 42, 0.6) 315deg,
+    transparent 30deg,
+    rgba(214, 139, 42, 0.3) 60deg,
+    rgba(214, 139, 42, 0.6) 90deg,
+    rgba(214, 139, 42, 0.3) 120deg,
+    transparent 150deg,
     transparent 360deg
   );
 }

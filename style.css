@@ -503,16 +503,60 @@ header img {
   box-shadow: 
     0 0 20px rgba(48, 250, 181, 0.4),
     0 4px 16px rgba(48, 250, 181, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-button::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(48, 250, 181, 0.6) 45deg,
+    transparent 90deg,
+    transparent 270deg,
+    rgba(48, 250, 181, 0.6) 315deg,
+    transparent 360deg
+  );
+  animation: rotate-glow 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+@keyframes rotate-glow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .ai-button:hover {
-  background: rgba(48, 250, 181, 0.1);
-  border-color: var(--jungle-green);
-  color: var(--jungle-green);
+  background: rgba(214, 139, 42, 0.1);
+  border-color: var(--bronze);
+  color: var(--bronze);
   transform: translateY(-2px) scale(1.05);
   box-shadow: 
-    0 0 30px rgba(48, 250, 181, 0.6),
-    0 8px 24px rgba(48, 250, 181, 0.3);
+    0 0 30px rgba(214, 139, 42, 0.6),
+    0 8px 24px rgba(214, 139, 42, 0.3);
+}
+
+.ai-button:hover::before {
+  opacity: 1;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(214, 139, 42, 0.8) 45deg,
+    transparent 90deg,
+    transparent 270deg,
+    rgba(214, 139, 42, 0.8) 315deg,
+    transparent 360deg
+  );
 }
 
 .ai-button:active {
@@ -530,12 +574,25 @@ header img {
 }
 
 [data-theme="light"] .ai-button:hover {
-  background: var(--bg-secondary);
-  border-color: var(--rich-black);
-  color: var(--rich-black);
+  background: rgba(214, 139, 42, 0.1);
+  border-color: var(--bronze);
+  color: var(--bronze);
   box-shadow: 
-    0 0 25px rgba(48, 250, 181, 0.4),
-    0 6px 20px rgba(0, 0, 0, 0.15);
+    0 0 25px rgba(214, 139, 42, 0.4),
+    0 6px 20px rgba(214, 139, 42, 0.15);
+}
+
+[data-theme="light"] .ai-button:hover::before {
+  opacity: 1;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(214, 139, 42, 0.6) 45deg,
+    transparent 90deg,
+    transparent 270deg,
+    rgba(214, 139, 42, 0.6) 315deg,
+    transparent 360deg
+  );
 }
 
 .ai-icon {

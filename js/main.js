@@ -3,6 +3,7 @@ function initializeTheme() {
   const savedTheme = localStorage.getItem('theme') || 'dark';
   document.body.setAttribute('data-theme', savedTheme);
   updateThemeIcon(savedTheme);
+  updateLogo(savedTheme);
 }
 
 function toggleTheme() {
@@ -12,6 +13,7 @@ function toggleTheme() {
   document.body.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
   updateThemeIcon(newTheme);
+  updateLogo(newTheme);
 }
 
 function updateThemeIcon(theme) {
@@ -19,6 +21,17 @@ function updateThemeIcon(theme) {
   if (themeIcon) {
     themeIcon.textContent = theme === 'dark' ? '☀' : '◐';
   }
+}
+
+function updateLogo(theme) {
+  const logoImages = document.querySelectorAll('img[alt="RadsReview Logo"]');
+  logoImages.forEach(img => {
+    if (theme === 'light') {
+      img.src = './images/radreview_text_dark.PNG';
+    } else {
+      img.src = './images/radreview_text.png';
+    }
+  });
 }
 
 // Search Animation Functions

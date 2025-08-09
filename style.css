@@ -60,7 +60,7 @@
   --bg-search: var(--ash-gray);
   --text-primary: var(--night);
   --text-secondary: var(--rich-black);
-  --accent-primary: var(--jungle-green);
+  --accent-primary: var(--rich-black);
   --accent-secondary: var(--bronze);
   --border-color: var(--ash-gray);
 }
@@ -108,16 +108,6 @@ header img {
   height: 48px;
   margin-top: 20px;
   margin-left: 5px;
-}
-
-/* Light theme logo swap */
-[data-theme="light"] header img {
-  content: url('./images/radreview_text_dark.png');
-}
-
-/* Light theme logo swap for all pages with RadsReview logo */
-[data-theme="light"] img[alt="RadsReview Logo"] {
-  content: url('./images/radreview_text_dark.png');
 }
 
 .header-controls {
@@ -586,12 +576,12 @@ header img {
 }
 
 [data-theme="light"] .ai-button:hover {
-  background: rgba(48, 250, 181, 0.1);
-  border-color: var(--aquamarine);
-  color: var(--aquamarine);
+  background: rgba(34, 191, 141, 0.1);
+  border-color: var(--jungle-green);
+  color: var(--jungle-green);
   box-shadow: 
-    0 0 25px rgba(48, 250, 181, 0.4),
-    0 6px 20px rgba(48, 250, 181, 0.15);
+    0 0 25px rgba(34, 191, 141, 0.4),
+    0 6px 20px rgba(34, 191, 141, 0.15);
 }
 
 [data-theme="light"] .ai-button:hover::before {
@@ -600,9 +590,9 @@ header img {
     from 0deg,
     transparent 0deg,
     transparent 30deg,
-    rgba(48, 250, 181, 0.3) 60deg,
-    rgba(48, 250, 181, 0.6) 90deg,
-    rgba(48, 250, 181, 0.3) 120deg,
+    rgba(34, 191, 141, 0.3) 60deg,
+    rgba(34, 191, 141, 0.6) 90deg,
+    rgba(34, 191, 141, 0.3) 120deg,
     transparent 150deg,
     transparent 360deg
   );

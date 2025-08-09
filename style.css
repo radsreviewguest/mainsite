@@ -878,6 +878,11 @@ header img {
   opacity: 0.35; /* Faded by default */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s, background-color 0.3s ease;
+  /* Ensure proper vertical centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
 }
 /* On hover, ANY tab becomes fully opaque */
 .tab:hover {
@@ -899,6 +904,10 @@ header img {
   font-size: 1rem;
   text-decoration: none;
   transition: color 0.3s;
+  /* Ensure perfect centering */
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
 }
 /* Text color and underline for the ACTIVE tab's h2 element */
 .tab.active h2 {
@@ -1035,11 +1044,19 @@ footer {
     min-width: 120px;
     padding: 0.75rem 0.5rem;
     font-size: 0.9rem;
+    /* Maintain centering on mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
   }
   
   .tab h2 {
     font-size: 0.85rem;
     margin: 0;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
   }
   
   /* Touch-friendly hover states */

@@ -48,7 +48,7 @@ h2 {
 .form-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 40px;
 }
 
 fieldset {
@@ -168,7 +168,7 @@ button {
     background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
     color: var(--night);
     border: none;
-    padding: 16px 32px;
+    padding: 18px 40px;
     font-size: 1.1em;
     font-weight: 700;
     border-radius: 12px;
@@ -181,8 +181,9 @@ button {
     overflow: hidden;
     min-width: 200px;
     letter-spacing: 0.02em;
+    text-transform: uppercase;
     box-shadow: 
-        0 4px 16px rgba(34, 191, 141, 0.3),
+        0 8px 24px rgba(34, 191, 141, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -198,11 +199,11 @@ button::before {
 }
 
 button:hover {
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--jungle-green), var(--bronze));
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-        0 8px 24px rgba(34, 191, 141, 0.4),
+        0 12px 32px rgba(34, 191, 141, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    background: linear-gradient(135deg, var(--jungle-green), var(--aquamarine));
 }
 
 button:hover::before {
@@ -210,16 +211,16 @@ button:hover::before {
 }
 
 button:active {
-    transform: translateY(0);
+    transform: translateY(-1px) scale(1);
     box-shadow: 
-        0 2px 8px rgba(34, 191, 141, 0.3),
+        0 4px 12px rgba(34, 191, 141, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 button:focus {
     outline: none;
     box-shadow: 
-        0 8px 24px rgba(34, 191, 141, 0.4),
+        0 12px 32px rgba(34, 191, 141, 0.4),
         0 0 0 3px rgba(48, 250, 181, 0.3);
 }
 
@@ -253,7 +254,7 @@ button:focus {
     margin-bottom: 16px;
     font-size: 1.4em;
     font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(48, 250, 181, 0.3);
     margin-top: 0;
 }
 
@@ -284,9 +285,14 @@ button:focus {
 }
 
 #recommendation {
-    font-weight: bold;
-    font-size: 1.1em;
+    font-weight: 700;
+    font-size: 1.2em;
     color: var(--platinum);
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(48, 250, 181, 0.1), rgba(34, 191, 141, 0.05));
+    border-radius: 12px;
+    border-left: 4px solid var(--aquamarine);
+    margin-bottom: 16px;
 }
 
 @keyframes fadeInUp {
@@ -307,31 +313,54 @@ button:focus {
 /* Back button with enhanced flat 2.0 styling */
 .back-btn {
     position: fixed;
-    top: 15px;
-    left: 15px;
+    top: 20px;
+    left: 20px;
     background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
     color: var(--night);
-    padding: 10px 16px;
+    padding: 18px 40px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     text-decoration: none;
     z-index: 1000;
-    font-size: 14px;
+    font-size: 1.1em;
     font-family: inherit;
-    font-weight: 600;
+    font-weight: 700;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
-        0 4px 12px rgba(34, 191, 141, 0.3),
+        0 8px 24px rgba(48, 250, 181, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.back-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
 }
 
 .back-btn:hover {
-    background: linear-gradient(135deg, var(--jungle-green), var(--aquamarine));
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--jungle-green), var(--bronze));
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-        0 6px 16px rgba(34, 191, 141, 0.4),
+        0 12px 32px rgba(48, 250, 181, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.back-btn:hover::before {
+    left: 100%;
+}
+
+.back-btn:active {
+    transform: translateY(-1px) scale(1);
 }
 
 /* Mobile optimizations */
@@ -353,8 +382,11 @@ button:focus {
     button {
         width: 100%;
         margin: 24px 0 0;
-        padding: 14px 24px;
+        padding: 16px 24px;
         min-width: unset;
+        font-size: 1em;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
     }
     
     .result-container {
@@ -363,8 +395,11 @@ button:focus {
     }
     
     .back-btn {
-        padding: 8px 12px;
-        font-size: 13px;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: none;
+        letter-spacing: normal;
     }
 }
 
@@ -413,9 +448,14 @@ button:focus {
 }
 
 #comments {
-    margin-top: 10px;
+    margin-top: 16px;
     font-style: italic;
     color: var(--ash-gray);
+    padding: 16px;
+    background: rgba(213, 219, 219, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--ash-gray);
+    line-height: 1.6;
 }
 
 .footer-notes {
@@ -430,15 +470,62 @@ button:focus {
     color: var(--aquamarine);
 }
 
+/* Enhanced hyperlink styling for consistent design */
 .footer-notes a {
-    color: var(--aquamarine);
+    display: inline-block;
+    background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green));
+    color: var(--night);
     text-decoration: none;
-    transition: color 0.2s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 3px 10px rgba(34, 191, 141, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    margin: 4px 0;
+    letter-spacing: 0.01em;
+}
+
+.footer-notes a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
 }
 
 .footer-notes a:hover {
-    color: var(--jungle-green);
-    text-decoration: underline;
+    background: linear-gradient(135deg, var(--jungle-green), var(--bronze));
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 16px rgba(34, 191, 141, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    color: var(--night);
+}
+
+.footer-notes a:hover::before {
+    left: 100%;
+}
+
+.footer-notes a:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 2px 6px rgba(34, 191, 141, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.footer-notes a:focus {
+    outline: none;
+    box-shadow: 
+        0 6px 16px rgba(34, 191, 141, 0.4),
+        0 0 0 3px rgba(48, 250, 181, 0.3);
 }
 
 /* Mobile responsiveness */
@@ -528,6 +615,16 @@ button:focus {
         line-height: 1.4;
     }
     
+    .footer-notes a {
+        padding: 6px 12px;
+        font-size: 0.8em;
+        border-radius: 6px;
+        margin: 2px 0;
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
     /* Mobile back button */
     .back-btn {
         top: 10px;
@@ -608,15 +705,26 @@ button:focus {
         font-size: 0.75rem;
     }
     
+    .footer-notes a {
+        padding: 5px 10px;
+        font-size: 0.75em;
+        border-radius: 4px;
+        margin: 1px 0;
+        min-height: 28px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
     /* Small screen back button */
     .back-btn {
         top: 8px;
         left: 8px;
-        padding: 5px 8px;
-        font-size: 11px;
-        min-height: 32px;
+        padding: 8px 12px;
+        font-size: 12px;
+        min-height: 36px;
         display: flex;
         align-items: center;
+        text-transform: none;
     }
 }
 
@@ -646,17 +754,18 @@ button:focus {
     /* Touch-optimized back button */
     .back-btn {
         min-height: 44px;
-        padding: 10px 14px;
-        font-size: 13px;
+        padding: 12px 18px;
+        font-size: 14px;
+        text-transform: none;
     }
     
     .back-btn:hover {
-        background: var(--aquamarine); /* Disable hover on touch */
+        background: linear-gradient(135deg, var(--aquamarine), var(--jungle-green)); /* Disable hover on touch */
         transform: none;
     }
     
     .back-btn:active {
-        background: var(--jungle-green);
+        background: linear-gradient(135deg, var(--jungle-green), var(--bronze));
         transform: scale(0.95);
     }
 }

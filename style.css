@@ -110,6 +110,16 @@ header img {
   margin-left: 5px;
 }
 
+/* Light theme logo swap */
+[data-theme="light"] header img {
+  content: url('./images/radreview_text_dark.png');
+}
+
+/* Light theme logo swap for all pages with RadsReview logo */
+[data-theme="light"] img[alt="RadsReview Logo"] {
+  content: url('./images/radreview_text_dark.png');
+}
+
 .header-controls {
   position: fixed;
   bottom: 2rem;
@@ -435,14 +445,14 @@ header img {
 [data-theme="light"] .search-container {
   background: transparent;
   border: none;
-  box-shadow: 0 0 20px rgba(48, 250, 181, 0.15);
+  box-shadow: 0 0 20px rgba(35, 38, 38, 0.15);
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 [data-theme="light"] .search-container.expanded {
   box-shadow: 
-    0 0 40px rgba(48, 250, 181, 0.25),
-    0 8px 32px rgba(48, 250, 181, 0.1);
+    0 0 40px rgba(35, 38, 38, 0.25),
+    0 8px 32px rgba(35, 38, 38, 0.1);
 }
 
 .search-container input {
@@ -571,17 +581,17 @@ header img {
   border-color: var(--night);
   color: var(--night);
   box-shadow: 
-    0 0 20px rgba(48, 250, 181, 0.3),
+    0 0 20px rgba(35, 38, 38, 0.3),
     0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="light"] .ai-button:hover {
-  background: rgba(214, 139, 42, 0.1);
-  border-color: var(--bronze);
-  color: var(--bronze);
+  background: rgba(48, 250, 181, 0.1);
+  border-color: var(--aquamarine);
+  color: var(--aquamarine);
   box-shadow: 
-    0 0 25px rgba(214, 139, 42, 0.4),
-    0 6px 20px rgba(214, 139, 42, 0.15);
+    0 0 25px rgba(48, 250, 181, 0.4),
+    0 6px 20px rgba(48, 250, 181, 0.15);
 }
 
 [data-theme="light"] .ai-button:hover::before {
@@ -590,9 +600,9 @@ header img {
     from 0deg,
     transparent 0deg,
     transparent 30deg,
-    rgba(214, 139, 42, 0.3) 60deg,
-    rgba(214, 139, 42, 0.6) 90deg,
-    rgba(214, 139, 42, 0.3) 120deg,
+    rgba(48, 250, 181, 0.3) 60deg,
+    rgba(48, 250, 181, 0.6) 90deg,
+    rgba(48, 250, 181, 0.3) 120deg,
     transparent 150deg,
     transparent 360deg
   );
@@ -1042,7 +1052,7 @@ footer {
   }
   
   [data-theme="light"] .hero h1 {
-    color: var(--night);
+    color: var(--rich-black);
   }
   
   [data-theme="light"] .tab {

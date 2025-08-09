@@ -24,18 +24,24 @@ function updateThemeIcon(theme) {
 // Search Animation Functions
 function expandSearch(input) {
   const container = input.closest('.search-container');
-  const searchWrapper = input.closest('.search');
+  const searchWrapper = input.closest('.search-and-ai-container');
+  
+  // Add expanded class with smooth transition
   container.classList.add('expanded');
-  searchWrapper.classList.add('expanded');
+  if (searchWrapper) {
+    searchWrapper.classList.add('expanded');
+  }
 }
 
 function contractSearch(input) {
   const container = input.closest('.search-container');
-  const searchWrapper = input.closest('.search');
-  setTimeout(() => {
-    container.classList.remove('expanded');
+  const searchWrapper = input.closest('.search-and-ai-container');
+  
+  // Remove expanded class immediately for fluid animation
+  container.classList.remove('expanded');
+  if (searchWrapper) {
     searchWrapper.classList.remove('expanded');
-  }, 100);
+  }
 }
 
 // Splash Screen functionality

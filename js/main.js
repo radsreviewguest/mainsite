@@ -57,7 +57,7 @@ function contractSearch(input) {
   }
 }
 
-// Splash Screen functionality
+// Splash Screen functionality - Define early for maximum availability
 function enterSite() {
   console.log('enterSite function called');
   const splashScreen = document.getElementById('splashScreen');
@@ -65,6 +65,11 @@ function enterSite() {
   
   console.log('Splash screen element:', splashScreen);
   console.log('Main content element:', mainContent);
+  
+  if (!splashScreen || !mainContent) {
+    console.error('Required elements not found for enterSite function');
+    return;
+  }
   
   // Mark that splash has been seen this session
   sessionStorage.setItem('splashSeen', 'true');
@@ -91,8 +96,9 @@ function enterSite() {
   }, 500);
 }
 
-// Make enterSite available globally for direct onclick calls
+// Make enterSite available globally immediately
 window.enterSite = enterSite;
+console.log('enterSite function defined and made globally available');
 
 // Make toggleSidebar available globally for debugging
 window.toggleSidebar = toggleSidebar;
@@ -233,6 +239,14 @@ function filterResources(query) {
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, starting initialization...');
   
+  // Add fetchpriority to preload links for supported browsers
+  if ('fetchPriority' in HTMLLinkElement.prototype) {
+    const criticalPreloads = document.querySelectorAll('link[rel="preload"][href*="radreview_text"], link[rel="preload"][href*="main.js"]');
+    criticalPreloads.forEach(link => {
+      link.fetchPriority = 'high';
+    });
+  }
+  
   // Prevent browser intervention with images
   preventImageIntervention();
   
@@ -268,13 +282,25 @@ document.addEventListener('DOMContentLoaded', function() {
   // Start the first attempt immediately
   attachEnterSiteListener();
   
-  // Add additional debugging and testing
+  // Add multiple fallback methods for maximum reliability
   setTimeout(() => {
     const enterSiteBtn = document.getElementById('enterSiteBtn');
     if (enterSiteBtn) {
       console.log('Final check - button found:', enterSiteBtn);
       console.log('Button has onclick:', enterSiteBtn.onclick);
       console.log('Button has event listeners attached:', enterSiteBtn.hasAttribute('data-listener-attached'));
+      
+      // Force attach another listener if the first one didn't work
+      if (!enterSiteBtn.hasAttribute('data-listener-attached')) {
+        console.log('Force attaching event listener as backup');
+        enterSiteBtn.addEventListener('click', function(e) {
+          console.log('Backup enter site button clicked!');
+          e.preventDefault();
+          e.stopPropagation();
+          enterSite();
+        });
+        enterSiteBtn.setAttribute('data-listener-attached', 'backup');
+      }
       
       // Add a test click listener to verify the button is responding
       enterSiteBtn.addEventListener('mousedown', function() {
@@ -285,6 +311,13 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Button mouse up detected!');
       });
       
+      // Add touchstart for mobile compatibility
+      enterSiteBtn.addEventListener('touchstart', function(e) {
+        console.log('Button touch start detected!');
+        e.preventDefault();
+        enterSite();
+      });
+      
       // Test the function directly
       console.log('Testing enterSite function directly...');
       if (typeof window.enterSite === 'function') {
@@ -292,6 +325,16 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         console.error('enterSite is NOT available globally');
       }
+      
+      // Add keyboard support for accessibility
+      enterSiteBtn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          console.log('Enter site button activated via keyboard!');
+          e.preventDefault();
+          enterSite();
+        }
+      });
+      
     } else {
       console.error('Final check - button NOT found');
     }
@@ -309,6 +352,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
   }
+  
+  // Add event delegation as ultimate fallback for enter site button
+  document.addEventListener('click', function(e) {
+    if (e.target && (e.target.id === 'enterSiteBtn' || e.target.classList.contains('splash-enter-btn'))) {
+      console.log('Enter site button clicked via event delegation!');
+      e.preventDefault();
+      e.stopPropagation();
+      enterSite();
+    }
+  });
+  
+  console.log('Event delegation listener for enter site button added');
   
   // Check if splash screen should be shown
   checkSplashScreen();
@@ -346,8 +401,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Prevent browser intervention with image loading
 function preventImageIntervention() {
   // Force immediate loading of critical images
-  const criticalImages = document.querySelectorAll('img[loading="eager"], img[fetchpriority="high"]');
+  const criticalImages = document.querySelectorAll('img[loading="eager"]');
   criticalImages.forEach(img => {
+    // Add fetchpriority only for browsers that support it
+    if ('fetchPriority' in HTMLImageElement.prototype) {
+      img.fetchPriority = 'high';
+    }
+    
     if (!img.complete) {
       // Force immediate decode
       img.decode().catch(() => {

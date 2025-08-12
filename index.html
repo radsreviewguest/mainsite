@@ -6,7 +6,10 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="theme-color" content="#191c1c" />
+<!-- Theme color for supported browsers -->
+<meta name="theme-color" content="#191c1c" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)" />
+<meta name="msapplication-TileColor" content="#191c1c" />
 <meta name="apple-mobile-web-app-title" content="RadsReview" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
 <meta name="format-detection" content="telephone=no" />
@@ -19,11 +22,11 @@
 <link rel="dns-prefetch" href="//app.statdx.com">
 
 <!-- Preload critical resources -->
-<link rel="preload" href="./images/radreview_text.png" as="image" type="image/png" fetchpriority="high">
+<link rel="preload" href="./images/radreview_text.png" as="image" type="image/png">
 <link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="./js/main.js" as="script" fetchpriority="high">
+<link rel="preload" href="./js/main.js" as="script">
 
-<!-- Preload critical resources -->
+<!-- Preload additional resources -->
 <link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="colors.css" as="style">
 <link rel="preload" href="style.css" as="style">
@@ -41,10 +44,10 @@
 <div id="splashScreen" class="splash-screen">
   <div class="splash-content">
     <div class="splash-logo">
-      <img src="./images/radreview_text.png" alt="RadsReview Logo" loading="eager" decoding="sync" fetchpriority="high" />
+      <img src="./images/radreview_text.png" alt="RadsReview Logo" loading="eager" decoding="sync" />
     </div>
     <div class="splash-main-image">
-  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="eager" decoding="sync" fetchpriority="high" />
+  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="eager" decoding="sync" />
     </div>
     <div class="splash-text">
       <h1 class="splash-title">READING ROOM RESOURCES</h1>
@@ -60,7 +63,7 @@
 <div id="mainContent" class="main-content" style="display: none;">
 <header>
   <a href="index.html">
-    <img src="./images/radreview_text.png" alt="RadsReview Logo" style="cursor: pointer;" loading="eager" decoding="sync" fetchpriority="high">
+    <img src="./images/radreview_text.png" alt="RadsReview Logo" style="cursor: pointer;" loading="eager" decoding="sync">
   </a>
   <div class="header-controls">
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
@@ -73,7 +76,7 @@
   <div class="search-and-ai-container">
     <div class="search-container">
       <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Search resources..." />
+      <input type="text" id="searchInput" placeholder="Search resources..." aria-label="Search radiology resources" />
     </div>
     <button class="ai-button" id="aiButton" title="AI Tools">
       <span class="ai-icon">Ai</span>
@@ -198,7 +201,7 @@
     <div class="sidebar-body">
       <div class="calculator">
         <div class="calculator-display">
-          <input type="text" id="calcDisplay" readonly value="0" />
+          <input type="text" id="calcDisplay" readonly value="0" aria-label="Calculator display" title="Calculator result display" />
         </div>
         <div class="calculator-buttons">
           <button class="calc-btn clear" data-action="clear">C</button>

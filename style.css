@@ -218,9 +218,8 @@ header img {
   justify-content: center;
   z-index: 10000;
   opacity: 1;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  will-change: opacity, transform;
 }
 
 .splash-screen.fade-out {
@@ -266,12 +265,12 @@ header img {
 .splash-logo img {
   max-width: 330px;
   height: auto;
-  filter: brightness(1.1) contrast(1.1) drop-shadow(0 4px 8px rgba(48, 250, 181, 0.2));
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(1.1) contrast(1.1);
+  transition: transform 0.2s ease;
+  will-change: transform;
 }
 
 .splash-logo img:hover {
-  filter: brightness(1.2) contrast(1.15) drop-shadow(0 6px 12px rgba(48, 250, 181, 0.3));
   transform: scale(1.02);
 }
 
@@ -284,25 +283,9 @@ header img {
   border-radius: 16px;
   border: 1px solid rgba(48, 250, 181, 0.1);
   position: relative;
-  overflow: hidden;
 }
 
-.splash-main-image::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(48, 250, 181, 0.05), transparent);
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-  100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-}
+/* Removed the heavy shimmer animation for better performance */
 
 .central-image {
   max-width: 200px;
@@ -310,20 +293,12 @@ header img {
   height: auto;
   border-radius: 12px;
   background: transparent;
-  animation: gentleFloat 3s ease-in-out infinite;
   position: relative;
   z-index: 1;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
-@keyframes gentleFloat {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(-8px) scale(1.02);
-  }
-}
+/* Removed floating animation for better performance */
 
 .splash-text {
   text-align: center;
@@ -1436,51 +1411,6 @@ footer {
   text-transform: uppercase;
 }
 
-.close-btn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-.close-btn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.close-btn:hover {
-  background: rgba(48, 250, 181, 0.2);
-  color: var(--accent-primary);
-  transform: translateY(-50%) rotate(90deg);
-  -webkit-transform: translateY(-50%) rotate(90deg);
-  -moz-transform: translateY(-50%) rotate(90deg);
-  -ms-transform: translateY(-50%) rotate(90deg);
-}
-
 .sidebar-body {
   padding: 15px;
   color: var(--text-primary);
@@ -1489,7 +1419,9 @@ footer {
 }
 
 /* Calculator Styling */
-.calculator {
+.calculator,
+.sidebar-content .calculator,
+.floating-sidebar .calculator {
   background: linear-gradient(135deg, 
     var(--bg-secondary) 0%, 
     var(--bg-primary) 100%) !important;
@@ -1507,24 +1439,14 @@ footer {
 }
 
 /* Calculator Display */
-#calculator-display,
-.calc-display,
 .calculator-display {
-  width: 100% !important;
-  height: 60px !important;
-  font-size: 18px !important;
-  font-family: 'Inter', monospace !important;
-  background: rgba(21, 31, 45, 0.8) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid rgba(48, 250, 181, 0.3) !important;
-  border-radius: 8px !important;
-  padding: 12px !important;
-  text-align: right !important;
-  margin-bottom: 16px !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  margin: 0 12px 16px 12px !important;
 }
 
-.calculator-display input {
+.calculator-display input,
+.sidebar-content .calculator-display input,
+.floating-sidebar .calculator-display input,
+#calcDisplay {
   width: 100% !important;
   height: 60px !important;
   font-size: 18px !important;
@@ -1536,49 +1458,20 @@ footer {
   padding: 12px !important;
   text-align: right !important;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  box-sizing: border-box !important;
 }
 
 /* Calculator Grid */
 .calc-grid,
-.calculator-buttons {
+.calculator-buttons,
+.sidebar-content .calculator-buttons,
+.floating-sidebar .calculator-buttons {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
   gap: 8px !important;
   width: 100% !important;
-}
-
-.calculator-display {
-  margin-bottom: 12px;
-}
-
-.calculator-display input {
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(135deg, 
-    var(--night) 0%, 
-    var(--rich-black) 100%);
-  border: 2px solid rgba(48, 250, 181, 0.4);
-  border-radius: 8px;
-  color: var(--aquamarine);
-  font-size: 16px;
-  font-weight: 600;
-  text-align: right;
-  padding: 0 12px;
-  font-family: 'Inter', monospace;
-  box-shadow: 
-    inset 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-}
-
-.calculator-display input:focus {
-  outline: none;
-  border-color: rgba(48, 250, 181, 0.6);
-  box-shadow: 
-    inset 0 2px 8px rgba(0, 0, 0, 0.3),
-    0 0 15px rgba(48, 250, 181, 0.4);
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
 }
 
 .calculator-buttons {
@@ -1775,10 +1668,6 @@ footer {
   border-bottom-color: rgba(48, 250, 181, 0.4);
 }
 
-[data-theme="light"] .close-btn:hover {
-  background: rgba(48, 250, 181, 0.3);
-}
-
 /* Mobile adjustments for sidebar */
 @media (max-width: 768px) {
   .floating-sidebar {
@@ -1836,12 +1725,26 @@ footer {
   }
   
   .calc-btn {
-    height: 35px;
-    font-size: 13px;
+    height: 35px !important;
+    font-size: 13px !important;
   }
   
   .calculator-display input {
-    height: 35px;
-    font-size: 14px;
+    height: 35px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Desktop specific calculator styling */
+@media (min-width: 769px) {
+  .calc-btn {
+    height: 38px !important;
+    font-size: 14px !important;
+  }
+  
+  .calculator-display input,
+  #calcDisplay {
+    height: 60px !important;
+    font-size: 18px !important;
   }
 }

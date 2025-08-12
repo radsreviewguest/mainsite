@@ -406,10 +406,8 @@ function setupSidebarEventListeners() {
   
   // Sidebar controls
   const sidebarToggle = document.getElementById('sidebarToggle');
-  const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
   
   console.log('Sidebar toggle found:', sidebarToggle);
-  console.log('Sidebar close button found:', sidebarCloseBtn);
   
   if (sidebarToggle) {
     sidebarToggle.addEventListener('click', function(e) {
@@ -421,18 +419,6 @@ function setupSidebarEventListeners() {
     console.log('Sidebar toggle event listener attached');
   } else {
     console.log('Sidebar toggle not found');
-  }
-  
-  if (sidebarCloseBtn) {
-    sidebarCloseBtn.addEventListener('click', function(e) {
-      console.log('Sidebar close button clicked!');
-      e.preventDefault();
-      e.stopPropagation();
-      toggleSidebar();
-    });
-    console.log('Sidebar close button event listener attached');
-  } else {
-    console.log('Sidebar close button not found');
   }
 }
 

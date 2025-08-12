@@ -217,6 +217,9 @@ function filterResources(query) {
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Prevent browser intervention with images
+  preventImageIntervention();
+  
   // Setup event listeners for security-enhanced elements FIRST
   setupEventListeners();
   
@@ -275,6 +278,32 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mobile-specific optimizations
   addMobileOptimizations();
 });
+
+// Prevent browser intervention with image loading
+function preventImageIntervention() {
+  // Force immediate loading of critical images
+  const criticalImages = document.querySelectorAll('img[loading="eager"], img[fetchpriority="high"]');
+  criticalImages.forEach(img => {
+    if (!img.complete) {
+      // Force immediate decode
+      img.decode().catch(() => {
+        // Fallback if decode fails
+        console.log('Image decode fallback for:', img.src);
+      });
+    }
+  });
+  
+  // Disable lazy loading intervention for all images
+  const allImages = document.querySelectorAll('img');
+  allImages.forEach(img => {
+    // Ensure images load immediately
+    if (img.loading !== 'eager') {
+      img.loading = 'eager';
+    }
+    // Prevent browser placeholder replacement
+    img.setAttribute('data-original-loading', 'controlled');
+  });
+}
 
 // Setup all event listeners for security enhancement
 function setupEventListeners() {

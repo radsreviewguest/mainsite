@@ -9,12 +9,19 @@
 <meta name="theme-color" content="#191c1c" />
 <meta name="apple-mobile-web-app-title" content="RadsReview" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
 
 <!-- DNS Prefetch for external domains -->
 <link rel="dns-prefetch" href="//www.imaios.com">
 <link rel="dns-prefetch" href="//edge.sitecorecloud.io">
 <link rel="dns-prefetch" href="//sites.google.com">
 <link rel="dns-prefetch" href="//app.statdx.com">
+
+<!-- Preload critical resources -->
+<link rel="preload" href="./images/radreview_text.png" as="image" type="image/png" fetchpriority="high">
+<link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./js/main.js" as="script" fetchpriority="high">
 
 <!-- Preload critical resources -->
 <link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -34,10 +41,10 @@
 <div id="splashScreen" class="splash-screen">
   <div class="splash-content">
     <div class="splash-logo">
-      <img src="./images/radreview_text.png" alt="RadsReview Logo" loading="eager" decoding="sync" />
+      <img src="./images/radreview_text.png" alt="RadsReview Logo" loading="eager" decoding="sync" fetchpriority="high" />
     </div>
     <div class="splash-main-image">
-  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="lazy" decoding="async" />
+  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="eager" decoding="sync" fetchpriority="high" />
     </div>
     <div class="splash-text">
       <h1 class="splash-title">READING ROOM RESOURCES</h1>
@@ -53,7 +60,7 @@
 <div id="mainContent" class="main-content" style="display: none;">
 <header>
   <a href="index.html">
-    <img src="./images/radreview_text.png" alt="RadsReview Logo" style="cursor: pointer;">
+    <img src="./images/radreview_text.png" alt="RadsReview Logo" style="cursor: pointer;" loading="eager" decoding="sync" fetchpriority="high">
   </a>
   <div class="header-controls">
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">

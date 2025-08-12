@@ -83,6 +83,9 @@ function enterSite() {
   }, 500);
 }
 
+// Make enterSite available globally for direct onclick calls
+window.enterSite = enterSite;
+
 // Check if splash should be shown
 function checkSplashScreen() {
   const hasSeenSplash = sessionStorage.getItem('splashSeen');
@@ -217,21 +220,71 @@ function filterResources(query) {
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, starting initialization...');
+  
   // Prevent browser intervention with images
   preventImageIntervention();
   
   // Setup event listeners for security-enhanced elements FIRST
   setupEventListeners();
   
-  // Backup event listener for enter site button (in case of timing issues)
+  // Multiple backup attempts for enter site button (in case of timing issues)
+  let attempts = 0;
+  const maxAttempts = 10;
+  
+  function attachEnterSiteListener() {
+    attempts++;
+    const enterSiteBtn = document.getElementById('enterSiteBtn');
+    console.log(`Attempt ${attempts}: Looking for enter site button...`, enterSiteBtn);
+    
+    if (enterSiteBtn && !enterSiteBtn.hasAttribute('data-listener-attached')) {
+      console.log('Attaching event listener to enter site button');
+      enterSiteBtn.addEventListener('click', function(e) {
+        console.log('Enter site button clicked!');
+        e.preventDefault();
+        enterSite();
+      });
+      enterSiteBtn.setAttribute('data-listener-attached', 'true');
+      console.log('Event listener attached successfully');
+    } else if (!enterSiteBtn && attempts < maxAttempts) {
+      console.log(`Button not found, retrying in 100ms (attempt ${attempts}/${maxAttempts})`);
+      setTimeout(attachEnterSiteListener, 100);
+    } else if (!enterSiteBtn) {
+      console.error('Enter site button not found after maximum attempts');
+    }
+  }
+  
+  // Start the first attempt immediately
+  attachEnterSiteListener();
+  
+  // Add additional debugging and testing
   setTimeout(() => {
     const enterSiteBtn = document.getElementById('enterSiteBtn');
-    if (enterSiteBtn && !enterSiteBtn.hasAttribute('data-listener-attached')) {
-      console.log('Attaching backup event listener to enter site button');
-      enterSiteBtn.addEventListener('click', enterSite);
-      enterSiteBtn.setAttribute('data-listener-attached', 'true');
+    if (enterSiteBtn) {
+      console.log('Final check - button found:', enterSiteBtn);
+      console.log('Button has onclick:', enterSiteBtn.onclick);
+      console.log('Button has event listeners attached:', enterSiteBtn.hasAttribute('data-listener-attached'));
+      
+      // Add a test click listener to verify the button is responding
+      enterSiteBtn.addEventListener('mousedown', function() {
+        console.log('Button mouse down detected!');
+      });
+      
+      enterSiteBtn.addEventListener('mouseup', function() {
+        console.log('Button mouse up detected!');
+      });
+      
+      // Test the function directly
+      console.log('Testing enterSite function directly...');
+      if (typeof window.enterSite === 'function') {
+        console.log('enterSite is available globally');
+      } else {
+        console.error('enterSite is NOT available globally');
+      }
+    } else {
+      console.error('Final check - button NOT found');
     }
-  }, 100);
+  }, 500);
   
   // Register service worker for performance optimization
   if ('serviceWorker' in navigator) {
@@ -307,14 +360,25 @@ function preventImageIntervention() {
 
 // Setup all event listeners for security enhancement
 function setupEventListeners() {
+  console.log('Setting up event listeners...');
+  
   // Splash screen enter button
   const enterSiteBtn = document.getElementById('enterSiteBtn');
+  console.log('Enter site button found in setupEventListeners:', enterSiteBtn);
+  
   if (enterSiteBtn) {
-    enterSiteBtn.addEventListener('click', enterSite);
+    // Remove any existing listeners first
+    enterSiteBtn.removeEventListener('click', enterSite);
+    // Add the new listener
+    enterSiteBtn.addEventListener('click', function(e) {
+      console.log('Enter site button clicked via setupEventListeners!');
+      e.preventDefault();
+      enterSite();
+    });
     enterSiteBtn.setAttribute('data-listener-attached', 'true');
-    console.log('Enter site button event listener attached');
+    console.log('Enter site button event listener attached in setupEventListeners');
   } else {
-    console.log('Enter site button not found');
+    console.log('Enter site button not found in setupEventListeners');
   }
   
   // Theme toggle button

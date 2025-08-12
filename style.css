@@ -1459,9 +1459,7 @@ footer {
 
 /* Calculator Styling */
 .calculator {
-  background: linear-gradient(135deg, 
-    var(--bg-secondary) 0%, 
-    var(--bg-primary) 100%);
+  background: var(--bg-primary);
   border: 1px solid rgba(48, 250, 181, 0.3);
   border-radius: 12px;
   padding: 12px;
@@ -1609,22 +1607,22 @@ footer {
 /* Clear buttons */
 .calc-btn.clear {
   background: linear-gradient(135deg, 
-    rgba(255, 107, 107, 0.2) 0%, 
-    rgba(255, 107, 107, 0.1) 100%);
-  color: #ff6b6b;
-  border: 1px solid rgba(255, 107, 107, 0.4);
+    rgba(255, 159, 67, 0.2) 0%, 
+    rgba(255, 159, 67, 0.1) 100%);
+  color: var(--bronze);
+  border: 1px solid rgba(255, 159, 67, 0.4);
   box-shadow: 
-    0 2px 8px rgba(255, 107, 107, 0.2),
+    0 2px 8px rgba(255, 159, 67, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .calc-btn.clear:hover {
   background: linear-gradient(135deg, 
-    rgba(255, 107, 107, 0.3) 0%, 
-    rgba(255, 107, 107, 0.2) 100%);
-  border-color: rgba(255, 107, 107, 0.6);
+    rgba(255, 159, 67, 0.3) 0%, 
+    rgba(255, 159, 67, 0.2) 100%);
+  border-color: rgba(255, 159, 67, 0.6);
   box-shadow: 
-    0 4px 12px rgba(255, 107, 107, 0.3),
+    0 4px 12px rgba(255, 159, 67, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
   -webkit-transform: translateY(-1px);
@@ -1661,9 +1659,7 @@ footer {
 
 /* Light theme adjustments for calculator */
 [data-theme="light"] .calculator {
-  background: linear-gradient(135deg, 
-    #ffffff 0%, 
-    #f8f9fa 100%);
+  background: var(--bg-primary);
   border-color: rgba(48, 250, 181, 0.4);
 }
 

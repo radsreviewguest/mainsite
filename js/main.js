@@ -87,9 +87,8 @@ function enterSite() {
     
     // Re-setup event listeners for elements that are now visible
     setTimeout(() => {
-      setupSidebarEventListeners();
-      setupCalculatorEventListeners();
-      console.log('Re-setup sidebar and calculator event listeners after entering site');
+      setupEventListeners(); // Re-setup all event listeners including tabs
+      console.log('Re-setup all event listeners after entering site');
     }, 100);
     
     console.log('Site entered successfully');
@@ -121,8 +120,11 @@ function checkSplashScreen() {
 
 // Tab functionality
 function showTab(tabId, clickedTab) {
+  console.log('showTab called with:', tabId, clickedTab);
+  
   // Hide all content sections
   const sections = document.querySelectorAll('.content');
+  console.log('Found content sections:', sections.length);
   sections.forEach(section => {
     section.style.display = 'none';
     section.classList.remove('active');
@@ -133,8 +135,10 @@ function showTab(tabId, clickedTab) {
       section.removeAttribute('data-original-content');
     }
   });
+  
   // Show the target content section
   const activeSection = document.getElementById(tabId);
+  console.log('Active section found:', activeSection);
   if (activeSection) {
     activeSection.style.display = 'block';
     activeSection.classList.add('active');
@@ -364,9 +368,12 @@ function setupEventListeners() {
   
   // Tab navigation
   const tabs = document.querySelectorAll('.tab[data-tab]');
+  console.log('Found tabs with data-tab:', tabs.length);
   tabs.forEach(tab => {
+    console.log('Setting up tab:', tab.getAttribute('data-tab'));
     tab.addEventListener('click', function() {
       const tabId = this.getAttribute('data-tab');
+      console.log('Tab clicked:', tabId);
       showTab(tabId, this);
     });
   });

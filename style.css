@@ -146,7 +146,7 @@ header img {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  z-index: 1000;
+  z-index: 1100;
 }
 
 .theme-toggle {
@@ -1268,6 +1268,11 @@ footer {
 
 /* Dark mode specific mobile adjustments */
 @media (max-width: 768px) {
+  .header-controls {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  
   [data-theme="dark"] .search-container {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -1383,9 +1388,7 @@ footer {
   right: 50px;
   width: 0;
   height: 450px;
-  background: linear-gradient(135deg, 
-    var(--bg-primary) 0%, 
-    var(--bg-secondary) 100%);
+  background: var(--bg-primary);
   border: 2px solid transparent;
   border-right: none;
   border-radius: 15px 0 0 15px;
@@ -1408,20 +1411,37 @@ footer {
 
 .sidebar-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 15px 20px;
   border-bottom: 1px solid rgba(48, 250, 181, 0.3);
   background: rgba(48, 250, 181, 0.1);
+  position: relative;
 }
 
 .sidebar-header h3 {
   margin: 0;
   color: var(--text-primary);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 .close-btn {
   background: none;
   border: none;
@@ -1439,15 +1459,19 @@ footer {
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .close-btn:hover {
   background: rgba(48, 250, 181, 0.2);
   color: var(--accent-primary);
-  transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
+  transform: translateY(-50%) rotate(90deg);
+  -webkit-transform: translateY(-50%) rotate(90deg);
+  -moz-transform: translateY(-50%) rotate(90deg);
+  -ms-transform: translateY(-50%) rotate(90deg);
 }
 
 .sidebar-body {
@@ -1459,7 +1483,9 @@ footer {
 
 /* Calculator Styling */
 .calculator {
-  background: var(--bg-primary);
+  background: linear-gradient(135deg, 
+    var(--bg-secondary) 0%, 
+    var(--bg-primary) 100%);
   border: 1px solid rgba(48, 250, 181, 0.3);
   border-radius: 12px;
   padding: 12px;
@@ -1659,7 +1685,9 @@ footer {
 
 /* Light theme adjustments for calculator */
 [data-theme="light"] .calculator {
-  background: var(--bg-primary);
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #f8f9fa 100%);
   border-color: rgba(48, 250, 181, 0.4);
 }
 

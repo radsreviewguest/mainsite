@@ -1386,14 +1386,14 @@ footer {
   background: linear-gradient(135deg, 
     var(--bg-primary) 0%, 
     var(--bg-secondary) 100%);
-  border: 2px solid rgba(48, 250, 181, 0.4);
+  border: 2px solid transparent;
   border-right: none;
   border-radius: 15px 0 0 15px;
   overflow: hidden;
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  -ms-transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
@@ -1402,6 +1402,8 @@ footer {
 
 .floating-sidebar.expanded .sidebar-content {
   width: calc(33vw - 50px);
+  border: 2px solid rgba(48, 250, 181, 0.4);
+  border-right: none;
 }
 
 .sidebar-header {

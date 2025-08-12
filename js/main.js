@@ -79,12 +79,23 @@ function enterSite() {
     mainContent.classList.add('show');
     // Initialize theme after entering main content
     initializeTheme();
+    
+    // Re-setup event listeners for elements that are now visible
+    setTimeout(() => {
+      setupSidebarEventListeners();
+      setupCalculatorEventListeners();
+      console.log('Re-setup sidebar and calculator event listeners after entering site');
+    }, 100);
+    
     console.log('Site entered successfully');
   }, 500);
 }
 
 // Make enterSite available globally for direct onclick calls
 window.enterSite = enterSite;
+
+// Make toggleSidebar available globally for debugging
+window.toggleSidebar = toggleSidebar;
 
 // Check if splash should be shown
 function checkSplashScreen() {
@@ -429,24 +440,61 @@ function setupEventListeners() {
   const protocolsTab = document.getElementById('protocolsTab');
   if (protocolsTab) {
     protocolsTab.addEventListener('click', () => {
-      window.open('#', '_blank');
+      window.open('https://www.protocolinfo.com', '_blank');
     });
   }
+  
+  // Setup sidebar functionality
+  setupSidebarEventListeners();
+  
+  // Setup calculator functionality
+  setupCalculatorEventListeners();
+}
+
+// Separate function for sidebar event listeners
+function setupSidebarEventListeners() {
+  console.log('Setting up sidebar event listeners...');
   
   // Sidebar controls
   const sidebarToggle = document.getElementById('sidebarToggle');
   const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
   
+  console.log('Sidebar toggle found:', sidebarToggle);
+  console.log('Sidebar close button found:', sidebarCloseBtn);
+  
   if (sidebarToggle) {
-    sidebarToggle.addEventListener('click', toggleSidebar);
+    sidebarToggle.addEventListener('click', function(e) {
+      console.log('Sidebar toggle clicked!');
+      e.preventDefault();
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    console.log('Sidebar toggle event listener attached');
+  } else {
+    console.log('Sidebar toggle not found');
   }
   
   if (sidebarCloseBtn) {
-    sidebarCloseBtn.addEventListener('click', toggleSidebar);
+    sidebarCloseBtn.addEventListener('click', function(e) {
+      console.log('Sidebar close button clicked!');
+      e.preventDefault();
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    console.log('Sidebar close button event listener attached');
+  } else {
+    console.log('Sidebar close button not found');
   }
+}
+
+// Separate function for calculator event listeners
+function setupCalculatorEventListeners() {
+  console.log('Setting up calculator event listeners...');
   
   // Calculator buttons
   const calcButtons = document.querySelectorAll('.calc-btn');
+  console.log('Calculator buttons found:', calcButtons.length);
+  
   calcButtons.forEach(button => {
     button.addEventListener('click', function() {
       const action = this.getAttribute('data-action');
@@ -625,9 +673,16 @@ function filterResources(query) {
 
 // Floating Sidebar functionality
 function toggleSidebar() {
+  console.log('toggleSidebar function called');
   const sidebar = document.getElementById('floatingSidebar');
+  console.log('Sidebar element found:', sidebar);
+  
   if (sidebar) {
+    const wasExpanded = sidebar.classList.contains('expanded');
     sidebar.classList.toggle('expanded');
+    const isExpanded = sidebar.classList.contains('expanded');
+    
+    console.log('Sidebar expanded state changed from', wasExpanded, 'to', isExpanded);
     
     // Update toggle icon based on state
     const toggleIcon = sidebar.querySelector('.toggle-icon');
@@ -635,8 +690,11 @@ function toggleSidebar() {
       if (sidebar.classList.contains('expanded')) {
         toggleIcon.innerHTML = '×';
       } else {
-        toggleIcon.innerHTML = '≡';
+        toggleIcon.innerHTML = '⊞';
       }
+      console.log('Toggle icon updated to:', toggleIcon.innerHTML);
+    } else {
+      console.log('Toggle icon not found');
     }
     
     // Add/remove body class to prevent scrolling when sidebar is open on mobile
@@ -647,6 +705,8 @@ function toggleSidebar() {
         document.body.style.overflow = '';
       }
     }
+  } else {
+    console.error('Sidebar element not found!');
   }
 }
 

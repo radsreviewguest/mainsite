@@ -59,8 +59,12 @@ function contractSearch(input) {
 
 // Splash Screen functionality
 function enterSite() {
+  console.log('enterSite function called');
   const splashScreen = document.getElementById('splashScreen');
   const mainContent = document.getElementById('mainContent');
+  
+  console.log('Splash screen element:', splashScreen);
+  console.log('Main content element:', mainContent);
   
   // Mark that splash has been seen this session
   sessionStorage.setItem('splashSeen', 'true');
@@ -75,6 +79,7 @@ function enterSite() {
     mainContent.classList.add('show');
     // Initialize theme after entering main content
     initializeTheme();
+    console.log('Site entered successfully');
   }, 500);
 }
 
@@ -212,6 +217,19 @@ function filterResources(query) {
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Setup event listeners for security-enhanced elements FIRST
+  setupEventListeners();
+  
+  // Backup event listener for enter site button (in case of timing issues)
+  setTimeout(() => {
+    const enterSiteBtn = document.getElementById('enterSiteBtn');
+    if (enterSiteBtn && !enterSiteBtn.hasAttribute('data-listener-attached')) {
+      console.log('Attaching backup event listener to enter site button');
+      enterSiteBtn.addEventListener('click', enterSite);
+      enterSiteBtn.setAttribute('data-listener-attached', 'true');
+    }
+  }, 100);
+  
   // Register service worker for performance optimization
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -224,9 +242,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
   }
-  
-  // Setup event listeners for security-enhanced elements
-  setupEventListeners();
   
   // Check if splash screen should be shown
   checkSplashScreen();
@@ -267,6 +282,10 @@ function setupEventListeners() {
   const enterSiteBtn = document.getElementById('enterSiteBtn');
   if (enterSiteBtn) {
     enterSiteBtn.addEventListener('click', enterSite);
+    enterSiteBtn.setAttribute('data-listener-attached', 'true');
+    console.log('Enter site button event listener attached');
+  } else {
+    console.log('Enter site button not found');
   }
   
   // Theme toggle button

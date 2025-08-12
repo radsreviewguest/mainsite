@@ -225,6 +225,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Setup event listeners for security-enhanced elements
+  setupEventListeners();
+  
   // Check if splash screen should be shown
   checkSplashScreen();
   
@@ -257,6 +260,100 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mobile-specific optimizations
   addMobileOptimizations();
 });
+
+// Setup all event listeners for security enhancement
+function setupEventListeners() {
+  // Splash screen enter button
+  const enterSiteBtn = document.getElementById('enterSiteBtn');
+  if (enterSiteBtn) {
+    enterSiteBtn.addEventListener('click', enterSite);
+  }
+  
+  // Theme toggle button
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
+  
+  // AI button
+  const aiButton = document.getElementById('aiButton');
+  if (aiButton) {
+    aiButton.addEventListener('click', () => {
+      window.open('cerebrai.html', '_blank');
+    });
+  }
+  
+  // Search input
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      filterResources(e.target.value);
+    });
+    searchInput.addEventListener('focus', (e) => {
+      expandSearch(e.target);
+    });
+    searchInput.addEventListener('blur', (e) => {
+      contractSearch(e.target);
+    });
+  }
+  
+  // Tab navigation
+  const tabs = document.querySelectorAll('.tab[data-tab]');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab');
+      showTab(tabId, this);
+    });
+  });
+  
+  // External tab links
+  const numbersTab = document.getElementById('numbersTab');
+  if (numbersTab) {
+    numbersTab.addEventListener('click', () => {
+      window.open('https://sites.google.com/view/radsreview/numbers-and-measurements', '_blank');
+    });
+  }
+  
+  const protocolsTab = document.getElementById('protocolsTab');
+  if (protocolsTab) {
+    protocolsTab.addEventListener('click', () => {
+      window.open('#', '_blank');
+    });
+  }
+  
+  // Sidebar controls
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+  
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', toggleSidebar);
+  }
+  
+  if (sidebarCloseBtn) {
+    sidebarCloseBtn.addEventListener('click', toggleSidebar);
+  }
+  
+  // Calculator buttons
+  const calcButtons = document.querySelectorAll('.calc-btn');
+  calcButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const action = this.getAttribute('data-action');
+      const value = this.getAttribute('data-value');
+      
+      if (action === 'clear') {
+        clearCalculator();
+      } else if (action === 'clear-entry') {
+        clearEntry();
+      } else if (action === 'delete') {
+        deleteLast();
+      } else if (action === 'calculate') {
+        calculateResult();
+      } else if (value) {
+        appendToDisplay(value);
+      }
+    });
+  });
+}
 
 // Mobile optimization functions
 function addMobileOptimizations() {
@@ -413,3 +510,231 @@ function filterResources(query) {
     }
   }
 }
+
+// Floating Sidebar functionality
+function toggleSidebar() {
+  const sidebar = document.getElementById('floatingSidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('expanded');
+    
+    // Update toggle icon based on state
+    const toggleIcon = sidebar.querySelector('.toggle-icon');
+    if (toggleIcon) {
+      if (sidebar.classList.contains('expanded')) {
+        toggleIcon.innerHTML = '×';
+      } else {
+        toggleIcon.innerHTML = '≡';
+      }
+    }
+    
+    // Add/remove body class to prevent scrolling when sidebar is open on mobile
+    if (window.innerWidth <= 768) {
+      if (sidebar.classList.contains('expanded')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+}
+
+// Close sidebar when clicking outside of it
+document.addEventListener('click', function(event) {
+  const sidebar = document.getElementById('floatingSidebar');
+  if (sidebar && sidebar.classList.contains('expanded')) {
+    const isClickInside = sidebar.contains(event.target);
+    const isToggleButton = event.target.closest('#sidebarToggle');
+    if (!isClickInside && !isToggleButton) {
+      toggleSidebar();
+    }
+  }
+});
+
+// Close sidebar on escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const sidebar = document.getElementById('floatingSidebar');
+    if (sidebar && sidebar.classList.contains('expanded')) {
+      toggleSidebar();
+    }
+  }
+});
+
+// Calculator functionality
+let currentInput = '0';
+let operator = null;
+let waitingForNewInput = false;
+
+function updateDisplay() {
+  const display = document.getElementById('calcDisplay');
+  if (display) {
+    // Format the display value
+    const value = parseFloat(currentInput);
+    if (isNaN(value)) {
+      display.value = 'Error';
+    } else {
+      // Format large numbers with scientific notation
+      if (Math.abs(value) >= 1e10 || (Math.abs(value) < 1e-6 && value !== 0)) {
+        display.value = value.toExponential(6);
+      } else {
+        display.value = value.toString();
+      }
+    }
+  }
+}
+
+function appendToDisplay(value) {
+  const display = document.getElementById('calcDisplay');
+  if (!display) return;
+
+  if (waitingForNewInput) {
+    currentInput = '';
+    waitingForNewInput = false;
+  }
+
+  // Handle operators
+  if (['+', '-', '*', '/'].includes(value)) {
+    if (currentInput === '' || currentInput === '0') {
+      currentInput = '0';
+    }
+    operator = value;
+    waitingForNewInput = true;
+    return;
+  }
+
+  // Handle decimal point
+  if (value === '.') {
+    if (currentInput.includes('.')) return;
+    if (currentInput === '' || waitingForNewInput) {
+      currentInput = '0.';
+      waitingForNewInput = false;
+    } else {
+      currentInput += '.';
+    }
+  } else {
+    // Handle numbers
+    if (currentInput === '0' && value !== '.') {
+      currentInput = value;
+    } else {
+      currentInput += value;
+    }
+  }
+
+  updateDisplay();
+}
+
+function clearCalculator() {
+  currentInput = '0';
+  operator = null;
+  waitingForNewInput = false;
+  updateDisplay();
+}
+
+function clearEntry() {
+  currentInput = '0';
+  updateDisplay();
+}
+
+function deleteLast() {
+  if (currentInput.length > 1) {
+    currentInput = currentInput.slice(0, -1);
+  } else {
+    currentInput = '0';
+  }
+  updateDisplay();
+}
+
+function calculateResult() {
+  const display = document.getElementById('calcDisplay');
+  if (!display || !operator) return;
+
+  try {
+    const currentValue = parseFloat(currentInput);
+    const displayValue = parseFloat(display.value);
+    
+    let result;
+    switch (operator) {
+      case '+':
+        result = displayValue + currentValue;
+        break;
+      case '-':
+        result = displayValue - currentValue;
+        break;
+      case '*':
+        result = displayValue * currentValue;
+        break;
+      case '/':
+        if (currentValue === 0) {
+          throw new Error('Division by zero');
+        }
+        result = displayValue / currentValue;
+        break;
+      default:
+        return;
+    }
+
+    // Handle very large or very small results
+    if (!isFinite(result)) {
+      throw new Error('Result too large');
+    }
+
+    currentInput = result.toString();
+    operator = null;
+    waitingForNewInput = true;
+    updateDisplay();
+
+  } catch (error) {
+    currentInput = 'Error';
+    operator = null;
+    waitingForNewInput = true;
+    updateDisplay();
+  }
+}
+
+// Keyboard support for calculator
+document.addEventListener('keydown', function(event) {
+  const sidebar = document.getElementById('floatingSidebar');
+  if (!sidebar || !sidebar.classList.contains('expanded')) return;
+
+  const key = event.key;
+  
+  // Prevent default behavior for calculator keys
+  if ('0123456789+-*/.='.includes(key) || key === 'Enter' || key === 'Backspace' || key === 'Delete') {
+    event.preventDefault();
+  }
+
+  // Handle number keys
+  if ('0123456789'.includes(key)) {
+    appendToDisplay(key);
+  }
+  // Handle operator keys
+  else if (key === '+') {
+    appendToDisplay('+');
+  }
+  else if (key === '-') {
+    appendToDisplay('-');
+  }
+  else if (key === '*') {
+    appendToDisplay('*');
+  }
+  else if (key === '/') {
+    appendToDisplay('/');
+  }
+  else if (key === '.') {
+    appendToDisplay('.');
+  }
+  // Handle calculation
+  else if (key === '=' || key === 'Enter') {
+    calculateResult();
+  }
+  // Handle clear/delete
+  else if (key === 'Backspace') {
+    deleteLast();
+  }
+  else if (key === 'Delete') {
+    clearEntry();
+  }
+  else if (key === 'Escape') {
+    clearCalculator();
+  }
+});

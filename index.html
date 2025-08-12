@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="    <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">
+      <span class="theme-icon">☀</span>
+    </button>-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="theme-color" content="#191c1c" />
 <meta name="apple-mobile-web-app-title" content="RadsReview" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
 
 <!-- DNS Prefetch for external domains -->
 <link rel="dns-prefetch" href="//www.imaios.com">
@@ -42,7 +45,7 @@
       <h1 class="splash-title">READING ROOM RESOURCES</h1>
       <p class="splash-subtitle">Instant access to trusted radiology references, tools, and teaching files.</p>
     </div>
-    <button class="splash-enter-btn" onclick="enterSite()">
+    <button class="splash-enter-btn" id="enterSiteBtn">
       Enter Site
     </button>
   </div>
@@ -65,26 +68,26 @@
   <div class="search-and-ai-container">
     <div class="search-container">
       <span class="search-icon">⌕</span>
-      <input type="text" placeholder="Search resources..." oninput="filterResources(this.value)" onfocus="expandSearch(this)" onblur="contractSearch(this)" />
+      <input type="text" id="searchInput" placeholder="Search resources..." />
     </div>
-    <button class="ai-button" onclick="window.open('cerebrai.html','_blank')" title="AI Tools">
+    <button class="ai-button" id="aiButton" title="AI Tools">
       <span class="ai-icon">Ai</span>
     </button>
   </div>
 </section>
 <div class="tabs-wrapper">
 <section class="tabs">
-  <div class="tab active" onclick="showTab('abd', this)"><h2>ABD</h2></div>
-  <div class="tab" onclick="showTab('anatomy', this)"><h2>ANATOMY</h2></div>
-  <div class="tab" onclick="showTab('chest', this)"><h2>CHEST</h2></div>
-  <div class="tab" onclick="showTab('breast', this)"><h2>BREAST</h2></div>
-  <div class="tab" onclick="showTab('neuro', this)"><h2>NEURO</h2></div>
-  <div class="tab" onclick="showTab('nuclear', this)"><h2>NUCLEAR MED</h2></div>
-  <div class="tab" onclick="showTab('msk', this)"><h2>MSK</h2></div>
-  <div class="tab" onclick="showTab('peds', this)"><h2>PEDS</h2></div>
-  <div class="tab" onclick="showTab('us', this)"><h2>ULTRASOUND</h2></div>
-  <div class="tab" onclick="window.open('https://sites.google.com/view/radsreview/numbers-and-measurements','_blank')"><h2>NUMBERS ETC.</h2></div>
-  <div class="tab protocols-tab" onclick="window.open('#','_blank')"><h2>PROTOCOLS</h2></div>
+  <div class="tab active" data-tab="abd"><h2>ABD</h2></div>
+  <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2></div>
+  <div class="tab" data-tab="chest"><h2>CHEST</h2></div>
+  <div class="tab" data-tab="breast"><h2>BREAST</h2></div>
+  <div class="tab" data-tab="neuro"><h2>NEURO</h2></div>
+  <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2></div>
+  <div class="tab" data-tab="msk"><h2>MSK</h2></div>
+  <div class="tab" data-tab="peds"><h2>PEDS</h2></div>
+  <div class="tab" data-tab="us"><h2>ULTRASOUND</h2></div>
+  <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2></div>
+  <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2></div>
 </section>
 </div> <!-- End tabs-wrapper -->
 <section id="abd" class="content active">
@@ -176,6 +179,52 @@
 <footer>
   <p>© 2025 RadsReview — Built For Radiologists | <a href="privacy-policy.html" style="color: var(--accent-primary); text-decoration: none;">Privacy Policy</a></p>
 </footer>
+
+<!-- Floating Sidebar -->
+<div id="floatingSidebar" class="floating-sidebar">
+  <div class="sidebar-toggle" id="sidebarToggle">
+    <span class="toggle-icon">≡</span>
+  </div>
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <h3>Clinical Tools</h3>
+      <button class="close-btn" id="sidebarCloseBtn">×</button>
+    </div>
+    <div class="sidebar-body">
+      <div class="calculator">
+        <div class="calculator-display">
+          <input type="text" id="calcDisplay" readonly value="0" />
+        </div>
+        <div class="calculator-buttons">
+          <button class="calc-btn clear" data-action="clear">C</button>
+          <button class="calc-btn clear" data-action="clear-entry">CE</button>
+          <button class="calc-btn operator" data-action="delete">⌫</button>
+          <button class="calc-btn operator" data-value="/" data-op="÷">÷</button>
+          
+          <button class="calc-btn number" data-value="7">7</button>
+          <button class="calc-btn number" data-value="8">8</button>
+          <button class="calc-btn number" data-value="9">9</button>
+          <button class="calc-btn operator" data-value="*" data-op="×">×</button>
+          
+          <button class="calc-btn number" data-value="4">4</button>
+          <button class="calc-btn number" data-value="5">5</button>
+          <button class="calc-btn number" data-value="6">6</button>
+          <button class="calc-btn operator" data-value="-">−</button>
+          
+          <button class="calc-btn number" data-value="1">1</button>
+          <button class="calc-btn number" data-value="2">2</button>
+          <button class="calc-btn number" data-value="3">3</button>
+          <button class="calc-btn operator" data-value="+">+</button>
+          
+          <button class="calc-btn number zero" data-value="0">0</button>
+          <button class="calc-btn number" data-value=".">.</button>
+          <button class="calc-btn equals" data-action="calculate">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div> <!-- End of main content -->
 
 <!-- Load JavaScript asynchronously for better performance -->

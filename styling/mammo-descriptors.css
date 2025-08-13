@@ -1,5 +1,97 @@
 /* Mammography Descriptors Tool Specific Styles */
 
+/* inter-regular - cyrillic_latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+}
+
+/* Fallback for other font weights using system fonts */
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Inter Medium'), local('Inter-Medium'), url('../fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Inter SemiBold'), local('Inter-SemiBold'), url('../fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Inter Bold'), local('Inter-Bold'), url('../fonts/inter-v19-cyrillic_latin-regular.woff2') format('woff2');
+}
+
+/* Dark Theme Variables (default) */
+:root {
+  --vh: 1vh; /* Mobile viewport height fix */
+}
+
+[data-theme="dark"], :root {
+  --bg-primary: var(--night);
+  --bg-secondary: var(--rich-black);
+  --bg-search: var(--ash-gray);
+  --text-primary: var(--platinum);
+  --text-secondary: var(--ash-gray);
+  --accent-primary: var(--aquamarine);
+  --accent-secondary: var(--bronze);
+  --border-color: var(--rich-black);
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+  --bg-primary: var(--platinum);
+  --bg-secondary: #ffffff;
+  --bg-search: var(--ash-gray);
+  --text-primary: var(--night);
+  --text-secondary: var(--rich-black);
+  --accent-primary: var(--rich-black);
+  --accent-secondary: var(--bronze);
+  --border-color: var(--ash-gray);
+}
+
+/* Ensure Inter font is applied to ALL elements */
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Additional coverage for pseudo-elements and special cases */
+*::before, *::after {
+  font-family: inherit;
+}
+
+/* Specific font declarations for form elements and interactive elements */
+input, button, textarea, select, optgroup, option {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Basic reset and body styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
 .page-wrapper {
     display: flex;
     flex-direction: column;
@@ -111,13 +203,13 @@ legend {
 
 .radio-group input[type="radio"]:checked + span,
 .radio-group label:has(input[type="radio"]:checked) {
-    background: var(--orange);
+    background: var(--bronze);
     color: white;
-    border-color: var(--orange);
+    border-color: var(--bronze);
 }
 
 .radio-group input[type="radio"] {
-    accent-color: var(--orange);
+    accent-color: var(--bronze);
 }
 
 .dropdown-group {
@@ -159,7 +251,7 @@ legend {
 
 /* Generate button */
 #generate-btn {
-    background: linear-gradient(135deg, var(--orange), var(--accent-primary));
+    background: linear-gradient(135deg, var(--bronze), var(--accent-primary));
     color: white;
     border: none;
     padding: 1rem 2rem;
@@ -174,7 +266,7 @@ legend {
 
 #generate-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(255, 165, 0, 0.3);
+    box-shadow: 0 6px 12px rgba(214, 139, 42, 0.3);
 }
 
 #generate-btn:active {
@@ -240,7 +332,7 @@ legend {
     margin-bottom: 0.5rem;
     background: var(--bg-primary);
     border-radius: 6px;
-    border-left: 3px solid var(--orange);
+    border-left: 3px solid var(--bronze);
     font-size: 0.9rem;
     line-height: 1.4;
 }

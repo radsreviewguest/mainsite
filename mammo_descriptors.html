@@ -691,7 +691,7 @@ function generateAssessment(suspicious, benign) {
     assessment += `</div>`;
     
     if (suspicious.length > 0) {
-        assessment += '<span style="color: var(--orange);">⚠️ Suspicious features identified:</span><br>';
+        assessment += '<span style="color: var(--bronze);">⚠️ Suspicious features identified:</span><br>';
         suspicious.forEach(feature => {
             assessment += `• ${feature}<br>`;
         });
@@ -811,8 +811,8 @@ function getBiRadsColor(category) {
         '1': 'var(--aquamarine)',     // Normal - green
         '2': 'var(--aquamarine)',     // Benign - green  
         '3': '#FFD700',               // Probably benign - yellow
-        '4A': 'var(--orange)',        // Low suspicion - orange
-        '4B': 'var(--orange)',        // Moderate suspicion - orange
+        '4A': 'var(--bronze)',        // Low suspicion - bronze
+        '4B': 'var(--bronze)',        // Moderate suspicion - bronze
         '4C': '#FF6B35',              // High suspicion - red-orange
         '5': '#FF4444',               // Highly suspicious - red
         '6': '#8B0000'                // Proven malignancy - dark red

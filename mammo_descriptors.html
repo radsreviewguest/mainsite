@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BI-RADS Descriptors Tool</title>
+    <link rel="stylesheet" href="colors.css">
+    <link rel="stylesheet" href="styling/mammo-descriptors.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <div class="tool-container">
+        <h1>BI-RADS Descriptors Tool</h1>
+        <h2>Interactive Breast Imaging Lexicon for Mammography, Ultrasound & MRI</h2>
+
+        <div class="form-grid">
+            <form id="birads-form">
+                <fieldset>
+                    <legend>1. Imaging Modality</legend>
+                    <div class="radio-group">
+                        <label><input type="radio" name="modality" value="mammography"> Mammography</label>
+                        <label><input type="radio" name="modality" value="ultrasound"> Ultrasound</label>
+                        <label><input type="radio" name="modality" value="mri"> MRI</label>
+                    </div>
+                </fieldset>
+
+                <!-- Mammography Descriptors -->
+                <div id="mammography-options" class="hidden">
+                    <fieldset>
+                        <legend>2. Mass Descriptors</legend>
+                        <div class="dropdown-group">
+                            <label for="mammo-shape">Shape:</label>
+                            <select id="mammo-shape" name="mammo_shape">
+                                <option value="">Select shape...</option>
+                                <option value="oval">Oval</option>
+                                <option value="round">Round</option>
+                                <option value="irregular">Irregular</option>
+                            </select>
+
+                            <label for="mammo-margin">Margin:</label>
+                            <select id="mammo-margin" name="mammo_margin">
+                                <option value="">Select margin...</option>
+                                <option value="circumscribed">Circumscribed</option>
+                                <option value="obscured">Obscured</option>
+                                <option value="microlobulated">Microlobulated</option>
+                                <option value="indistinct">Indistinct</option>
+                                <option value="spiculated">Spiculated</option>
+                            </select>
+
+                            <label for="mammo-density">Density:</label>
+                            <select id="mammo-density" name="mammo_density">
+                                <option value="">Select density...</option>
+                                <option value="fat-containing">Fat-containing</option>
+                                <option value="low-density">Low density</option>
+                                <option value="equal-density">Equal density</option>
+                                <option value="high-density">High density</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>3. Calcification Descriptors</legend>
+                        <div class="dropdown-group">
+                            <label for="calc-morphology">Morphology:</label>
+                            <select id="calc-morphology" name="calc_morphology">
+                                <option value="">Select morphology...</option>
+                                <option value="skin">Skin</option>
+                                <option value="vascular">Vascular</option>
+                                <option value="coarse">Coarse or "popcorn-like"</option>
+                                <option value="large-rod">Large rod-like</option>
+                                <option value="round">Round</option>
+                                <option value="rim">Rim</option>
+                                <option value="dystrophic">Dystrophic</option>
+                                <option value="milk-calcium">Milk of calcium</option>
+                                <option value="suture">Suture</option>
+                                <option value="amorphous">Amorphous</option>
+                                <option value="coarse-hetero">Coarse heterogeneous</option>
+                                <option value="fine-pleomorphic">Fine pleomorphic</option>
+                                <option value="fine-linear">Fine linear or fine-linear branching</option>
+                            </select>
+
+                            <label for="calc-distribution">Distribution:</label>
+                            <select id="calc-distribution" name="calc_distribution">
+                                <option value="">Select distribution...</option>
+                                <option value="diffuse">Diffuse</option>
+                                <option value="regional">Regional</option>
+                                <option value="grouped">Grouped</option>
+                                <option value="linear">Linear</option>
+                                <option value="segmental">Segmental</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>4. Architectural Distortion & Special Cases</legend>
+                        <div class="dropdown-group">
+                            <label for="arch-distortion">Architectural Distortion:</label>
+                            <select id="arch-distortion" name="arch_distortion">
+                                <option value="">Select if present...</option>
+                                <option value="present">Present</option>
+                                <option value="absent">Absent</option>
+                            </select>
+
+                            <label for="asymmetry">Asymmetry:</label>
+                            <select id="asymmetry" name="asymmetry">
+                                <option value="">Select type...</option>
+                                <option value="asymmetry">Asymmetry</option>
+                                <option value="global-asymmetry">Global asymmetry</option>
+                                <option value="focal-asymmetry">Focal asymmetry</option>
+                                <option value="developing-asymmetry">Developing asymmetry</option>
+                            </select>
+
+                            <label for="special-cases">Special Cases:</label>
+                            <select id="special-cases" name="special_cases">
+                                <option value="">Select if applicable...</option>
+                                <option value="intramammary-lymph">Intramammary lymph node</option>
+                                <option value="skin-lesion">Skin lesion</option>
+                                <option value="solitary-dilated">Solitary dilated duct</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <!-- Ultrasound Descriptors -->
+                <div id="ultrasound-options" class="hidden">
+                    <fieldset>
+                        <legend>2. Mass Descriptors</legend>
+                        <div class="dropdown-group">
+                            <label for="us-shape">Shape:</label>
+                            <select id="us-shape" name="us_shape">
+                                <option value="">Select shape...</option>
+                                <option value="oval">Oval</option>
+                                <option value="round">Round</option>
+                                <option value="irregular">Irregular</option>
+                            </select>
+
+                            <label for="us-orientation">Orientation:</label>
+                            <select id="us-orientation" name="us_orientation">
+                                <option value="">Select orientation...</option>
+                                <option value="parallel">Parallel</option>
+                                <option value="not-parallel">Not parallel</option>
+                            </select>
+
+                            <label for="us-margin">Margin:</label>
+                            <select id="us-margin" name="us_margin">
+                                <option value="">Select margin...</option>
+                                <option value="circumscribed">Circumscribed</option>
+                                <option value="not-circumscribed">Not circumscribed</option>
+                                <option value="indistinct">Indistinct</option>
+                                <option value="angular">Angular</option>
+                                <option value="microlobulated">Microlobulated</option>
+                                <option value="spiculated">Spiculated</option>
+                            </select>
+
+                            <label for="us-echo">Echo Pattern:</label>
+                            <select id="us-echo" name="us_echo">
+                                <option value="">Select echo pattern...</option>
+                                <option value="anechoic">Anechoic</option>
+                                <option value="hyperechoic">Hyperechoic</option>
+                                <option value="complex-cystic">Complex cystic and solid</option>
+                                <option value="hypoechoic">Hypoechoic</option>
+                                <option value="isoechoic">Isoechoic</option>
+                                <option value="heterogeneous">Heterogeneous</option>
+                            </select>
+
+                            <label for="us-posterior">Posterior Features:</label>
+                            <select id="us-posterior" name="us_posterior">
+                                <option value="">Select posterior features...</option>
+                                <option value="no-features">No posterior features</option>
+                                <option value="enhancement">Enhancement</option>
+                                <option value="shadowing">Shadowing</option>
+                                <option value="combined">Combined pattern</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>3. Calcifications & Special Cases</legend>
+                        <div class="dropdown-group">
+                            <label for="us-calcifications">Calcifications:</label>
+                            <select id="us-calcifications" name="us_calcifications">
+                                <option value="">Select if present...</option>
+                                <option value="in-mass">Calcifications in a mass</option>
+                                <option value="outside-mass">Calcifications outside of a mass</option>
+                                <option value="intraductal">Intraductal calcifications</option>
+                            </select>
+
+                            <label for="us-special">Special Cases:</label>
+                            <select id="us-special" name="us_special">
+                                <option value="">Select if applicable...</option>
+                                <option value="simple-cyst">Simple cyst</option>
+                                <option value="clustered-cysts">Clustered microcysts</option>
+                                <option value="complicated-cyst">Complicated cyst</option>
+                                <option value="mass-in-cyst">Mass in or on skin</option>
+                                <option value="foreign-body">Foreign body including implants</option>
+                                <option value="intramammary-lymph">Intramammary lymph node</option>
+                                <option value="vascular">Vascular structure</option>
+                            </select>
+
+                            <label for="us-vascularity">Vascularity:</label>
+                            <select id="us-vascularity" name="us_vascularity">
+                                <option value="">Select vascularity...</option>
+                                <option value="absent">Absent</option>
+                                <option value="internal">Internal vascularity</option>
+                                <option value="vessels-rim">Vessels in rim</option>
+                                <option value="vessels-adjacent">Vessels adjacent</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <!-- MRI Descriptors -->
+                <div id="mri-options" class="hidden">
+                    <fieldset>
+                        <legend>2. Mass Descriptors</legend>
+                        <div class="dropdown-group">
+                            <label for="mri-shape">Shape:</label>
+                            <select id="mri-shape" name="mri_shape">
+                                <option value="">Select shape...</option>
+                                <option value="oval">Oval</option>
+                                <option value="round">Round</option>
+                                <option value="irregular">Irregular</option>
+                            </select>
+
+                            <label for="mri-margin">Margin:</label>
+                            <select id="mri-margin" name="mri_margin">
+                                <option value="">Select margin...</option>
+                                <option value="circumscribed">Circumscribed</option>
+                                <option value="not-circumscribed">Not circumscribed</option>
+                                <option value="irregular">Irregular</option>
+                                <option value="spiculated">Spiculated</option>
+                            </select>
+
+                            <label for="mri-enhancement">Internal Enhancement:</label>
+                            <select id="mri-enhancement" name="mri_enhancement">
+                                <option value="">Select enhancement...</option>
+                                <option value="homogeneous">Homogeneous</option>
+                                <option value="heterogeneous">Heterogeneous</option>
+                                <option value="rim">Rim enhancement</option>
+                                <option value="dark-septations">Dark internal septations</option>
+                                <option value="enhancing-septations">Enhancing internal septations</option>
+                                <option value="central">Central enhancement</option>
+                            </select>
+
+                            <label for="mri-kinetics">Kinetic Curve:</label>
+                            <select id="mri-kinetics" name="mri_kinetics">
+                                <option value="">Select kinetics...</option>
+                                <option value="persistent">Persistent</option>
+                                <option value="plateau">Plateau</option>
+                                <option value="washout">Washout</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>3. Non-mass Enhancement</legend>
+                        <div class="dropdown-group">
+                            <label for="nme-distribution">Distribution:</label>
+                            <select id="nme-distribution" name="nme_distribution">
+                                <option value="">Select distribution...</option>
+                                <option value="focal">Focal</option>
+                                <option value="linear">Linear</option>
+                                <option value="segmental">Segmental</option>
+                                <option value="regional">Regional</option>
+                                <option value="multiple-regions">Multiple regions</option>
+                                <option value="diffuse">Diffuse</option>
+                            </select>
+
+                            <label for="nme-pattern">Internal Enhancement Pattern:</label>
+                            <select id="nme-pattern" name="nme_pattern">
+                                <option value="">Select pattern...</option>
+                                <option value="homogeneous">Homogeneous</option>
+                                <option value="heterogeneous">Heterogeneous</option>
+                                <option value="stippled">Stippled/punctate</option>
+                                <option value="clumped">Clumped</option>
+                                <option value="reticular">Reticular/dendritic</option>
+                            </select>
+
+                            <label for="signal-t2">T2 Signal:</label>
+                            <select id="signal-t2" name="signal_t2">
+                                <option value="">Select T2 signal...</option>
+                                <option value="t2-dark">T2 dark</option>
+                                <option value="t2-bright">T2 bright</option>
+                                <option value="t2-mixed">T2 mixed</option>
+                            </select>
+
+                            <label for="diffusion">Diffusion:</label>
+                            <select id="diffusion" name="diffusion">
+                                <option value="">Select diffusion...</option>
+                                <option value="restricted">Restricted diffusion</option>
+                                <option value="unrestricted">Unrestricted diffusion</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <button type="button" id="generate-btn" onclick="generateReport()">Generate Report</button>
+            </form>
+
+            <!-- Reference Section -->
+            <div class="reference-container">
+                <div class="reference-header">
+                    <h3>BI-RADS Reference</h3>
+                </div>
+                
+                <div class="reference-section" id="mammography-reference">
+                    <h4>Mammography Key Points</h4>
+                    <div class="key-points">
+                        <div class="point-group">
+                            <h5>Suspicious Features:</h5>
+                            <ul>
+                                <li><strong>Spiculated margins:</strong> Highly suspicious for malignancy</li>
+                                <li><strong>Fine pleomorphic calcifications:</strong> High concern</li>
+                                <li><strong>Fine linear calcifications:</strong> Very high suspicion</li>
+                                <li><strong>Developing asymmetry:</strong> New or increasing</li>
+                            </ul>
+                        </div>
+                        <div class="point-group">
+                            <h5>Benign Features:</h5>
+                            <ul>
+                                <li><strong>Circumscribed margins:</strong> Usually benign</li>
+                                <li><strong>Fat-containing:</strong> Benign (lipoma, hamartoma)</li>
+                                <li><strong>Skin calcifications:</strong> Benign</li>
+                                <li><strong>Vascular calcifications:</strong> Benign</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reference-section" id="ultrasound-reference">
+                    <h4>Ultrasound Key Points</h4>
+                    <div class="key-points">
+                        <div class="point-group">
+                            <h5>Suspicious Features:</h5>
+                            <ul>
+                                <li><strong>Not parallel orientation:</strong> Taller than wide</li>
+                                <li><strong>Spiculated margins:</strong> High suspicion</li>
+                                <li><strong>Posterior shadowing:</strong> May indicate malignancy</li>
+                                <li><strong>Marked hypoechogenicity:</strong> Concerning feature</li>
+                            </ul>
+                        </div>
+                        <div class="point-group">
+                            <h5>Benign Features:</h5>
+                            <ul>
+                                <li><strong>Parallel orientation:</strong> Wider than tall</li>
+                                <li><strong>Circumscribed margins:</strong> Usually benign</li>
+                                <li><strong>Posterior enhancement:</strong> Often benign</li>
+                                <li><strong>Simple cyst:</strong> Anechoic with enhancement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reference-section" id="mri-reference">
+                    <h4>MRI Key Points</h4>
+                    <div class="key-points">
+                        <div class="point-group">
+                            <h5>Suspicious Features:</h5>
+                            <ul>
+                                <li><strong>Washout kinetics:</strong> Highly suspicious</li>
+                                <li><strong>Rim enhancement:</strong> Concerning pattern</li>
+                                <li><strong>Spiculated margins:</strong> High suspicion</li>
+                                <li><strong>Restricted diffusion:</strong> May indicate malignancy</li>
+                            </ul>
+                        </div>
+                        <div class="point-group">
+                            <h5>Benign Features:</h5>
+                            <ul>
+                                <li><strong>Persistent kinetics:</strong> Usually benign</li>
+                                <li><strong>T2 bright signal:</strong> Often cystic/benign</li>
+                                <li><strong>Dark septations:</strong> Typical of fibroadenoma</li>
+                                <li><strong>Circumscribed margins:</strong> Usually benign</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="result-container" class="hidden">
+                <h3>Generated BI-RADS Report</h3>
+                <div id="report-output"></div>
+                <div id="assessment-suggestion"></div>
+            </div>
+        </div>
+
+        <div class="footer-notes">
+            <p><strong>Important Notes:</strong></p>
+            <ul>
+                <li>This tool is for educational purposes and descriptor reference only</li>
+                <li>Clinical correlation and institutional guidelines should always be considered</li>
+                <li>BI-RADS assessment should include all relevant imaging findings</li>
+                <li>Management recommendations follow ACR BI-RADS guidelines</li>
+            </ul>
+            <p><em>Based on ACR BI-RADS Atlas 5th Edition</em></p>
+            <p><strong>Reference:</strong> <a href="https://www.acr.org/Clinical-Resources/Reporting-and-Data-Systems/Bi-Rads" target="_blank" rel="noopener">ACR BI-RADS Resources</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+// Show/hide sections based on modality selection
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('birads-form');
+    
+    form.addEventListener('change', function(e) {
+        if (e.target.name === 'modality') {
+            hideAllOptions();
+            hideAllReferences();
+            clearResult();
+            
+            const modality = e.target.value;
+            if (modality === 'mammography') {
+                document.getElementById('mammography-options').classList.remove('hidden');
+                document.getElementById('mammography-reference').style.display = 'block';
+            } else if (modality === 'ultrasound') {
+                document.getElementById('ultrasound-options').classList.remove('hidden');
+                document.getElementById('ultrasound-reference').style.display = 'block';
+            } else if (modality === 'mri') {
+                document.getElementById('mri-options').classList.remove('hidden');
+                document.getElementById('mri-reference').style.display = 'block';
+            }
+        }
+    });
+});
+
+function hideAllOptions() {
+    const options = ['mammography-options', 'ultrasound-options', 'mri-options'];
+    options.forEach(option => {
+        document.getElementById(option).classList.add('hidden');
+    });
+}
+
+function hideAllReferences() {
+    const references = ['mammography-reference', 'ultrasound-reference', 'mri-reference'];
+    references.forEach(ref => {
+        document.getElementById(ref).style.display = 'none';
+    });
+}
+
+function clearResult() {
+    document.getElementById('result-container').classList.add('hidden');
+    document.getElementById('report-output').innerHTML = '';
+    document.getElementById('assessment-suggestion').innerHTML = '';
+}
+
+function generateReport() {
+    const formData = new FormData(document.getElementById('birads-form'));
+    const modality = formData.get('modality');
+    
+    if (!modality) {
+        alert('Please select an imaging modality first.');
+        return;
+    }
+    
+    let report = `<strong>Imaging Modality:</strong> ${modality.charAt(0).toUpperCase() + modality.slice(1)}<br><br>`;
+    let suspiciousFeatures = [];
+    let benignFeatures = [];
+    
+    if (modality === 'mammography') {
+        report += generateMammographyReport(formData, suspiciousFeatures, benignFeatures);
+    } else if (modality === 'ultrasound') {
+        report += generateUltrasoundReport(formData, suspiciousFeatures, benignFeatures);
+    } else if (modality === 'mri') {
+        report += generateMRIReport(formData, suspiciousFeatures, benignFeatures);
+    }
+    
+    // Generate assessment suggestion
+    let assessment = generateAssessment(suspiciousFeatures, benignFeatures);
+    
+    document.getElementById('report-output').innerHTML = report;
+    document.getElementById('assessment-suggestion').innerHTML = assessment;
+    document.getElementById('result-container').classList.remove('hidden');
+    document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+function generateMammographyReport(formData, suspicious, benign) {
+    let report = '<strong>Mammography Descriptors:</strong><br>';
+    
+    const shape = formData.get('mammo_shape');
+    const margin = formData.get('mammo_margin');
+    const density = formData.get('mammo_density');
+    const calcMorph = formData.get('calc_morphology');
+    const calcDist = formData.get('calc_distribution');
+    const archDist = formData.get('arch_distortion');
+    const asymmetry = formData.get('asymmetry');
+    const special = formData.get('special_cases');
+    
+    if (shape) {
+        report += `• Shape: ${shape}<br>`;
+        if (shape === 'irregular') suspicious.push('irregular shape');
+    }
+    
+    if (margin) {
+        report += `• Margin: ${margin}<br>`;
+        if (margin === 'spiculated') suspicious.push('spiculated margins');
+        else if (margin === 'microlobulated' || margin === 'indistinct') suspicious.push('suspicious margins');
+        else if (margin === 'circumscribed') benign.push('circumscribed margins');
+    }
+    
+    if (density) {
+        report += `• Density: ${density}<br>`;
+        if (density === 'fat-containing') benign.push('fat-containing density');
+        else if (density === 'high-density') suspicious.push('high density mass');
+    }
+    
+    if (calcMorph) {
+        report += `• Calcification morphology: ${calcMorph}<br>`;
+        if (calcMorph.includes('fine-pleomorphic') || calcMorph.includes('fine-linear')) {
+            suspicious.push('suspicious calcification morphology');
+        } else if (calcMorph.includes('amorphous')) {
+            suspicious.push('indeterminate calcifications');
+        } else if (calcMorph.includes('skin') || calcMorph.includes('vascular') || 
+                   calcMorph.includes('coarse') || calcMorph.includes('milk-calcium')) {
+            benign.push('benign calcification type');
+        }
+    }
+    
+    if (calcDist) {
+        report += `• Calcification distribution: ${calcDist}<br>`;
+        if (calcDist === 'segmental' || calcDist === 'linear') {
+            suspicious.push('suspicious calcification distribution');
+        }
+    }
+    
+    if (archDist === 'present') {
+        report += `• Architectural distortion: Present<br>`;
+        suspicious.push('architectural distortion');
+    }
+    
+    if (asymmetry) {
+        report += `• Asymmetry: ${asymmetry}<br>`;
+        if (asymmetry === 'developing-asymmetry') suspicious.push('developing asymmetry');
+        else if (asymmetry === 'focal-asymmetry') suspicious.push('focal asymmetry');
+    }
+    
+    if (special) {
+        report += `• Special case: ${special}<br>`;
+        if (special.includes('lymph') || special.includes('skin')) {
+            benign.push('benign special case');
+        }
+    }
+    
+    return report;
+}
+
+function generateUltrasoundReport(formData, suspicious, benign) {
+    let report = '<strong>Ultrasound Descriptors:</strong><br>';
+    
+    const shape = formData.get('us_shape');
+    const orientation = formData.get('us_orientation');
+    const margin = formData.get('us_margin');
+    const echo = formData.get('us_echo');
+    const posterior = formData.get('us_posterior');
+    const calcifications = formData.get('us_calcifications');
+    const special = formData.get('us_special');
+    const vascularity = formData.get('us_vascularity');
+    
+    if (shape) {
+        report += `• Shape: ${shape}<br>`;
+        if (shape === 'irregular') suspicious.push('irregular shape');
+    }
+    
+    if (orientation) {
+        report += `• Orientation: ${orientation}<br>`;
+        if (orientation === 'not-parallel') suspicious.push('not parallel orientation');
+        else if (orientation === 'parallel') benign.push('parallel orientation');
+    }
+    
+    if (margin) {
+        report += `• Margin: ${margin}<br>`;
+        if (margin === 'spiculated') suspicious.push('spiculated margins');
+        else if (margin === 'angular' || margin === 'microlobulated') suspicious.push('suspicious margins');
+        else if (margin === 'circumscribed') benign.push('circumscribed margins');
+    }
+    
+    if (echo) {
+        report += `• Echo pattern: ${echo}<br>`;
+        if (echo === 'anechoic') benign.push('simple cyst characteristics');
+        else if (echo === 'hypoechoic') suspicious.push('hypoechoic mass');
+        else if (echo === 'complex-cystic') suspicious.push('complex cystic mass');
+    }
+    
+    if (posterior) {
+        report += `• Posterior features: ${posterior}<br>`;
+        if (posterior === 'shadowing') suspicious.push('posterior shadowing');
+        else if (posterior === 'enhancement') benign.push('posterior enhancement');
+    }
+    
+    if (calcifications) {
+        report += `• Calcifications: ${calcifications}<br>`;
+        if (calcifications.includes('in-mass')) suspicious.push('calcifications in mass');
+    }
+    
+    if (special) {
+        report += `• Special case: ${special}<br>`;
+        if (special.includes('simple-cyst') || special.includes('intramammary-lymph')) {
+            benign.push('simple cyst');
+        } else if (special.includes('complicated-cyst')) {
+            suspicious.push('complicated cyst');
+        }
+    }
+    
+    if (vascularity) {
+        report += `• Vascularity: ${vascularity}<br>`;
+        if (vascularity === 'internal') suspicious.push('internal vascularity');
+    }
+    
+    return report;
+}
+
+function generateMRIReport(formData, suspicious, benign) {
+    let report = '<strong>MRI Descriptors:</strong><br>';
+    
+    const shape = formData.get('mri_shape');
+    const margin = formData.get('mri_margin');
+    const enhancement = formData.get('mri_enhancement');
+    const kinetics = formData.get('mri_kinetics');
+    const nmeDistribution = formData.get('nme_distribution');
+    const nmePattern = formData.get('nme_pattern');
+    const t2Signal = formData.get('signal_t2');
+    const diffusion = formData.get('diffusion');
+    
+    if (shape) {
+        report += `• Shape: ${shape}<br>`;
+        if (shape === 'irregular') suspicious.push('irregular shape');
+    }
+    
+    if (margin) {
+        report += `• Margin: ${margin}<br>`;
+        if (margin === 'spiculated') suspicious.push('spiculated margins');
+        else if (margin === 'irregular') suspicious.push('irregular margins');
+        else if (margin === 'circumscribed') benign.push('circumscribed margins');
+    }
+    
+    if (enhancement) {
+        report += `• Internal enhancement: ${enhancement}<br>`;
+        if (enhancement === 'rim') suspicious.push('rim enhancement');
+        else if (enhancement === 'heterogeneous') suspicious.push('heterogeneous enhancement');
+        else if (enhancement === 'dark-septations') benign.push('dark internal septations');
+        else if (enhancement === 'homogeneous') benign.push('homogeneous enhancement');
+    }
+    
+    if (kinetics) {
+        report += `• Kinetic curve: ${kinetics}<br>`;
+        if (kinetics === 'washout') suspicious.push('washout kinetics');
+        else if (kinetics === 'plateau') suspicious.push('plateau kinetics');
+        else if (kinetics === 'persistent') benign.push('persistent kinetics');
+    }
+    
+    if (nmeDistribution) {
+        report += `• NME distribution: ${nmeDistribution}<br>`;
+        if (nmeDistribution === 'segmental' || nmeDistribution === 'linear') {
+            suspicious.push('suspicious NME distribution');
+        }
+    }
+    
+    if (nmePattern) {
+        report += `• NME pattern: ${nmePattern}<br>`;
+        if (nmePattern === 'clumped') suspicious.push('clumped enhancement');
+    }
+    
+    if (t2Signal) {
+        report += `• T2 signal: ${t2Signal}<br>`;
+        if (t2Signal === 't2-bright') benign.push('T2 bright signal');
+        else if (t2Signal === 't2-dark') suspicious.push('T2 dark signal');
+    }
+    
+    if (diffusion) {
+        report += `• Diffusion: ${diffusion}<br>`;
+        if (diffusion === 'restricted') suspicious.push('restricted diffusion');
+        else if (diffusion === 'unrestricted') benign.push('unrestricted diffusion');
+    }
+    
+    return report;
+}
+
+function generateAssessment(suspicious, benign) {
+    let assessment = '<br><strong>BI-RADS Assessment Guidance:</strong><br>';
+    
+    // Calculate BI-RADS category based on features
+    let biRadsCategory = calculateBiRadsCategory(suspicious, benign);
+    let recommendedAction = getBiRadsRecommendation(biRadsCategory);
+    
+    // Display BI-RADS category prominently
+    assessment += `<div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border: 2px solid ${getBiRadsColor(biRadsCategory)}; margin-bottom: 1rem;">`;
+    assessment += `<strong style="font-size: 1.2rem; color: ${getBiRadsColor(biRadsCategory)};">Recommended BI-RADS Category: ${biRadsCategory}</strong><br>`;
+    assessment += `<strong>Management:</strong> ${recommendedAction}`;
+    assessment += `</div>`;
+    
+    if (suspicious.length > 0) {
+        assessment += '<span style="color: var(--orange);">⚠️ Suspicious features identified:</span><br>';
+        suspicious.forEach(feature => {
+            assessment += `• ${feature}<br>`;
+        });
+        assessment += '<br>';
+    }
+    
+    if (benign.length > 0) {
+        assessment += '<span style="color: var(--aquamarine);">✓ Benign features identified:</span><br>';
+        benign.forEach(feature => {
+            assessment += `• ${feature}<br>`;
+        });
+        assessment += '<br>';
+    }
+    
+    if (suspicious.length === 0 && benign.length === 0) {
+        assessment += '<span style="color: var(--text-secondary);">No specific suspicious or clearly benign features selected.</span><br>';
+        assessment += 'Assessment based on presence of findings vs. normal tissue.<br><br>';
+    }
+    
+    // Add detailed BI-RADS explanation
+    assessment += getDetailedBiRadsExplanation(biRadsCategory);
+    
+    assessment += '<br><em><strong>Important:</strong> Final BI-RADS assessment should consider all imaging findings, clinical history, patient age, family history, and follow ACR BI-RADS guidelines. This tool provides guidance only.</em>';
+    
+    return assessment;
+}
+
+function calculateBiRadsCategory(suspicious, benign) {
+    // BI-RADS 5: Highly suggestive of malignancy (≥95% chance)
+    const biRads5Features = [
+        'spiculated margins',
+        'suspicious calcification morphology',
+        'washout kinetics',
+        'developing asymmetry'
+    ];
+    
+    // BI-RADS 4: Suspicious abnormality (2-95% chance of malignancy)
+    const biRads4Features = [
+        'not parallel orientation',
+        'posterior shadowing',
+        'rim enhancement',
+        'architectural distortion',
+        'restricted diffusion'
+    ];
+    
+    // BI-RADS 2: Benign finding (<2% chance of malignancy)
+    const biRads2Features = [
+        'simple cyst',
+        'fat-containing density',
+        'benign calcification type',
+        'circumscribed margins',
+        'parallel orientation',
+        'posterior enhancement',
+        'persistent kinetics',
+        'T2 bright signal',
+        'dark internal septations'
+    ];
+    
+    // Check for BI-RADS 5 features
+    if (suspicious.some(feature => biRads5Features.includes(feature))) {
+        // Multiple highly suspicious features or specific high-risk combinations
+        if (suspicious.filter(feature => biRads5Features.includes(feature)).length >= 2 ||
+            (suspicious.includes('spiculated margins') && suspicious.includes('washout kinetics')) ||
+            (suspicious.includes('suspicious calcification morphology') && suspicious.includes('spiculated margins'))) {
+            return '5';
+        }
+        return '4C'; // High suspicion but not meeting BI-RADS 5 criteria
+    }
+    
+    // Check for BI-RADS 4 features
+    if (suspicious.some(feature => biRads4Features.includes(feature))) {
+        const suspiciousCount = suspicious.filter(feature => biRads4Features.includes(feature)).length;
+        if (suspiciousCount >= 2) {
+            return '4B'; // Moderate suspicion
+        }
+        return '4A'; // Low suspicion
+    }
+    
+    // Check if any suspicious features at all
+    if (suspicious.length > 0) {
+        return '4A'; // Any unspecified suspicious feature
+    }
+    
+    // Check for clearly benign features
+    if (benign.some(feature => biRads2Features.includes(feature))) {
+        if (benign.includes('simple cyst') || benign.includes('fat-containing density')) {
+            return '2'; // Clearly benign
+        }
+        return '3'; // Probably benign
+    }
+    
+    // If findings present but no clear suspicious or benign features
+    if (benign.length > 0) {
+        return '3'; // Probably benign
+    }
+    
+    return '1'; // No significant findings
+}
+
+function getBiRadsRecommendation(category) {
+    const recommendations = {
+        '1': 'Continue routine annual screening mammography',
+        '2': 'Continue routine annual screening mammography',
+        '3': 'Short-interval follow-up in 6 months, then return to routine screening if stable',
+        '4A': 'Tissue sampling recommended. Consider core needle biopsy (positive predictive value 2-10%)',
+        '4B': 'Tissue sampling recommended. Core needle biopsy advised (positive predictive value 10-50%)',
+        '4C': 'Tissue sampling recommended. Core needle biopsy strongly advised (positive predictive value 50-95%)',
+        '5': 'Tissue sampling recommended. Core needle biopsy or surgical consultation (positive predictive value ≥95%)',
+        '6': 'Surgical consultation for definitive treatment'
+    };
+    
+    return recommendations[category] || 'Correlate with clinical findings and institutional guidelines';
+}
+
+function getBiRadsColor(category) {
+    const colors = {
+        '1': 'var(--aquamarine)',     // Normal - green
+        '2': 'var(--aquamarine)',     // Benign - green  
+        '3': '#FFD700',               // Probably benign - yellow
+        '4A': 'var(--orange)',        // Low suspicion - orange
+        '4B': 'var(--orange)',        // Moderate suspicion - orange
+        '4C': '#FF6B35',              // High suspicion - red-orange
+        '5': '#FF4444',               // Highly suspicious - red
+        '6': '#8B0000'                // Proven malignancy - dark red
+    };
+    
+    return colors[category] || 'var(--text-secondary)';
+}
+
+function getDetailedBiRadsExplanation(category) {
+    const explanations = {
+        '1': '<strong>BI-RADS 1 - Negative:</strong> No significant abnormality. Normal study.',
+        '2': '<strong>BI-RADS 2 - Benign:</strong> Definitely benign finding. No malignant potential.',
+        '3': '<strong>BI-RADS 3 - Probably Benign:</strong> <2% chance of malignancy. Short-interval follow-up suggested to establish stability.',
+        '4A': '<strong>BI-RADS 4A - Low Suspicion:</strong> Low suspicion for malignancy (2-10% chance). Tissue sampling recommended.',
+        '4B': '<strong>BI-RADS 4B - Moderate Suspicion:</strong> Moderate suspicion for malignancy (10-50% chance). Tissue sampling recommended.',
+        '4C': '<strong>BI-RADS 4C - High Suspicion:</strong> High suspicion for malignancy (50-95% chance). Tissue sampling strongly recommended.',
+        '5': '<strong>BI-RADS 5 - Highly Suggestive:</strong> ≥95% chance of malignancy. Tissue sampling and surgical consultation recommended.',
+        '6': '<strong>BI-RADS 6 - Known Malignancy:</strong> Proven malignancy. Surgical consultation for treatment planning.'
+    };
+    
+    return explanations[category] || '<strong>Assessment:</strong> Consider all clinical and imaging factors for appropriate categorization.';
+}
+</script>
+
+<footer class="sticky-footer">
+    <p>© 2025 RadsReview — Medical Education Tool | <a href="privacy-policy.html" style="color: var(--accent-primary); text-decoration: none;">Privacy Policy</a></p>
+</footer>
+
+</div>
+
+</body>
+</html>

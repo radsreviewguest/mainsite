@@ -1,0 +1,430 @@
+/* Mammography Descriptors Tool Specific Styles */
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+.tool-container {
+    flex: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: var(--text-primary);
+}
+
+.back-btn {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+    border: 1px solid var(--border-color);
+}
+
+.back-btn:hover {
+    background: var(--aquamarine);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+}
+
+.tool-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--aquamarine), var(--accent-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tool-container h2 {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Form Styling */
+#birads-form {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--bg-primary);
+}
+
+legend {
+    color: var(--aquamarine);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+    background: var(--bg-primary);
+}
+
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.radio-group label:hover {
+    background: var(--aquamarine);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+}
+
+.radio-group input[type="radio"]:checked + span,
+.radio-group label:has(input[type="radio"]:checked) {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+}
+
+.radio-group input[type="radio"] {
+    accent-color: var(--orange);
+}
+
+.dropdown-group {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.dropdown-group label {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.dropdown-group select {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.dropdown-group select:focus {
+    outline: none;
+    border-color: var(--aquamarine);
+    box-shadow: 0 0 0 2px rgba(64, 224, 208, 0.2);
+}
+
+.dropdown-group select:hover {
+    border-color: var(--accent-primary);
+}
+
+/* Hidden sections */
+.hidden {
+    display: none !important;
+}
+
+/* Generate button */
+#generate-btn {
+    background: linear-gradient(135deg, var(--orange), var(--accent-primary));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 165, 0, 0.3);
+}
+
+#generate-btn:active {
+    transform: translateY(0);
+}
+
+/* Reference Container */
+.reference-container {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+}
+
+.reference-header {
+    background: linear-gradient(135deg, var(--aquamarine), var(--accent-primary));
+    padding: 1rem;
+    text-align: center;
+}
+
+.reference-header h3 {
+    margin: 0;
+    color: var(--bg-primary);
+    font-weight: 600;
+}
+
+.reference-section {
+    display: none;
+    padding: 1.5rem;
+}
+
+.reference-section h4 {
+    color: var(--aquamarine);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.key-points {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.point-group h5 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.point-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.point-group li {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: var(--bg-primary);
+    border-radius: 6px;
+    border-left: 3px solid var(--orange);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.point-group li strong {
+    color: var(--aquamarine);
+}
+
+/* Result Container */
+#result-container {
+    grid-column: 1 / -1;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#result-container h3 {
+    color: var(--aquamarine);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+#report-output {
+    background: var(--bg-primary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+#assessment-suggestion {
+    background: var(--bg-primary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    line-height: 1.6;
+}
+
+/* Footer */
+.footer-notes {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.footer-notes p {
+    margin-bottom: 1rem;
+}
+
+.footer-notes ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.footer-notes li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-notes a {
+    color: var(--aquamarine);
+    text-decoration: none;
+}
+
+.footer-notes a:hover {
+    text-decoration: underline;
+}
+
+.sticky-footer {
+    background: var(--bg-primary);
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    margin-top: auto;
+}
+
+.sticky-footer a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.sticky-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1200px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .reference-container {
+        position: static;
+        order: -1;
+    }
+    
+    .dropdown-group {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .dropdown-group label {
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 768px) {
+    .tool-container {
+        padding: 1rem;
+    }
+    
+    .tool-container h1 {
+        font-size: 2rem;
+    }
+    
+    .tool-container h2 {
+        font-size: 1.2rem;
+    }
+    
+    #birads-form {
+        padding: 1.5rem;
+    }
+    
+    fieldset {
+        padding: 1rem;
+    }
+    
+    .radio-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .radio-group label {
+        justify-content: flex-start;
+    }
+    
+    .back-btn {
+        position: static;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+    
+    .reference-container {
+        margin-bottom: 1rem;
+    }
+    
+    .key-points {
+        gap: 1rem;
+    }
+    
+    .point-group li {
+        font-size: 0.85rem;
+        padding: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tool-container h1 {
+        font-size: 1.7rem;
+    }
+    
+    .tool-container h2 {
+        font-size: 1rem;
+    }
+    
+    #birads-form {
+        padding: 1rem;
+    }
+    
+    fieldset {
+        padding: 0.75rem;
+    }
+    
+    .footer-notes {
+        padding: 1rem;
+    }
+}

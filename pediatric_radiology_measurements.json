@@ -1,0 +1,980 @@
+{
+  "pediatric_radiology_normal_measurements": {
+    "metadata": {
+      "source": "Oregon Health & Science University (OHSU)",
+      "title": "Pediatric Radiology Normal Measurements",
+      "authors": [
+        "Kryss Kojima MD",
+        "Robert Thomas MD", 
+        "Phillip Silberberg MD"
+      ],
+      "original_presentation": "Society for Pediatric Radiology Annual Meeting 1999",
+      "updated_presentation": "International Pediatric Radiology Meeting Paris 2001",
+      "copyright": "© 2001-2025 Oregon Health & Science University",
+      "disclaimer": "Neither OHSU nor any of its agents warrants the accuracy of the information in these tables. Exercise professional judgement when using this information.",
+      "contact": "ohusdiagradiology@ohsu.edu"
+    },
+    "chest": {
+      "aorta": {
+        "description": "Measurement of pediatric thoracic aorta from contrast enhanced axial CT",
+        "reference": "Fitzgerald SW, Donaldson JS, Poznanski AK. Pediatric thoracic aorta: Normal measurements determined with CT. Radiology 1987; 165:667-669",
+        "measurement_levels": {
+          "level_a": {
+            "description": "1 cm below aortic arch",
+            "formulas": {
+              "a1": "0.72 × age + 11.55 mm",
+              "a2": "0.629 × age + 9.54 mm"
+            }
+          },
+          "level_b": {
+            "description": "1 cm cranial to aortic root", 
+            "formulas": {
+              "b1": "0.668 × age + 13 mm",
+              "b2": "0.572 × age + 9.56 mm"
+            }
+          },
+          "level_c": {
+            "description": "1 cm cranial to dome of right hemidiaphragm",
+            "formula": "0.559 × age + 8.44 mm"
+          }
+        }
+      },
+      "bronchi": {
+        "bronchiectasis_definition": "Bronchus-to-artery ratio > 1.2 on chest radiographs",
+        "normal_ct_finding": "Normal bronchi are not usually seen in the most peripheral 5 to 10 mm of the lung on CT",
+        "references": [
+          "Woodring JH. Pulmonary artery-bronchus ratios in patients with normal lungs, pulmonary vascular plethora, and congestive heart failure. Radiology 1991; 179:115-22",
+          "Siegel MJ. Pediatric Body CT. Lippincott Williams & Wilkins: Philadelphia. 1999. p. 101"
+        ]
+      },
+      "cardiothoracic_index": {
+        "description": "Made on upright frontal view of chest at 72 inches during quiet breathing",
+        "formula": "(MRD + MLD)/ID",
+        "definitions": {
+          "id": "Internal diameter of chest at level of right hemidiaphragm",
+          "mrd": "Greatest perpendicular diameter from midline to right heart border",
+          "mld": "Greatest perpendicular diameter from midline to left heart border"
+        },
+        "normal_values": [
+          {
+            "age": "0-3 weeks",
+            "mean": 0.55,
+            "standard_deviation": 0.05,
+            "range": "0.45-0.65",
+            "reference": 1
+          },
+          {
+            "age": "4-7 weeks", 
+            "mean": 0.58,
+            "standard_deviation": 0.06,
+            "range": "0.46-0.70",
+            "reference": 1
+          },
+          {
+            "age": "1 year",
+            "mean": 0.53,
+            "standard_deviation": 0.04,
+            "range": "0.45-0.61",
+            "reference": 1
+          },
+          {
+            "age": "1-2 years",
+            "mean": 0.49,
+            "range": "0.39-0.60",
+            "reference": 2
+          },
+          {
+            "age": "2-6 years",
+            "mean": 0.45,
+            "range": "0.40-0.52",
+            "reference": 2
+          },
+          {
+            "age": "> 7 years",
+            "mean": "< 0.50",
+            "range": "0.40-0.50",
+            "reference": 2
+          }
+        ],
+        "comments": "1st year of life, larger CT index due to more transverse heart position and data from expiratory films"
+      },
+      "retropharyngeal_soft_tissues": {
+        "retrotracheal": {
+          "measurement": "Lateral radiographs of the neck",
+          "values": [
+            {
+              "age_years": "0-1",
+              "normal": "2.0 × C5"
+            },
+            {
+              "age_years": "1-2", 
+              "normal": "1.5 × C5"
+            },
+            {
+              "age_years": "2-14",
+              "normal": "1.2 × C5"
+            }
+          ]
+        },
+        "retropharyngeal": {
+          "measurement": "Lateral radiographs of the neck",
+          "values": [
+            {
+              "age_years": "0-1",
+              "normal": "1.5 × C5"
+            },
+            {
+              "age_years": "1-3",
+              "normal": "0.5 × C5"
+            },
+            {
+              "age_years": "3-6",
+              "normal": "0.4 × C5"
+            },
+            {
+              "age_years": "6-14",
+              "normal": "0.3 × C5"
+            }
+          ]
+        },
+        "rule_of_7s": {
+          "retropharyngeal": "≤ 7mm",
+          "retrotracheal": "≤ 14mm"
+        },
+        "notes": "C5 measurement made at mid-portion of C5 vertebral body. Expiratory phase and neck flexion increase apparent thickness artifactually"
+      },
+      "thymus": {
+        "description": "Normal measurements of the thymus on CT: mean values (standard deviation)",
+        "measurements_cm": [
+          {
+            "age_years": "0-10",
+            "width": "2.52 (0.82)",
+            "depth": "1.5 (0.46)", 
+            "right_length": "3.53 (0.99)",
+            "left_length": "3.13 (0.85)"
+          },
+          {
+            "age_years": "10-20",
+            "width": "2.56 (0.88)",
+            "depth": "1.05 (0.36)",
+            "right_length": "4.99 (1.25)",
+            "left_length": "3.05 (1.17)"
+          }
+        ],
+        "reference": "Francis IR, Glazer GM, Bookstein FL, Gross BH. The thymus: reexamination of age-related changes in size and shape. AJR 1985; 145:249-254"
+      }
+    },
+    "endocrine": {
+      "thyroid": {
+        "sonographic_measurements_cm": [
+          {
+            "age_group": "Infants & Young Children",
+            "width": "1-1.5",
+            "length": "2-3", 
+            "depth": "0.2-1.2"
+          },
+          {
+            "age_group": "Adolescents & Adults",
+            "width": "2-4",
+            "length": "5-8",
+            "depth": "1-2.5"
+          }
+        ],
+        "reference": "Cole-Beuglet C. Ultrasonography of the thyroid, parathyroid and neck masses. In: Sarti DA, ed. Diagnostic ultrasound: text and cases. Chicago: Year Book Medical Publishers; 1987:608-618"
+      }
+    },
+    "gastrointestinal": {
+      "appendix": {
+        "normal_measurements_mm": [
+          {
+            "modality": "US",
+            "diameter": "< 6 (& compressible)",
+            "wall_thickness": "Usually < 2"
+          },
+          {
+            "modality": "CT",
+            "diameter": "< 8",
+            "wall_thickness": "< 2-4"
+          }
+        ],
+        "references": [
+          "Kao SC, Smith WL, Abu-Yousef MM, et al. Acute appendicitis in children: sonographic findings. AJR 1989; 153:375-379",
+          "Curtin KR, Fitzgerald SW, Nemcek AA, Hoff FL, Vogelzang RL. CT diagnosis of acute appendicitis: imaging findings. AJR 1995; 164:905-909"
+        ]
+      },
+      "gallbladder_and_biliary_tract": {
+        "gallbladder_measurements_cm": [
+          {
+            "age_years": "0-1",
+            "width_mean": 0.9,
+            "width_range": "0.5-1.2",
+            "depth_mean": 0.9,
+            "depth_range": "0.7-1.4",
+            "length_mean": 2.5,
+            "length_range": "1.3-3.4",
+            "wall_thickness_mean": 1.7,
+            "wall_thickness_range": "1.0-3.0"
+          },
+          {
+            "age_years": "2-5",
+            "width_mean": 1.7,
+            "width_range": "1.4-2.3",
+            "depth_mean": 1.8,
+            "depth_range": "1.0-3.9",
+            "length_mean": 4.2,
+            "length_range": "2.9-5.2",
+            "wall_thickness_mean": 2.0,
+            "wall_thickness_range": "None"
+          },
+          {
+            "age_years": "6-8",
+            "width_mean": 1.8,
+            "width_range": "1.0-2.4",
+            "depth_mean": 2.0,
+            "depth_range": "1.2-3.0",
+            "length_mean": 5.6,
+            "length_range": "4.4-7.4",
+            "wall_thickness_mean": 2.2,
+            "wall_thickness_range": "2.0-3.0"
+          },
+          {
+            "age_years": "9-11",
+            "width_mean": 1.9,
+            "width_range": "1.2-3.2",
+            "depth_mean": 2.0,
+            "depth_range": "1.0-3.6",
+            "length_mean": 5.5,
+            "length_range": "3.4-6.5",
+            "wall_thickness_mean": 2.0,
+            "wall_thickness_range": "1.0-3.0"
+          },
+          {
+            "age_years": "12-16",
+            "width_mean": 2.0,
+            "width_range": "1.3-2.8",
+            "depth_mean": 2.1,
+            "depth_range": "1.6-3.0",
+            "length_mean": 6.1,
+            "length_range": "3.8-8.0",
+            "wall_thickness_mean": 2.0,
+            "wall_thickness_range": "1.0-3.0"
+          }
+        ],
+        "common_hepatic_duct_mm": [
+          {
+            "age_years": "0-1",
+            "mean": 1.3,
+            "range": "1.0-2.0"
+          },
+          {
+            "age_years": "2-5", 
+            "mean": 1.7,
+            "range": "1.0-3.0"
+          },
+          {
+            "age_years": "6-8",
+            "mean": 2.0,
+            "range": "none"
+          },
+          {
+            "age_years": "9-11",
+            "mean": 1.8,
+            "range": "1.0-3.0"
+          },
+          {
+            "age_years": "12-16",
+            "mean": 2.2,
+            "range": "1.0-4.0"
+          }
+        ],
+        "reference": "McGahan JP, Phillips HE, Cox KL. Sonography of the normal pediatric gallbladder and biliary tract. Radiology 1982; 144(4): 873-875"
+      },
+      "gi_tract_wall_thickness_ct_mm": [
+        {
+          "organ": "Stomach",
+          "thickness": "3-5"
+        },
+        {
+          "organ": "Duodenum", 
+          "thickness": "≤ 3"
+        },
+        {
+          "organ": "Colon",
+          "thickness": "≤ 3"
+        }
+      ],
+      "lymph_nodes_ct_mm": [
+        {
+          "location": "Retrocural",
+          "normal_size": "≤ 6"
+        },
+        {
+          "location": "Paracardiac",
+          "normal_size": "≤ 8"
+        },
+        {
+          "location": "Mediastinal",
+          "normal_size": "< 10"
+        },
+        {
+          "location": "Gastrohepatic ligament",
+          "normal_size": "≤ 8"
+        },
+        {
+          "location": "Upper paraaortic",
+          "normal_size": "≤ 9"
+        },
+        {
+          "location": "Portacaval",
+          "normal_size": "≤ 10"
+        },
+        {
+          "location": "Portahepatis",
+          "normal_size": "≤ 7"
+        },
+        {
+          "location": "Lower paraaortic",
+          "normal_size": "≤ 11"
+        }
+      ],
+      "pancreas": {
+        "ultrasound_measurements_cm": [
+          {
+            "age": "< 1 month",
+            "head": "1.0 ± 0.4",
+            "body": "0.6 ± 0.2", 
+            "tail": "1.0 ± 0.4"
+          },
+          {
+            "age": "1 month to 1 year",
+            "head": "1.5 ± 0.5",
+            "body": "0.8 ± 0.3",
+            "tail": "1.2 ± 0.4"
+          },
+          {
+            "age": "1 to 5 years",
+            "head": "1.7 ± 0.3",
+            "body": "1.0 ± 0.2",
+            "tail": "1.8 ± 0.4"
+          },
+          {
+            "age": "5 to 10 years",
+            "head": "1.6 ± 0.4",
+            "body": "1.0 ± 0.3",
+            "tail": "1.8 ± 0.4"
+          },
+          {
+            "age": "10 to 19 years",
+            "head": "2.0 ± 0.5",
+            "body": "1.1 ± 0.3",
+            "tail": "2.0 ± 0.4"
+          }
+        ],
+        "pancreatic_duct": "< 2 mm diameter",
+        "ct_measurements": {
+          "head_craniocaudal": "2-6 cm",
+          "body_tail_craniocaudal": "2-4 cm"
+        },
+        "notes": "Measured as maximum AP on transverse scan"
+      },
+      "portal_vein": {
+        "ultrasound_measurements_mm": [
+          {
+            "age": "< 10 years",
+            "diameter": "8.5 ± 2.7"
+          },
+          {
+            "age": "10 to 20 years", 
+            "diameter": "10 ± 2"
+          }
+        ]
+      },
+      "pylorus": {
+        "normal_measurements": {
+          "muscle_thickness": "< 3.0 mm",
+          "pyloric_channel_length": "< 17 mm"
+        },
+        "measurement_notes": "Muscle thickness measured as single hypoechoic layer between serosa and echogenic submucosa",
+        "preterm_infants_note": "Borderline measurements more likely in premature infants. Relative thickness and canal length more important than absolute measurements."
+      },
+      "spleen": {
+        "ultrasound_length_cm": [
+          {
+            "age": "0-3 months",
+            "max_length": "≤ 6"
+          },
+          {
+            "age": "3-6 months",
+            "max_length": "≤ 6.5"
+          },
+          {
+            "age": "6-12 months",
+            "max_length": "≤ 7"
+          },
+          {
+            "age": "1-2 years",
+            "max_length": "≤ 8"
+          },
+          {
+            "age": "2-4 years",
+            "max_length": "≤ 9"
+          },
+          {
+            "age": "4-6 years", 
+            "max_length": "≤ 9.5"
+          },
+          {
+            "age": "6-8 years",
+            "max_length": "≤ 10"
+          },
+          {
+            "age": "8-10 years",
+            "max_length": "≤ 11"
+          },
+          {
+            "age": "10-12 years",
+            "max_length": "≤ 11.5"
+          },
+          {
+            "age": "12-15 years",
+            "max_length": "≤ 12"
+          },
+          {
+            "age": "15-20 years (female)",
+            "max_length": "≤ 12"
+          },
+          {
+            "age": "15-20 years (male)",
+            "max_length": "≤ 13"
+          }
+        ],
+        "measurement_plane": "Coronal longitudinal plane"
+      }
+    },
+    "genitourinary": {
+      "adrenal_gland": {
+        "size_measurements_cm": [
+          {
+            "age": "Neonate",
+            "length": "0.9-3.6 (mean 1.5)",
+            "width": "0.2-0.5 (mean 0.3)",
+            "depth": "0.2-0.5 (mean 0.3)"
+          },
+          {
+            "age": "Adult",
+            "length": "4-6",
+            "width": "0.2-0.6",
+            "depth": "2-3"
+          }
+        ],
+        "sonographic_features": [
+          {
+            "age": "Newborn",
+            "structure": "Cortex >> Medulla thickness, Convex borders",
+            "echogenicity": "Cortex hypoechoic, Medulla hyperechoic"
+          },
+          {
+            "age": "1.5 to 2 months",
+            "structure": "Changes gradually to medulla > cortex thickness, Convex borders",
+            "echogenicity": "Cortex hypoechoic, Medulla hyperechoic"
+          },
+          {
+            "age": "5 to 6 months",
+            "structure": "Decreasing size, Straight borders",
+            "echogenicity": "Hyperechoic, loss of corticomedullary differentiation"
+          },
+          {
+            "age": "> 1 year",
+            "structure": "Adult appearance, Concave/straight margins",
+            "echogenicity": "Entirely hypoechoic"
+          }
+        ]
+      },
+      "ovaries": {
+        "size_measurements": [
+          {
+            "age": "1 day to 3 months",
+            "volume_mean_ml": 1.06,
+            "volume_sd": 0.96,
+            "volume_range": "0.03-3.56",
+            "cyst_percentage": 70
+          },
+          {
+            "age": "4-12 months",
+            "volume_mean_ml": 1.05,
+            "volume_sd": 0.67,
+            "volume_range": "0.18-2.71",
+            "cyst_percentage": 100
+          },
+          {
+            "age": "13-24 months",
+            "volume_mean_ml": 0.67,
+            "volume_sd": 0.35,
+            "volume_range": "0.15-1.68",
+            "cyst_percentage": 90
+          },
+          {
+            "age_years": 2,
+            "volume_mean_ml": 0.8,
+            "volume_sd": 0.4
+          },
+          {
+            "age_years": 3,
+            "volume_mean_ml": 0.7,
+            "volume_sd": 0.2
+          },
+          {
+            "age_years": 4,
+            "volume_mean_ml": 0.8,
+            "volume_sd": 0.4
+          },
+          {
+            "age_years": 5,
+            "volume_mean_ml": 0.9,
+            "volume_sd": 0.02
+          },
+          {
+            "age_years": 6,
+            "volume_mean_ml": 1.2,
+            "volume_sd": 0.4
+          },
+          {
+            "age_years": 7,
+            "volume_mean_ml": 1.3,
+            "volume_sd": 0.6
+          },
+          {
+            "age_years": 8,
+            "volume_mean_ml": 1.1,
+            "volume_sd": 0.5
+          },
+          {
+            "age_years": 9,
+            "volume_mean_ml": 2.0,
+            "volume_sd": 0.8
+          },
+          {
+            "age_years": 10,
+            "volume_mean_ml": 2.2,
+            "volume_sd": 0.7
+          },
+          {
+            "age_years": 11,
+            "volume_mean_ml": 2.5,
+            "volume_sd": 1.3
+          },
+          {
+            "age_years": 12,
+            "volume_mean_ml": 3.8,
+            "volume_sd": 1.4
+          },
+          {
+            "age_years": 13,
+            "volume_mean_ml": 4.2,
+            "volume_sd": 2.3
+          },
+          {
+            "age": "Menstruating Females",
+            "volume_mean_ml": 9.8,
+            "volume_sd": 5.8,
+            "volume_range": "2.5-21.9"
+          }
+        ],
+        "volume_formula": "0.523 × length × width × depth (ml)",
+        "visibility": "> 80% ovaries seen over age 5 years",
+        "cyst_notes": {
+          "young_children": "> 80% of girls 1 day to 24 months have cysts",
+          "school_age": "< 70% of girls between 2 and 12 years have cysts",
+          "macrocysts": "< 20% of cystic ovaries have macrocysts (> 9mm)",
+          "premenarchal": "68% of premenarcheal 2-12 year olds have cysts, 90-95% < 9mm (mean 6mm)"
+        }
+      },
+      "ovarian_doppler": [
+        {
+          "age_group": "pre-pubertal",
+          "flow_pattern": "low diastolic flow"
+        },
+        {
+          "age_group": "post-pubertal",
+          "menstrual_phase": "follicular (0-7 days)",
+          "flow_pattern": "low to absent diastolic flow"
+        },
+        {
+          "age_group": "post-pubertal",
+          "menstrual_phase": "follicular/luteal (11-17 days)",
+          "flow_pattern": "increasing diastolic flow"
+        },
+        {
+          "age_group": "post-pubertal",
+          "menstrual_phase": "late luteal",
+          "flow_pattern": "decreasing diastolic flow"
+        }
+      ],
+      "renal_measurements": {
+        "description": "Ultrasound measurements showing normal kidney length vs age and volume vs weight",
+        "reference": "Han BK, Babcock DS. Sonographic measurements and appearance of normal kidneys in children. AJR 1985; 145(3):611-616"
+      },
+      "testicle": {
+        "measurements": [
+          {
+            "age": "at Birth",
+            "length_cm": 1.0,
+            "width_cm": 1.5,
+            "volume_ml": "1.0 ± 0.14"
+          },
+          {
+            "age": "1-3 months",
+            "length_cm": 1.2,
+            "width_cm": 2.0,
+            "volume_ml": "1.9 ± 0.11"
+          },
+          {
+            "age": "4-6 months",
+            "volume_ml": "1.7 ± 0.11"
+          },
+          {
+            "age": "1-10 years",
+            "width_cm": 1.6,
+            "volume_ml": "0.7 ± 0.9"
+          },
+          {
+            "age": "11-12 years",
+            "width_cm": "1.7 increasing to 1.9",
+            "volume_ml": "1.5 increase to 2.0"
+          },
+          {
+            "age": "13-16 years",
+            "width_cm": "2.3 increasing to 3.5",
+            "volume_ml": "5.0 increase to 13.0"
+          },
+          {
+            "age": "Adult",
+            "length_cm": "2-3",
+            "width_cm": "3-5",
+            "volume_ml": "15-20"
+          }
+        ],
+        "tanner_score_measurements": [
+          {
+            "tanner_stage": 1,
+            "length_mean_mm": 4.76,
+            "length_sd": 2.76,
+            "width_mean_mm": 5.2,
+            "width_sd": 3.86
+          },
+          {
+            "tanner_stage": 2,
+            "length_mean_mm": 6.4,
+            "length_sd": 3.16,
+            "width_mean_mm": 7.08,
+            "width_sd": 3.89
+          },
+          {
+            "tanner_stage": 3,
+            "length_mean_mm": 14.58,
+            "length_sd": 6.54,
+            "width_mean_mm": 14.77,
+            "width_sd": 6.1
+          },
+          {
+            "tanner_stage": 4,
+            "length_mean_mm": 19.8,
+            "length_sd": 6.17,
+            "width_mean_mm": 20.45,
+            "width_sd": 6.79
+          },
+          {
+            "tanner_stage": 5,
+            "length_mean_mm": 28.31,
+            "length_sd": 8.52,
+            "width_mean_mm": 30.25,
+            "width_sd": 9.64
+          }
+        ],
+        "volume_note": "Testicular volume < 5 ml considered infantile"
+      },
+      "testicular_doppler": [
+        {
+          "testicular_volume": "< 1 cc",
+          "flow_detectability_percent": "70 (capsular arteries), 40 (central arteries)"
+        },
+        {
+          "testicular_volume": "> 1 cc",
+          "flow_detectability_percent": "+/- 100 (central & capsular)"
+        }
+      ],
+      "uterus": {
+        "measurements": [
+          {
+            "age": "Neonatal",
+            "structure": "Cervix > Fundus",
+            "length_cm": "2.3-4.6",
+            "width_cm": "0.8-2.1",
+            "depth_cm": "0.8-2.2"
+          },
+          {
+            "age": "Prepubertal 1-12 years",
+            "structure": "Fundus/Body < Cervix",
+            "length_cm": "2.0-3.3",
+            "width_cm": "0.5-1.0"
+          },
+          {
+            "age": "Postpubertal 13-20 years",
+            "structure": "Fundus > Cervix",
+            "length_cm": "5-8",
+            "width_cm": "1.6-3.0"
+          }
+        ],
+        "notes": {
+          "neonatal_regression": "Neonatal uterus regresses to about 2.5 cm at 1 month",
+          "growth_pattern": "After 7 years of age, there is uterine growth",
+          "neonatal_appearance": "30% of neonatal uteri have hypoechoic halo surrounding endometrial canal (vascularly engorged inner myometrium)"
+        }
+      },
+      "urinary_bladder": {
+        "volume_calculation": {
+          "formula": "V = (H × W × D) × 0.625 mL",
+          "age_formula": "(age in years + 2) × 30 mL"
+        },
+        "wall_thickness_mm": [
+          {
+            "bladder_state": "Full",
+            "mean": 1.55,
+            "sd": 0.56,
+            "range": "1-3"
+          },
+          {
+            "bladder_state": "Empty",
+            "mean": 2.76,
+            "sd": 0.58,
+            "range": "2-4.5"
+          }
+        ],
+        "measurement_sites": {
+          "sagittal": "Posterior inferior wall (away from rectum)",
+          "transverse": "Lateral to trigone"
+        }
+      }
+    },
+    "musculoskeletal": {
+      "anteversion": {
+        "femoral_neck_radiography": [
+          {
+            "age": "Birth - 1",
+            "anteversion_degrees": "30° - 50°"
+          },
+          {
+            "age": "2",
+            "anteversion_degrees": "30°"
+          },
+          {
+            "age": "3-5",
+            "anteversion_degrees": "25°"
+          },
+          {
+            "age": "6-12",
+            "anteversion_degrees": "20°"
+          },
+          {
+            "age": "12-15",
+            "anteversion_degrees": "17°"
+          },
+          {
+            "age": "16-20",
+            "anteversion_degrees": "11°"
+          },
+          {
+            "age": "20",
+            "anteversion_degrees": "8°"
+          }
+        ],
+        "femoral_neck_torsion_ct": [
+          {
+            "age": "Birth",
+            "torsion_angle": "+34° to +40°"
+          },
+          {
+            "age": "Adult",
+            "torsion_angle": "+10° to +15°"
+          }
+        ]
+      },
+      "hip": {
+        "acetabular_angles": [
+          {
+            "age": "Newborn",
+            "right_degrees": "28.8 ± 4.8",
+            "left_degrees": "26.4 ± 4.4"
+          },
+          {
+            "age": "3 Month Old",
+            "right_degrees": "25 ± 3.5",
+            "left_degrees": "22 ± 4"
+          },
+          {
+            "age": "6 Month Old",
+            "right_degrees": "23.2 ± 4.0",
+            "left_degrees": "20.3 ± 3.7"
+          },
+          {
+            "age": "1 Year Old",
+            "right_degrees": "21.2 ± 3.8",
+            "left_degrees": "19.8 ± 3.6"
+          },
+          {
+            "age": "2 Year Old",
+            "right_degrees": "18 ± 4",
+            "left_degrees": "19 ± 3.6"
+          }
+        ],
+        "ultrasound_classification": [
+          {
+            "graf_type": "1 Normal",
+            "alpha_angle": "> 60°"
+          },
+          {
+            "graf_type": "2A Physiologic Immaturity < 3 months old",
+            "alpha_angle": "50° - 59°"
+          },
+          {
+            "graf_type": "2B Delayed ossification > 3 months old",
+            "alpha_angle": "50° - 59°"
+          }
+        ],
+        "medial_joint_space": {
+          "normal_range": "5-12 mm (6 months to 11 years)",
+          "symmetry": "Side-to-side difference should be within 1.5 mm",
+          "measurement_point": "Distance from medial edge of femoral ossific nucleus to adjacent acetabular wall"
+        },
+        "center_edge_angle": [
+          {
+            "age": "3 months",
+            "angle_degrees": "18° - 20°"
+          },
+          {
+            "age": "2 years",
+            "angle_degrees": "30°"
+          },
+          {
+            "age": "5-8 years",
+            "lowest_normal_degrees": "19°"
+          },
+          {
+            "age": "9-12 years",
+            "lowest_normal_degrees": "25°"
+          },
+          {
+            "age": "13-20 years",
+            "lowest_normal_degrees": "26° - 30°"
+          }
+        ]
+      },
+      "kyphosis_lordosis": {
+        "thoracic_kyphosis": {
+          "normal_angle": "21° to 33°",
+          "measurement_levels": "T3 to T12"
+        },
+        "lumbar_lordosis": {
+          "normal_angle": "31° to 50°",
+          "measurement_levels": "L1 to L5"
+        }
+      },
+      "metaphyseal_diaphyseal_angle": [
+        {
+          "condition": "Physiologic bowing",
+          "age_months": "11-20",
+          "angle": "5.1 ± 2.8 (0-11)"
+        },
+        {
+          "condition": "Physiologic bowing",
+          "age_months": "21-30",
+          "angle": "5.1 ± 2.8 (0-11)"
+        },
+        {
+          "condition": "Tibia vara",
+          "age_months": "11-20",
+          "angle": "5.1 ± 2.8 (0-11)"
+        }
+      ],
+      "tibial_torsion_ct": {
+        "description": "External torsion of malleolar plane relative to proximal tibial condyles",
+        "normal_range": "+25 to +55 degrees"
+      },
+      "hindfoot_forefoot_angles": [
+        {
+          "view": "AP",
+          "measurement": "Talocalcaneal",
+          "newborn": "42° (27°-56°)",
+          "6_months": "40° (26°-50°)",
+          "18_months": "34° (24°-44°)",
+          "adult": "15°-56°"
+        },
+        {
+          "view": "AP",
+          "measurement": "Calcaneal-fifth metatarsal",
+          "newborn": "3°",
+          "6_months": "0°",
+          "18_months": "-1°",
+          "adult": "-10° to 14°"
+        },
+        {
+          "view": "AP",
+          "measurement": "Talar-first metatarsal",
+          "newborn": "20°",
+          "6_months": "13°",
+          "18_months": "10°",
+          "adult": "-9° to 31°"
+        },
+        {
+          "view": "Lateral",
+          "measurement": "Talocalcaneal",
+          "newborn": "39° (23°-55°)",
+          "6_months": "41° (27°-56°)",
+          "18_months": "44° (31°-57°)",
+          "adult": "23° to 56°"
+        }
+      ]
+    },
+    "neuroradiology": {
+      "neonatal_brain": {
+        "ventricular_measurements_mm": [
+          {
+            "age": "Premature infant",
+            "ventricular_body": "< 10"
+          },
+          {
+            "age": "Term infant",
+            "ventricular_body": "10-11"
+          },
+          {
+            "age": "Newborn",
+            "ventricular_width": "≤ 3",
+            "third_ventricle": "< 4"
+          }
+        ],
+        "measurement_notes": "Body measured in transaxial view from lateral edge to midline (distance from superolateral ventricular wall to falx)"
+      },
+      "sinuses": {
+        "visualization_timeline": [
+          {
+            "sinus": "Maxillary",
+            "visible_age": "2 to 3 months"
+          },
+          {
+            "sinus": "Ethmoidal",
+            "visible_age": "3 to 6 months"
+          },
+          {
+            "sinus": "Sphenoidal",
+            "visible_age": "1 to 2 years"
+          },
+          {
+            "sinus": "Frontal",
+            "visible_age": "8 to 10 years"
+          }
+        ],
+        "note": "Radiographic visualization lags actual gross appearance based on autopsy"
+      }
+    }
+  }
+}

@@ -198,45 +198,346 @@ function filterResources(query) {
   tabs.forEach(tab => tab.classList.remove('active'));
 
   let resultsFound = false;
+  let searchResults = [];
 
-  // Loop through all sections and show matching results
+  // Loop through all sections and collect matching results
   sections.forEach(section => {
     const sectionTitle = section.querySelector('h2').textContent.toLowerCase();
     const links = section.querySelectorAll('a');
-    let sectionHasMatches = sectionTitle.includes(query);
+    let sectionMatches = [];
 
-    // Check if any links in this section match
-    links.forEach(link => {
-      const linkText = link.textContent.toLowerCase();
-      if (linkText.includes(query)) {
-        sectionHasMatches = true;
-        link.style.backgroundColor = '#ffffcc'; // Highlight matching links
-      } else {
-        link.style.backgroundColor = ''; // Reset highlight
-      }
-    });
+    // Check if section title matches
+    if (sectionTitle.includes(query)) {
+      // Add all links from this section
+      links.forEach(link => {
+        sectionMatches.push({
+          element: link.cloneNode(true),
+          text: link.textContent,
+          href: link.href,
+          section: sectionTitle.toUpperCase(),
+          isPediatric: link.textContent.toLowerCase().includes('pediatric')
+        });
+      });
+    } else {
+      // Check individual links
+      links.forEach(link => {
+        const linkText = link.textContent.toLowerCase();
+        if (linkText.includes(query)) {
+          sectionMatches.push({
+            element: link.cloneNode(true),
+            text: link.textContent,
+            href: link.href,
+            section: sectionTitle.toUpperCase(),
+            isPediatric: linkText.includes('pediatric')
+          });
+        }
+      });
+    }
 
-    // Show sections with matches
-    if (sectionHasMatches) {
-      section.style.display = 'block';
-      section.classList.add('search-result');
+    if (sectionMatches.length > 0) {
+      searchResults = searchResults.concat(sectionMatches);
       resultsFound = true;
     }
   });
 
-  // If no results found, show a message
-  if (!resultsFound) {
-    const firstSection = document.querySelector('.content');
-    if (firstSection) {
-      firstSection.style.display = 'block';
-      firstSection.classList.add('active');
-      // Store original content before replacing
-      if (!firstSection.hasAttribute('data-original-content')) {
-        firstSection.setAttribute('data-original-content', firstSection.innerHTML);
+  // Display search results in a dedicated format
+  if (resultsFound) {
+    displaySearchResults(searchResults, query);
+  } else {
+    displayNoResults(query);
+  }
+}
+
+// New function to display search results with OHSU references and measurement data
+function displaySearchResults(results, query) {
+  const firstSection = document.querySelector('.content');
+  if (!firstSection) return;
+
+  // Store original content if not already stored
+  if (!firstSection.hasAttribute('data-original-content')) {
+    firstSection.setAttribute('data-original-content', firstSection.innerHTML);
+  }
+
+  firstSection.style.display = 'block';
+  firstSection.classList.add('active', 'search-result');
+
+  // Load measurement data asynchronously
+  loadMeasurementData().then(measurementData => {
+    // Group results by section
+    const groupedResults = {};
+    results.forEach(result => {
+      if (!groupedResults[result.section]) {
+        groupedResults[result.section] = [];
       }
-      firstSection.innerHTML = `<h2>Search Results</h2><p>No resources found matching "${query}"</p>`;
+      groupedResults[result.section].push(result);
+    });
+
+    // Build the search results HTML
+    let resultsHTML = `<h2>Search Results for "${query}" (${results.length} found)</h2>`;
+    
+    Object.keys(groupedResults).forEach(sectionName => {
+      resultsHTML += `<h3>${sectionName}</h3><ul>`;
+      
+      groupedResults[sectionName].forEach(result => {
+        resultsHTML += `<li>`;
+        
+        // Display text without hyperlink for pediatric results, keep original link for others
+        if (result.isPediatric) {
+          resultsHTML += `<span>${result.text}</span>`;
+        } else {
+          resultsHTML += `<a href="${result.href}" target="_blank" rel="noopener">${result.text}</a>`;
+        }
+        
+        // Add measurement data for pediatric results
+        if (result.isPediatric && measurementData) {
+          const measurementInfo = extractMeasurementInfo(result.text, measurementData, query);
+          if (measurementInfo) {
+            resultsHTML += `<div class="measurement-data">${measurementInfo}</div>`;
+          }
+        }
+        
+        // Add OHSU Reference link for pediatric results
+        if (result.isPediatric) {
+          resultsHTML += `<span class="ohsu-reference">`;
+          resultsHTML += `[<a href="https://www.ohsu.edu/school-of-medicine/diagnostic-radiology/pediatric-radiology-normal-measurements" target="_blank" rel="noopener">Ref.</a>]`;
+          resultsHTML += `</span>`;
+        }
+        
+        resultsHTML += `</li>`;
+      });
+      
+      resultsHTML += `</ul>`;
+    });
+
+    firstSection.innerHTML = resultsHTML;
+  }).catch(error => {
+    console.error('Error loading measurement data:', error);
+    // Display results without measurement data if loading fails
+    displayBasicSearchResults(results, query, firstSection);
+  });
+}
+
+// Function to load measurement data from JSON
+async function loadMeasurementData() {
+  try {
+    const response = await fetch('./pediatric_radiology_measurements.json');
+    if (!response.ok) {
+      throw new Error('Failed to load measurement data');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching measurement data:', error);
+    return null;
+  }
+}
+
+// Function to extract relevant measurement information
+function extractMeasurementInfo(linkText, measurementData, query) {
+  if (!measurementData || !measurementData.pediatric_radiology_normal_measurements) {
+    return null;
+  }
+
+  const data = measurementData.pediatric_radiology_normal_measurements;
+  const lowerText = linkText.toLowerCase();
+  const lowerQuery = query.toLowerCase();
+  
+  // Map search terms to measurement data
+  if (lowerText.includes('appendix') || lowerQuery.includes('appendix')) {
+    const appendixData = data.gastrointestinal?.appendix;
+    if (appendixData) {
+      return `Normal: US <6mm (compressible), CT <8mm, Wall <2-4mm`;
     }
   }
+  
+  if (lowerText.includes('aorta') || lowerQuery.includes('aorta')) {
+    const aortaData = data.chest?.aorta;
+    if (aortaData) {
+      return `Formulas: A1 = 0.72×age+11.55mm, B1 = 0.668×age+13mm`;
+    }
+  }
+  
+  if (lowerText.includes('gallbladder') || lowerQuery.includes('gallbladder')) {
+    const gbData = data.gastrointestinal?.gallbladder_and_biliary_tract;
+    if (gbData && gbData.gallbladder_measurements_cm) {
+      return `Age 0-1yr: Width 0.5-1.2cm, Length 1.3-3.4cm; Age 12-16yr: Width 1.3-2.8cm, Length 3.8-8.0cm`;
+    }
+  }
+  
+  if (lowerText.includes('spleen') || lowerQuery.includes('spleen')) {
+    const spleenData = data.gastrointestinal?.spleen;
+    if (spleenData) {
+      return `Max Length: 0-3mo ≤6cm, 1-2yr ≤8cm, 6-8yr ≤10cm, 15-20yr ≤12-13cm`;
+    }
+  }
+  
+  if (lowerText.includes('thymus') || lowerQuery.includes('thymus')) {
+    const thymusData = data.chest?.thymus;
+    if (thymusData) {
+      return `Age 0-10yr: Width 2.52±0.82cm, Depth 1.5±0.46cm, Length 3.53±0.99cm (right)`;
+    }
+  }
+  
+  if (lowerText.includes('ovarian') || lowerText.includes('ovaries') || lowerQuery.includes('ovarian')) {
+    const ovaryData = data.genitourinary?.ovaries;
+    if (ovaryData) {
+      return `Volume: 1-3mo 1.06±0.96ml, 9yr 2.0±0.8ml, 13yr 4.2±2.3ml, Menstruating 9.8±5.8ml`;
+    }
+  }
+  
+  if (lowerText.includes('testicular') || lowerText.includes('testicle') || lowerQuery.includes('testicular')) {
+    const testData = data.genitourinary?.testicle;
+    if (testData) {
+      return `Volume: Birth 1.0±0.14ml, 1-10yr 0.7±0.9ml, 13-16yr 5.0-13.0ml, Adult 15-20ml`;
+    }
+  }
+  
+  if (lowerText.includes('uterine') || lowerText.includes('uterus') || lowerQuery.includes('uterine')) {
+    const uterineData = data.genitourinary?.uterus;
+    if (uterineData) {
+      return `Neonatal: 2.3-4.6cm length, Prepubertal: 2.0-3.3cm, Postpubertal: 5-8cm`;
+    }
+  }
+  
+  if (lowerText.includes('hip') || lowerText.includes('acetabular') || lowerQuery.includes('hip')) {
+    const hipData = data.musculoskeletal?.hip;
+    if (hipData) {
+      return `Acetabular Angles: Newborn 28.8±4.8°, 6mo 23.2±4.0°, 1yr 21.2±3.8°, 2yr 18±4°`;
+    }
+  }
+  
+  if (lowerText.includes('ventricular') || lowerText.includes('ventricle') || lowerQuery.includes('ventricular')) {
+    const neuroData = data.neuroradiology?.neonatal_brain;
+    if (neuroData) {
+      return `Ventricular Body: Premature <10mm, Term 10-11mm, Width ≤3mm, 3rd Ventricle <4mm`;
+    }
+  }
+  
+  if (lowerText.includes('cardiothoracic') || lowerQuery.includes('cardiothoracic')) {
+    const ctData = data.chest?.cardiothoracic_index;
+    if (ctData) {
+      return `Normal: 0-3wks 0.45-0.65, 1yr 0.45-0.61, >7yr <0.50`;
+    }
+  }
+  
+  if (lowerText.includes('pancreas') || lowerQuery.includes('pancreas')) {
+    const pancreasData = data.gastrointestinal?.pancreas;
+    if (pancreasData) {
+      return `Head: <1mo 1.0±0.4cm, 1-5yr 1.7±0.3cm, 10-19yr 2.0±0.5cm; Duct <2mm`;
+    }
+  }
+  
+  if (lowerText.includes('adrenal') || lowerQuery.includes('adrenal')) {
+    const adrenalData = data.genitourinary?.adrenal_gland;
+    if (adrenalData) {
+      return `Neonate: 0.9-3.6cm length, Adult: 4-6cm; Newborn cortex>>medulla, >1yr hypoechoic`;
+    }
+  }
+  
+  if (lowerText.includes('bladder') || lowerQuery.includes('bladder')) {
+    const bladderData = data.genitourinary?.urinary_bladder;
+    if (bladderData) {
+      return `Volume: (age+2)×30mL; Wall: Full 1-3mm, Empty 2-4.5mm`;
+    }
+  }
+  
+  if (lowerText.includes('thyroid') || lowerQuery.includes('thyroid')) {
+    const thyroidData = data.endocrine?.thyroid;
+    if (thyroidData) {
+      return `Infants: W 1-1.5cm, L 2-3cm, D 0.2-1.2cm; Adolescents: W 2-4cm, L 5-8cm, D 1-2.5cm`;
+    }
+  }
+  
+  if (lowerText.includes('pyloric') || lowerQuery.includes('pyloric')) {
+    const pyloricData = data.gastrointestinal?.pylorus;
+    if (pyloricData) {
+      return `Normal: Muscle thickness <3.0mm, Channel length <17mm`;
+    }
+  }
+  
+  if (lowerText.includes('femoral') || lowerText.includes('anteversion') || lowerQuery.includes('anteversion')) {
+    const anteversionData = data.musculoskeletal?.anteversion;
+    if (anteversionData) {
+      return `Birth-1yr: 30-50°, 6-12yr: 20°, 16-20yr: 11°, Adult: 8°`;
+    }
+  }
+  
+  if (lowerText.includes('kyphosis') || lowerText.includes('lordosis') || lowerQuery.includes('kyphosis')) {
+    const spineData = data.musculoskeletal?.kyphosis_lordosis;
+    if (spineData) {
+      return `Thoracic Kyphosis: 21-33° (T3-T12), Lumbar Lordosis: 31-50° (L1-L5)`;
+    }
+  }
+  
+  if (lowerText.includes('sinus') || lowerQuery.includes('sinus')) {
+    const sinusData = data.neuroradiology?.sinuses;
+    if (sinusData) {
+      return `Visible: Maxillary 2-3mo, Ethmoidal 3-6mo, Sphenoidal 1-2yr, Frontal 8-10yr`;
+    }
+  }
+  
+  return null;
+}
+
+// Fallback function for basic search results without measurement data
+function displayBasicSearchResults(results, query, firstSection) {
+  // Group results by section
+  const groupedResults = {};
+  results.forEach(result => {
+    if (!groupedResults[result.section]) {
+      groupedResults[result.section] = [];
+    }
+    groupedResults[result.section].push(result);
+  });
+
+  // Build the search results HTML
+  let resultsHTML = `<h2>Search Results for "${query}" (${results.length} found)</h2>`;
+  
+  Object.keys(groupedResults).forEach(sectionName => {
+    resultsHTML += `<h3>${sectionName}</h3><ul>`;
+    
+    groupedResults[sectionName].forEach(result => {
+      resultsHTML += `<li>`;
+      
+      // Display text without hyperlink for pediatric results, keep original link for others
+      if (result.isPediatric) {
+        resultsHTML += `<span>${result.text}</span>`;
+      } else {
+        resultsHTML += `<a href="${result.href}" target="_blank" rel="noopener">${result.text}</a>`;
+      }
+      
+      // Add OHSU Reference link for pediatric results
+      if (result.isPediatric) {
+        resultsHTML += `<span class="ohsu-reference">`;
+        resultsHTML += `[<a href="https://www.ohsu.edu/school-of-medicine/diagnostic-radiology/pediatric-radiology-normal-measurements" target="_blank" rel="noopener">Ref.</a>]`;
+        resultsHTML += `</span>`;
+      }
+      
+      resultsHTML += `</li>`;
+    });
+    
+    resultsHTML += `</ul>`;
+  });
+
+  firstSection.innerHTML = resultsHTML;
+}
+
+// Function to display no results message
+function displayNoResults(query) {
+  const firstSection = document.querySelector('.content');
+  if (!firstSection) return;
+
+  // Store original content if not already stored
+  if (!firstSection.hasAttribute('data-original-content')) {
+    firstSection.setAttribute('data-original-content', firstSection.innerHTML);
+  }
+
+  firstSection.style.display = 'block';
+  firstSection.classList.add('active');
+  firstSection.innerHTML = `
+    <h2>Search Results</h2>
+    <p>No resources found matching "<strong>${query}</strong>"</p>
+    <p><em>Try searching for terms like: aorta, appendix, pediatric, hip, ovarian, thymus, etc.</em></p>
+  `;
 }
 
 // Initialize page when DOM is loaded
@@ -355,14 +656,34 @@ function setupEventListeners() {
   // Search input
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
+    // Real-time search with debouncing for better performance
+    let searchTimeout;
     searchInput.addEventListener('input', (e) => {
-      filterResources(e.target.value);
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        filterResources(e.target.value);
+      }, 150); // 150ms delay for smoother typing experience
     });
+    
+    // Immediate search on focus if there's already text
     searchInput.addEventListener('focus', (e) => {
       expandSearch(e.target);
+      if (e.target.value.trim() !== '') {
+        filterResources(e.target.value);
+      }
     });
+    
     searchInput.addEventListener('blur', (e) => {
       contractSearch(e.target);
+    });
+    
+    // Clear search on escape key
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        e.target.value = '';
+        filterResources('');
+        e.target.blur();
+      }
     });
   }
   
@@ -552,10 +873,60 @@ function fixMobileViewport() {
 
 // Enhanced search function for mobile
 function filterResources(query) {
-  const allSections = document.querySelectorAll('.content');
-  let hasResults = false;
+  query = query.toLowerCase().trim();
 
-  allSections.forEach(section => {
+  // If search is empty, reset to normal tab state
+  if (query === '') {
+    // Reset any highlighted links
+    document.querySelectorAll('a').forEach(link => {
+      link.style.backgroundColor = '';
+    });
+
+    // Find which tab was active before searching
+    const activeTab = document.querySelector('.tab.active');
+    if (activeTab) {
+      // Convert tab name to ID format (for example "ABDOMEN" -> "abd")
+      const tabId = activeTab.querySelector('h2').textContent.toLowerCase().replace(/\s+/g, '');
+      showTab(tabId, activeTab);
+    } else {
+      // Fallback to first tab if none is active
+      const firstTab = document.querySelector('.tabs .tab');
+      const firstTabId = firstTab.querySelector('h2').textContent.toLowerCase().replace(/\s+/g, '');
+      showTab(firstTabId, firstTab);
+    }
+
+    // Remove any search-result classes
+    document.querySelectorAll('.search-result').forEach(el => {
+      el.classList.remove('search-result');
+    });
+
+    // Restore all original content
+    const sections = document.querySelectorAll('.content');
+    sections.forEach(section => {
+      if (section.hasAttribute('data-original-content')) {
+        section.innerHTML = section.getAttribute('data-original-content');
+      }
+    });
+
+    return;
+  }
+
+  // Hide all content sections first
+  const sections = document.querySelectorAll('.content');
+  sections.forEach(section => {
+    section.style.display = 'none';
+    section.classList.remove('active');
+  });
+
+  // Clear active state from all tabs
+  const tabs = document.querySelectorAll('.tabs .tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
+
+  let resultsFound = false;
+  let searchResults = [];
+
+  // Loop through all sections and collect matching results
+  sections.forEach(section => {
     // Store original content if not already stored
     if (!section.hasAttribute('data-original-content')) {
       section.setAttribute('data-original-content', section.innerHTML);
@@ -565,44 +936,59 @@ function filterResources(query) {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = originalContent;
 
-    if (query.trim() === '') {
-      // If query is empty, restore original content
-      section.innerHTML = originalContent;
-      section.style.display = section.classList.contains('active') ? 'block' : 'none';
-    } else {
-      const links = tempDiv.querySelectorAll('a');
-      const matchingLinks = Array.from(links).filter(link =>
-        link.textContent.toLowerCase().includes(query.toLowerCase()) ||
-        link.href.toLowerCase().includes(query.toLowerCase())
-      );
+    const sectionTitle = tempDiv.querySelector('h2').textContent.toLowerCase();
+    const links = tempDiv.querySelectorAll('a');
+    let sectionMatches = [];
 
-      if (matchingLinks.length > 0) {
-        hasResults = true;
-        // Show section and highlight matching content
-        section.style.display = 'block';
-        section.classList.add('active');
-        
-        // Create filtered content
-        const filteredHTML = `
-          <h2>${tempDiv.querySelector('h2').textContent}</h2>
-          <ul>
-            ${matchingLinks.map(link => `<li>${link.outerHTML}</li>`).join('')}
-          </ul>
-        `;
-        section.innerHTML = filteredHTML;
-      } else {
-        section.style.display = 'none';
-        section.classList.remove('active');
-      }
+    // Check if section title matches
+    if (sectionTitle.includes(query)) {
+      // Add all links from this section
+      links.forEach(link => {
+        sectionMatches.push({
+          element: link.cloneNode(true),
+          text: link.textContent,
+          href: link.href,
+          section: sectionTitle.toUpperCase(),
+          isPediatric: link.textContent.toLowerCase().includes('pediatric')
+        });
+      });
+    } else {
+      // Check individual links
+      links.forEach(link => {
+        const linkText = link.textContent.toLowerCase();
+        if (linkText.includes(query) || link.href.toLowerCase().includes(query)) {
+          sectionMatches.push({
+            element: link.cloneNode(true),
+            text: link.textContent,
+            href: link.href,
+            section: sectionTitle.toUpperCase(),
+            isPediatric: linkText.includes('pediatric')
+          });
+        }
+      });
+    }
+
+    if (sectionMatches.length > 0) {
+      searchResults = searchResults.concat(sectionMatches);
+      resultsFound = true;
     }
   });
 
-  // On mobile, scroll to first result if search has results
-  if (hasResults && query.trim() !== '' && window.innerWidth <= 768) {
-    const firstVisibleSection = document.querySelector('.content[style*="block"]');
-    if (firstVisibleSection) {
-      firstVisibleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Display search results in a dedicated format
+  if (resultsFound) {
+    displaySearchResults(searchResults, query);
+    
+    // On mobile, scroll to results if search has results
+    if (window.innerWidth <= 768) {
+      const firstVisibleSection = document.querySelector('.content[style*="block"]');
+      if (firstVisibleSection) {
+        setTimeout(() => {
+          firstVisibleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
     }
+  } else {
+    displayNoResults(query);
   }
 }
 

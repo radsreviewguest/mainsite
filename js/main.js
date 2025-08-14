@@ -925,7 +925,7 @@ function filterResources(query) {
   let resultsFound = false;
   let searchResults = [];
 
-  // Loop through all sections and collect matching results
+  // Loop through all sections and collect matching results from HTML
   sections.forEach(section => {
     // Store original content if not already stored
     if (!section.hasAttribute('data-original-content')) {
@@ -974,6 +974,13 @@ function filterResources(query) {
     }
   });
 
+  // Add virtual pediatric measurements to search results
+  const virtualPediatricResults = getVirtualPediatricMeasurements(query);
+  if (virtualPediatricResults.length > 0) {
+    searchResults = searchResults.concat(virtualPediatricResults);
+    resultsFound = true;
+  }
+
   // Display search results in a dedicated format
   if (resultsFound) {
     displaySearchResults(searchResults, query);
@@ -990,6 +997,62 @@ function filterResources(query) {
   } else {
     displayNoResults(query);
   }
+}
+
+// Virtual pediatric measurements dataset for search
+function getVirtualPediatricMeasurements(query) {
+  const pediatricMeasurements = [
+    // Chest measurements
+    { text: 'Aorta Measurements & Formulas (Pediatric)', section: 'CHEST', keywords: ['aorta', 'thoracic', 'formula'] },
+    { text: 'Cardiothoracic Index by Age (Pediatric)', section: 'CHEST', keywords: ['cardiothoracic', 'heart', 'index', 'chest'] },
+    { text: 'Thymus Normal Size (Pediatric)', section: 'CHEST', keywords: ['thymus', 'mediastinal', 'chest'] },
+    { text: 'Retropharyngeal Soft Tissues (Pediatric)', section: 'CHEST', keywords: ['retropharyngeal', 'soft tissue', 'neck'] },
+    
+    // GI measurements
+    { text: 'Appendix Normal Size (Pediatric) - US & CT', section: 'ABD', keywords: ['appendix', 'appendicitis', 'abdomen', 'gi'] },
+    { text: 'Gallbladder & Biliary Tract by Age (Pediatric)', section: 'ABD', keywords: ['gallbladder', 'biliary', 'bile', 'abdomen'] },
+    { text: 'Pancreas Measurements (Pediatric) - US & CT', section: 'ABD', keywords: ['pancreas', 'pancreatic', 'abdomen'] },
+    { text: 'Spleen Length by Age (Pediatric)', section: 'ABD', keywords: ['spleen', 'splenic', 'abdomen'] },
+    { text: 'Portal Vein Diameter (Pediatric)', section: 'ABD', keywords: ['portal', 'vein', 'liver', 'abdomen'] },
+    { text: 'Pyloric Stenosis Criteria (Pediatric)', section: 'ABD', keywords: ['pyloric', 'stenosis', 'pylorus', 'stomach'] },
+    
+    // GU measurements
+    { text: 'Ovarian Volume by Age & Tanner Stage (Pediatric)', section: 'ULTRASOUND', keywords: ['ovarian', 'ovary', 'tanner', 'pelvis'] },
+    { text: 'Testicular Size & Doppler by Age (Pediatric)', section: 'ULTRASOUND', keywords: ['testicular', 'testicle', 'scrotum', 'pelvis'] },
+    { text: 'Uterine Measurements Neonatal-Adult (Pediatric)', section: 'ULTRASOUND', keywords: ['uterine', 'uterus', 'pelvis'] },
+    { text: 'Adrenal Gland Size & Echogenicity (Pediatric)', section: 'ULTRASOUND', keywords: ['adrenal', 'gland', 'suprarenal'] },
+    { text: 'Bladder Volume & Wall Thickness (Pediatric)', section: 'ULTRASOUND', keywords: ['bladder', 'urinary', 'pelvis'] },
+    { text: 'Kidney Measurements (Pediatric)', section: 'ULTRASOUND', keywords: ['kidney', 'renal', 'nephrology'] },
+    
+    // MSK measurements  
+    { text: 'Hip Acetabular Angles by Age (Pediatric)', section: 'MSK', keywords: ['hip', 'acetabular', 'angle', 'pelvis'] },
+    { text: 'Femoral Anteversion Development (Pediatric)', section: 'MSK', keywords: ['femoral', 'anteversion', 'hip', 'leg'] },
+    { text: 'Kyphosis & Lordosis Normal Ranges (Pediatric)', section: 'MSK', keywords: ['kyphosis', 'lordosis', 'spine', 'scoliosis'] },
+    { text: 'Tibial Torsion & Foot Angles (Pediatric)', section: 'MSK', keywords: ['tibial', 'torsion', 'foot', 'ankle'] },
+    { text: 'Graf Hip Ultrasound Classification (Pediatric)', section: 'MSK', keywords: ['graf', 'hip', 'ultrasound', 'classification'] },
+    
+    // Neuro measurements
+    { text: 'Neonatal Brain Ventricles (Pediatric)', section: 'NEURO', keywords: ['ventricular', 'ventricle', 'brain', 'neonatal'] },
+    { text: 'Sinus Development Timeline (Pediatric)', section: 'NEURO', keywords: ['sinus', 'paranasal', 'development'] },
+    { text: 'Ventricular Width Normal Values (Pediatric)', section: 'NEURO', keywords: ['ventricular', 'width', 'brain', 'hydrocephalus'] },
+    
+    // Endocrine
+    { text: 'Thyroid Measurements (Pediatric)', section: 'ULTRASOUND', keywords: ['thyroid', 'endocrine', 'neck'] }
+  ];
+
+  const matchingMeasurements = pediatricMeasurements.filter(measurement => {
+    const searchText = query.toLowerCase();
+    return measurement.text.toLowerCase().includes(searchText) ||
+           measurement.keywords.some(keyword => keyword.includes(searchText) || searchText.includes(keyword));
+  });
+
+  return matchingMeasurements.map(measurement => ({
+    element: null,
+    text: measurement.text,
+    href: 'https://www.ohsu.edu/school-of-medicine/diagnostic-radiology/pediatric-radiology-normal-measurements',
+    section: measurement.section,
+    isPediatric: true
+  }));
 }
 
 // Floating Sidebar functionality

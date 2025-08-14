@@ -344,57 +344,74 @@ function extractMeasurementInfo(linkText, measurementData, query) {
   // Map search terms to measurement data
   if (lowerText.includes('appendix') || lowerQuery.includes('appendix')) {
     const appendixData = data.gastrointestinal?.appendix;
-    if (appendixData) {
-      return `Normal: US <6mm (compressible), CT <8mm, Wall <2-4mm`;
+    if (appendixData && appendixData.normal_measurements) {
+      return `<strong>Normal Appendix:</strong> US &lt;6mm (compressible), CT &lt;8mm, Wall &lt;2-4mm. Non-compressible appendix suggests appendicitis.`;
     }
   }
   
   if (lowerText.includes('aorta') || lowerQuery.includes('aorta')) {
     const aortaData = data.chest?.aorta;
-    if (aortaData) {
-      return `Formulas: A1 = 0.72×age+11.55mm, B1 = 0.668×age+13mm`;
+    if (aortaData && aortaData.measurement_levels) {
+      return `<strong>Aortic Diameter Formulas:</strong><br>
+        • Ascending: 0.72×age+11.55mm (e.g., 5yr = 15.2mm)<br>
+        • Root: 0.668×age+13mm (e.g., 5yr = 16.3mm)<br>
+        • Descending: 0.559×age+8.44mm (e.g., 5yr = 11.2mm)`;
+    }
+  }
+  
+  if (lowerText.includes('pyloric') || lowerText.includes('pylorus') || lowerQuery.includes('pyloric')) {
+    const pylorusData = data.gastrointestinal?.pylorus;
+    if (pylorusData && pylorusData.diagnostic_criteria) {
+      return `<strong>Pyloric Stenosis Criteria:</strong> Muscle thickness ≥3.0mm, Channel length ≥17mm. Presents at 3-6 weeks with projectile vomiting.`;
+    }
+  }
+  
+  if (lowerText.includes('kidney') || lowerText.includes('renal') || lowerQuery.includes('kidney')) {
+    const renalData = data.genitourinary?.renal_measurements;
+    if (renalData && renalData.normal_ranges_by_age) {
+      return `<strong>Kidney Length:</strong> Newborn 4.0-5.5cm, 1yr 6.0-7.5cm, 5yr 7.5-9.5cm, 10yr 9.0-11.5cm. Formula: ~1cm/year + 6cm.`;
     }
   }
   
   if (lowerText.includes('gallbladder') || lowerQuery.includes('gallbladder')) {
     const gbData = data.gastrointestinal?.gallbladder_and_biliary_tract;
     if (gbData && gbData.gallbladder_measurements_cm) {
-      return `Age 0-1yr: Width 0.5-1.2cm, Length 1.3-3.4cm; Age 12-16yr: Width 1.3-2.8cm, Length 3.8-8.0cm`;
+      return `<strong>Gallbladder Size:</strong> Infant (0-1yr): 0.5-1.2cm wide, 1.3-3.4cm long. Teen (12-16yr): 1.3-2.8cm wide, 3.8-8.0cm long.`;
     }
   }
   
   if (lowerText.includes('spleen') || lowerQuery.includes('spleen')) {
     const spleenData = data.gastrointestinal?.spleen;
-    if (spleenData) {
-      return `Max Length: 0-3mo ≤6cm, 1-2yr ≤8cm, 6-8yr ≤10cm, 15-20yr ≤12-13cm`;
+    if (spleenData && spleenData.ultrasound_length_cm) {
+      return `<strong>Spleen Length:</strong> 0-3mo ≤6cm, 1-2yr ≤8cm, 6-8yr ≤10cm, 15-20yr ≤12-13cm (measured in coronal plane).`;
     }
   }
   
   if (lowerText.includes('thymus') || lowerQuery.includes('thymus')) {
     const thymusData = data.chest?.thymus;
-    if (thymusData) {
-      return `Age 0-10yr: Width 2.52±0.82cm, Depth 1.5±0.46cm, Length 3.53±0.99cm (right)`;
+    if (thymusData && thymusData.measurements_cm) {
+      return `<strong>Thymus Size:</strong> Age 0-10yr: Width 2.5±0.8cm, Depth 1.5±0.5cm, Length 3.5±1.0cm. Gradually involutes with age.`;
     }
   }
   
   if (lowerText.includes('ovarian') || lowerText.includes('ovaries') || lowerQuery.includes('ovarian')) {
     const ovaryData = data.genitourinary?.ovaries;
-    if (ovaryData) {
-      return `Volume: 1-3mo 1.06±0.96ml, 9yr 2.0±0.8ml, 13yr 4.2±2.3ml, Menstruating 9.8±5.8ml`;
+    if (ovaryData && ovaryData.size_measurements) {
+      return `<strong>Ovarian Volume:</strong> Infant 1.1±1.0ml, 9yr 2.0±0.8ml, 13yr 4.2±2.3ml, Menstruating 9.8±5.8ml. 80% have cysts in first 2 years.`;
     }
   }
   
   if (lowerText.includes('testicular') || lowerText.includes('testicle') || lowerQuery.includes('testicular')) {
     const testData = data.genitourinary?.testicle;
-    if (testData) {
-      return `Volume: Birth 1.0±0.14ml, 1-10yr 0.7±0.9ml, 13-16yr 5.0-13.0ml, Adult 15-20ml`;
+    if (testData && testData.measurements) {
+      return `<strong>Testicular Volume:</strong> Birth 1.0±0.1ml, 1-10yr 0.7±0.9ml, 13-16yr 5.0-13.0ml, Adult 15-20ml. Volume &lt;5ml considered infantile.`;
     }
   }
   
   if (lowerText.includes('uterine') || lowerText.includes('uterus') || lowerQuery.includes('uterine')) {
     const uterineData = data.genitourinary?.uterus;
-    if (uterineData) {
-      return `Neonatal: 2.3-4.6cm length, Prepubertal: 2.0-3.3cm, Postpubertal: 5-8cm`;
+    if (uterineData && uterineData.measurements) {
+      return `<strong>Uterine Length:</strong> Neonatal 2.3-4.6cm (cervix&gt;fundus), Prepubertal 2.0-3.3cm, Postpubertal 5-8cm (fundus&gt;cervix).`;
     }
   }
   

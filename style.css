@@ -22,7 +22,7 @@
   align-items: center;
   margin-bottom: 32px;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-}
+/* removed stray closing brace */
 }
 .favorites-header {
   display: flex;
@@ -64,7 +64,7 @@
 }
 .favorite-link:hover {
   background: rgba(255,255,255,0.18);
-}
+/* removed stray closing brace */
 }
 @media (max-width: 700px) {
   .favorites-sidebar {

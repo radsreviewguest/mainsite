@@ -268,6 +268,7 @@
 
 /* Optimize font rendering and performance */
 html {
+  -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -1581,6 +1582,7 @@ footer {
   transform: translateY(-20%);
   z-index: 1000;
   -ms-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2185,11 +2187,22 @@ footer {
    ==================================================================
 */
 
-/* This positions the new favorites sidebar button directly below the calculator button */
+/*
+   ==================================================================
+   CSS FOR POSITIONING THE TWO DISTINCT SIDEBARS
+   ==================================================================
+*/
+
+/* Base position for the FIRST sidebar (Calculator) */
+#floatingSidebar {
+  top: 20%;
+}
+
+/* Positions the SECOND sidebar (Favorites) directly below the first one */
 #favorites-sidebar {
-  /* The original sidebar is at top: 20%. We use calc() to add 70px of space below it. */
-  /* You can change 70px to make the space bigger or smaller. */
-  top: calc(20% + 70px); 
+  /* calc() adds 65px of space below the first sidebar's starting point. */
+  /* You can change 65px to increase or decrease the spacing. */
+  top: calc(20% + 65px); 
 }
 
 /* This makes the list of links inside the favorites bar look nice */

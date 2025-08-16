@@ -27,10 +27,8 @@
 <link rel="preload" href="./js/main.js" as="script">
 
 <!-- Preload additional resources -->
-<link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="colors.css" as="style">
 <link rel="preload" href="style.css" as="style">
-<link rel="preload" href="./js/main.js" as="script">
 
 <title>RadsReview | Radiology Teaching Files</title>
 <link rel="stylesheet" href="colors.css">
@@ -47,7 +45,7 @@
       <img src="./images/radreview_text.png" alt="RadsReview Logo" loading="eager" decoding="sync" />
     </div>
     <div class="splash-main-image">
-  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="lazy" decoding="async" />
+      <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="lazy" decoding="async" />
     </div>
     <div class="splash-text">
       <h1 class="splash-title">READING ROOM RESOURCES</h1>
@@ -61,189 +59,168 @@
 
 <!-- Main Content -->
 <div id="mainContent" class="main-content hidden">
-<header>
-  <a href="index.html">
-  <img src="./images/radreview_text.png" alt="RadsReview Logo" class="logo-clickable" loading="eager" decoding="sync">
-  </a>
-  <div class="header-controls">
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-      <span class="theme-icon" aria-hidden="true">
+  <header>
+    <a href="index.html">
+      <img src="./images/radreview_text.png" alt="RadsReview Logo" class="logo-clickable" loading="eager" decoding="sync">
+    </a>
+    <div class="header-controls">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="theme-icon" aria-hidden="true">
           <svg class="monoline-theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M 12 3 A 9 9 0 0 1 21 12"/>
-        </svg>
-      </span>
-    </button>
-  </div>
-</header>
-<section class="hero">
-  <h1>READING ROOM RESOURCES</h1>
-  <div class="search-and-ai-container">
-    <div class="search-container">
-      <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Search resources..." aria-label="Search radiology resources" />
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M 12 3 A 9 9 0 0 1 21 12"/>
+          </svg>
+        </span>
+      </button>
     </div>
-    <button class="ai-button" id="aiButton" title="AI Tools">
-      <span class="ai-icon">Ai</span>
+  </header>
+
+  <section class="hero">
+    <h1>READING ROOM RESOURCES</h1>
+    <div class="search-and-ai-container">
+      <div class="search-container">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="searchInput" placeholder="Search resources..." aria-label="Search radiology resources" />
+      </div>
+      <button class="ai-button" id="aiButton" title="AI Tools">
+        <span class="ai-icon">Ai</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="tabs-wrapper">
+    <!-- Hamburger for mobile drawer -->
+    <button class="drawer-toggle" id="drawerToggle" aria-label="Open menu">
+      <span class="drawer-icon">☰</span>
     </button>
-  </div>
-</section>
-<div class="tabs-wrapper">
-<!-- Favorites Sidebar (fixed on right) -->
-<aside class="favorites-sidebar" id="favoritesSidebar">
-  <div class="favorites-header" id="favoritesSidebarToggle" tabindex="0" role="button" aria-label="Show favorites" style="cursor:pointer;">
-    <svg class="sidebar-heart-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/>
-    </svg>
-  </div>
-  <div class="favorites-content" id="favoritesSidebarContent" hidden>
-    <span class="favorites-title">Favorites</span>
-    <div class="favorites-list" id="favoritesRow"></div>
-  </div>
-</aside>
 
-<!-- Hamburger for mobile drawer -->
-<button class="drawer-toggle" id="drawerToggle" aria-label="Open menu">
-  <span class="drawer-icon">☰</span>
-</button>
+    <section class="tabs" id="tabsSection">
+      <div class="tab active" data-tab="abd"><h2>ABD</h2></div>
+      <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2></div>
+      <div class="tab" data-tab="chest"><h2>CHEST</h2></div>
+      <div class="tab" data-tab="breast"><h2>BREAST</h2></div>
+      <div class="tab" data-tab="neuro"><h2>NEURO</h2></div>
+      <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2></div>
+      <div class="tab" data-tab="msk"><h2>MSK</h2></div>
+      <div class="tab" data-tab="peds"><h2>PEDS</h2></div>
+      <div class="tab" data-tab="us"><h2>ULTRASOUND</h2></div>
+      <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2></div>
+      <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2></div>
+    </section>
 
-<section class="tabs" id="tabsSection">
-  <div class="tab active" data-tab="abd"><h2>ABD</h2></div>
-  <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2></div>
-  <div class="tab" data-tab="chest"><h2>CHEST</h2></div>
-  <div class="tab" data-tab="breast"><h2>BREAST</h2></div>
-  <div class="tab" data-tab="neuro"><h2>NEURO</h2></div>
-  <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2></div>
-  <div class="tab" data-tab="msk"><h2>MSK</h2></div>
-  <div class="tab" data-tab="peds"><h2>PEDS</h2></div>
-  <div class="tab" data-tab="us"><h2>ULTRASOUND</h2></div>
-  <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2></div>
-  <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2></div>
-</section>
+    <!-- Responsive Drawer -->
+    <div class="drawer" id="drawer" hidden>
+      <div class="drawer-header">
+        <span class="drawer-title">Menu</span>
+        <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
+      </div>
+      <div class="drawer-favorites" id="drawerFavorites"></div>
+      <div class="drawer-tabs" id="drawerTabs"></div>
+    </div>
+  </div> <!-- End tabs-wrapper -->
 
-<!-- Responsive Drawer -->
-<div class="drawer" id="drawer" hidden>
-  <div class="drawer-header">
-    <span class="drawer-title">Menu</span>
-    <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
-  </div>
-  <div class="drawer-favorites" id="drawerFavorites"></div>
-  <div class="drawer-tabs" id="drawerTabs"></div>
-</div>
-</div> <!-- End tabs-wrapper -->
-<section id="abd" class="content active">
-  <h2>ABD</h2>
-  <ul>
-  <li><a href="adrenal_nodules.html" target="_blank" rel="noopener">Incidental Adrenal Nodules</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<section id="anatomy" class="content">
-  <h2>ANATOMY</h2>
-  <ul>
-  <li><a href="https://www.imaios.com/e-anatomy" target="_blank" rel="noopener">E-Anatomy</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <li><a href="https://www.castlemountain.dk/atlas/index.php?page=modules" target="_blank" rel="noopener">Dr. Borgbjerg's</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<section id="chest" class="content">
-  <h2>CHEST</h2>
-  <ul>
-  <li><a href="https://www.imaios.com/en/e-anatomy/thorax/ct-axial-chest" target="_blank" rel="noopener">Normal Chest CT (e-anatomy)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <li><a href="fleischner.html" target="_blank" rel="noopener">Fleischner Nodules</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<section id="breast" class="content">
-  <h2>BREAST</h2>
-  <ul>
-  <li><a href="mammo_descriptors.html">BI-RADS Smart Tool (Experimental)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Reference-Card.pdf" target="_blank" rel="noopener">Birads: Reference (Card)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Poster.pdf" target="_blank" rel="noopener">Birads: Poster</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<section id="neuro" class="content">
-  <h2>NEURO</h2>
-  <ul>
-  <li><a href="infarct_territories.html">Brain Vascular Territories</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/incidental-thyroid-nodules?authuser=0" target="_blank" rel="noopener">Incidental Thyroid Nodules</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <li><a href="cerebrai.html" target="_blank" rel="noopener">CerebrAI</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<section id="nuclear" class="content">
-  <h2>NUCLEAR MED</h2>
-  <ul>
-    <li><a href="https://www.radsreview.net/reading-room-resources/nm-on-call" target="_blank" rel="noopener">On Call Exams</a></li>
-  </ul>
-</section>
-<section id="msk" class="content">
-  <h2>MSK</h2>
-  <ul>
-    <li>Measurements:
-      <ul>
-  <!-- Removed duplicate -->
-  <li><a href="https://app.statdx.com/wrist" target="_blank" rel="noopener">Wrist</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <!-- Removed duplicate -->
-  <li><a href="https://app.statdx.com/elbow" target="_blank" rel="noopener">Elbow</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <!-- Removed duplicate -->
-  <li><a href="https://app.statdx.com/pelvis-hip" target="_blank" rel="noopener">Pelvis & Hip</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <!-- Removed duplicate -->
-  <li><a href="https://app.statdx.com/knee-leg" target="_blank" rel="noopener">Knee & Leg</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <!-- Removed duplicate -->
-  <li><a href="https://app.statdx.com/foot-ankle" target="_blank" rel="noopener">Foot & Ankle</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-      </ul>
-    </li>
-  </ul>
-</section>
-<section id="peds" class="content">
-  <h2>PEDS</h2>
-  <ul>
-    <li>Normal Radiographs:
-      <ul>
-  <!-- Removed duplicate -->
-  <li><a href="https://bonexray.com" target="_blank" rel="noopener">Bonexray.com</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <!-- Removed duplicate -->
-  <li><a href="https://www.casestacks.com/peds/peds-normals-by-age/" target="_blank" rel="noopener">CaseStacks</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  <!-- Removed duplicate -->
-  <li><a href="http://www.bonepit.com/Normal%20for%20age/Normal%20for%20age%20index.htm" target="_blank" rel="noopener">Bonepit.com</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-      </ul>
-    </li>
-    <!-- Removed duplicate -->
-  <li><a href="https://www.ohsu.edu/school-of-medicine/diagnostic-radiology/pediatric-radiology-normal-measurements" target="_blank" rel="noopener">Normal Measurements (OHSU)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<section id="us" class="content">
-  <h2>ULTRASOUND</h2>
-  <ul>
-    <!-- Removed duplicate -->
-  <li><a href="https://www.radsreview.net/reading-room-resources/1st-trimester-lexicon?authuser=0" target="_blank" rel="noopener">1st Trimester Guidelines</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-    <!-- Removed duplicate -->
-  <li><a href="https://www.radsreview.net/reading-room-resources/fetal-anatomy-us?authuser=0" target="_blank" rel="noopener">Fetal Anatomy Ultrasound</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-    <!-- Removed duplicate -->
-  <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/O-RADS/O-RADS-Ultrasound-v2022-Assessment-Categories.pdf" target="_blank" rel="noopener">O-RADS</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-    <!-- Removed duplicate -->
-  <li><a href="https://www.radsreview.net/reading-room-resources/gb-polyps?authuser=0" target="_blank" rel="noopener">Gallbladder Polyps</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<section id="quickhelp" class="content">
-  <h2>QUICK HELP</h2>
-  <ul>
-    <li><a href="https://app.statdx.com/" target="_blank" rel="noopener">Statdx</a></li>
-  <li><a href="https://app.statdx.com/" target="_blank" rel="noopener">Statdx</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-    <li><a href="https://radhq.net/" target="_blank" rel="noopener">RADHQ.net</a></li>
-  <li><a href="https://radhq.net/" target="_blank" rel="noopener">RADHQ.net</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-    <li>AI: <a href="https://openevidence.ai/" target="_blank" rel="noopener">OpenEvidence</a> | <a href="https://chat.openai.com/" target="_blank" rel="noopener">Chatgpt</a></li>
-  <li>AI: <a href="https://openevidence.ai/" target="_blank" rel="noopener">OpenEvidence</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span> | <a href="https://chat.openai.com/" target="_blank" rel="noopener">Chatgpt</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-    <li><a href="https://www.rsna.org/practice-tools/sample-reports" target="_blank" rel="noopener">Sample Reports (RSNA)</a></li>
-  <li><a href="https://www.rsna.org/practice-tools/sample-reports" target="_blank" rel="noopener">Sample Reports (RSNA)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
-  </ul>
-</section>
-<footer>
-  <p>© 2025 RadsReview — Built For Radiologists | <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a></p>
-</footer>
+  <section id="abd" class="content active">
+    <h2>ABD</h2>
+    <ul>
+      <li><a href="adrenal_nodules.html" target="_blank" rel="noopener">Incidental Adrenal Nodules</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="anatomy" class="content">
+    <h2>ANATOMY</h2>
+    <ul>
+      <li><a href="https://www.imaios.com/e-anatomy" target="_blank" rel="noopener">E-Anatomy</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://www.castlemountain.dk/atlas/index.php?page=modules" target="_blank" rel="noopener">Dr. Borgbjerg's</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="chest" class="content">
+    <h2>CHEST</h2>
+    <ul>
+      <li><a href="https://www.imaios.com/en/e-anatomy/thorax/ct-axial-chest" target="_blank" rel="noopener">Normal Chest CT (e-anatomy)</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="fleischner.html" target="_blank" rel="noopener">Fleischner Nodules</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="breast" class="content">
+    <h2>BREAST</h2>
+    <ul>
+      <li><a href="mammo_descriptors.html">BI-RADS Smart Tool (Experimental)</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Reference-Card.pdf" target="_blank" rel="noopener">Birads: Reference (Card)</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Poster.pdf" target="_blank" rel="noopener">Birads: Poster</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="neuro" class="content">
+    <h2>NEURO</h2>
+    <ul>
+      <li><a href="infarct_territories.html">Brain Vascular Territories</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/incidental-thyroid-nodules?authuser=0" target="_blank" rel="noopener">Incidental Thyroid Nodules</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="cerebrai.html" target="_blank" rel="noopener">CerebrAI</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="nuclear" class="content">
+    <h2>NUCLEAR MED</h2>
+    <ul>
+      <li><a href="https://www.radsreview.net/reading-room-resources/nm-on-call" target="_blank" rel="noopener">On Call Exams</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="msk" class="content">
+    <h2>MSK</h2>
+    <ul>
+      <li>Measurements:
+        <ul>
+          <li><a href="https://app.statdx.com/wrist" target="_blank" rel="noopener">Wrist</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+          <li><a href="https://app.statdx.com/elbow" target="_blank" rel="noopener">Elbow</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+          <li><a href="https://app.statdx.com/pelvis-hip" target="_blank" rel="noopener">Pelvis & Hip</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+          <li><a href="https://app.statdx.com/knee-leg" target="_blank" rel="noopener">Knee & Leg</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+          <li><a href="https://app.statdx.com/foot-ankle" target="_blank" rel="noopener">Foot & Ankle</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section id="peds" class="content">
+    <h2>PEDS</h2>
+    <ul>
+      <li>Normal Radiographs:
+        <ul>
+          <li><a href="https://bonexray.com" target="_blank" rel="noopener">Bonexray.com</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+          <li><a href="https://www.casestacks.com/peds/peds-normals-by-age/" target="_blank" rel="noopener">CaseStacks</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+          <li><a href="http://www.bonepit.com/Normal%20for%20age/Normal%20for%20age%20index.htm" target="_blank" rel="noopener">Bonepit.com</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+        </ul>
+      </li>
+      <li><a href="https://www.ohsu.edu/school-of-medicine/diagnostic-radiology/pediatric-radiology-normal-measurements" target="_blank" rel="noopener">Normal Measurements (OHSU)</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="us" class="content">
+    <h2>ULTRASOUND</h2>
+    <ul>
+      <li><a href="https://www.radsreview.net/reading-room-resources/1st-trimester-lexicon?authuser=0" target="_blank" rel="noopener">1st Trimester Guidelines</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://www.radsreview.net/reading-room-resources/fetal-anatomy-us?authuser=0" target="_blank" rel="noopener">Fetal Anatomy Ultrasound</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/O-RADS/O-RADS-Ultrasound-v2022-Assessment-Categories.pdf" target="_blank" rel="noopener">O-RADS</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://www.radsreview.net/reading-room-resources/gb-polyps?authuser=0" target="_blank" rel="noopener">Gallbladder Polyps</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
+  <section id="quickhelp" class="content">
+    <h2>QUICK HELP</h2>
+    <ul>
+      <li><a href="https://app.statdx.com/" target="_blank" rel="noopener">Statdx</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://radhq.net/" target="_blank" rel="noopener">RADHQ.net</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li>AI: <a href="https://openevidence.ai/" target="_blank" rel="noopener">OpenEvidence</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span> | <a href="https://chat.openai.com/" target="_blank" rel="noopener">Chatgpt</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+      <li><a href="https://www.rsna.org/practice-tools/sample-reports" target="_blank" rel="noopener">Sample Reports (RSNA)</a><span class="link-heart" role="button" tabindex="0" aria-label="Toggle Favorite"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></span></li>
+    </ul>
+  </section>
 
-<!-- Floating Sidebar -->
+  <footer>
+    <p>© 2025 RadsReview — Built For Radiologists | <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a></p>
+  </footer>
+</div> <!-- End of main-content -->
+
+<!-- ==================================================================== -->
+<!-- START: ALL SIDEBARS (Correctly placed after main-content) -->
+<!-- ==================================================================== -->
+
+<!-- 1. CALCULATOR SIDEBAR -->
 <div id="floatingSidebar" class="floating-sidebar">
-  <div class="sidebar-toggle" id="sidebarToggle">
+  <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Calculator">
     <span class="toggle-icon">⊞</span>
-  </div>
+  </button>
   <div class="sidebar-content">
     <div class="sidebar-header">
       <h3>CALCULATOR</h3>
@@ -275,94 +252,28 @@
           <button class="calc-btn equals" data-action="calculate">=</button>
         </div>
       </div>
-      <!-- Accordion for Frequent Formulas: moved below calculator -->
-<!-- ======================================================= -->
-<!-- START: FAVORITES SIDEBAR CODE (PASTE THIS INTO YOUR HTML) -->
-<!-- ======================================================= -->
-
-<div id="favorites-sidebar" class="floating-sidebar">
-    <!-- This is the button that users will click -->
-    <button id="favorites-toggle" class="sidebar-toggle" aria-label="Toggle Favorites" aria-expanded="false">
-        <span class="toggle-icon">★</span> <!-- Star icon for favorites -->
-    </button>
-
-    <!-- This is the content that slides out -->
-    <div class="sidebar-content">
-        <div class="sidebar-header">
-            <h3>Favorites</h3>
-        </div>
-        <div class="sidebar-body">
-            <!-- The list of favorite items will go here -->
-            <ul id="favorites-list" class="formulas-list">
-                <!-- Example Items (you can remove these) -->
-                <li><a href="#">Example Favorite 1</a></li>
-                <li><a href="#">Example Favorite 2</a></li>
-            </ul>
-            <!-- This message appears if the list is empty -->
-            <p id="no-favorites-message" style="display: none; text-align: center; color: var(--text-secondary);">
-                You have no favorites yet.
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- ===================================================== -->
-<!-- END: FAVORITES SIDEBAR CODE -->
-<!-- ===================================================== -->
-      </div>
     </div>
   </div>
 </div>
 
-</div> <!-- End of main content -->
+<!-- 2. FAVORITES SIDEBAR -->
+<div id="favorites-sidebar" class="floating-sidebar">
+  <button id="favorites-toggle" class="sidebar-toggle" aria-label="Toggle Favorites">
+    <span class="toggle-icon">★</span>
+  </button>
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <h3>Favorites</h3>
+    </div>
+    <div class="sidebar-body">
+      <ul id="favorites-list" class="formulas-list">
+        <!-- Favorites are populated by JavaScript -->
+      </ul>
+      <p id="no-favorites-message" style="display: none; text-align: center; color: var(--text-secondary);">
+        You have no favorites yet.
+      </p>
+    </div>
+  </div>
+</div>
 
-<!-- Load JavaScript asynchronously for better performance -->
-<script src="js/main.js" async></script>
-<!-- ============================================================ -->
-<!-- START: FAVORITES JAVASCRIPT (PASTE THIS BEFORE /BODY) -->
-<!-- ============================================================ -->
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Select the new favorites sidebar and its toggle button using their unique IDs
-    const favoritesSidebar = document.getElementById('favorites-sidebar');
-    const favoritesToggle = document.getElementById('favorites-toggle');
-
-    // Make sure both elements exist before trying to add event listeners
-    if (favoritesSidebar && favoritesToggle) {
-        
-        // Listen for a click on the favorites toggle button
-        favoritesToggle.addEventListener('click', function(event) {
-            // Stop the click from bubbling up to the document
-            event.stopPropagation(); 
-            
-            // This single line adds or removes the 'expanded' class, triggering the animation
-            favoritesSidebar.classList.toggle('expanded');
-            
-            // Update accessibility attribute
-            const isExpanded = favoritesSidebar.classList.contains('expanded');
-            this.setAttribute('aria-expanded', isExpanded);
-        });
-    }
-
-    // OPTIONAL: This part closes the sidebar if you click anywhere else on the page
-    document.addEventListener('click', function(event) {
-        // Check if the sidebar is open AND if the click was outside of it
-        if (favoritesSidebar && favoritesSidebar.classList.contains('expanded') && !favoritesSidebar.contains(event.target)) {
-            favoritesSidebar.classList.remove('expanded');
-            if (favoritesToggle) {
-                favoritesToggle.setAttribute('aria-expanded', 'false');
-            }
-        }
-    });
-
-});
-</script>
-
-<!-- ============================================================ -->
-<!-- END: FAVORITES JAVASCRIPT -->
-<!-- ============================================================ -->```
-
-</body>
-</html>
+<!-- ====================================================

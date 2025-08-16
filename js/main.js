@@ -1,3 +1,28 @@
+// Favorites sidebar expand/collapse logic
+document.addEventListener('DOMContentLoaded', function() {
+  var sidebar = document.getElementById('favoritesSidebar');
+  var toggle = document.getElementById('favoritesSidebarToggle');
+  var content = document.getElementById('favoritesSidebarContent');
+  if (sidebar && toggle && content) {
+    toggle.addEventListener('click', function() {
+      var expanded = sidebar.classList.toggle('expanded');
+      if (expanded) {
+        content.hidden = false;
+      } else {
+        content.hidden = true;
+      }
+    });
+    toggle.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.click();
+      }
+    });
+    // Start collapsed
+    sidebar.classList.remove('expanded');
+    content.hidden = true;
+  }
+});
 // Theme Management
 function initializeTheme() {
   const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -62,8 +87,24 @@ function contractSearch(input) {
 document.addEventListener('DOMContentLoaded', function() {
   // Favorite Links
   const favoritesRow = document.getElementById('favoritesRow');
-  const linkHearts = document.querySelectorAll('.link-heart');
   let favorites = JSON.parse(localStorage.getItem('favoritesLinks') || '[]');
+
+  function bindHeartEvents() {
+    document.querySelectorAll('.link-heart').forEach(heart => {
+      heart.onclick = function(e) {
+        e.stopPropagation();
+        const link = heart.previousElementSibling;
+        const href = link.getAttribute('href');
+        if (favorites.includes(href)) {
+          favorites = favorites.filter(f => f !== href);
+        } else {
+          favorites.push(href);
+        }
+        localStorage.setItem('favoritesLinks', JSON.stringify(favorites));
+        updateFavoritesUI();
+      };
+    });
+  }
 
   function updateFavoritesUI() {
     favoritesRow.innerHTML = '';
@@ -81,37 +122,22 @@ document.addEventListener('DOMContentLoaded', function() {
       favoritesRow.style.display = 'none';
     }
     // Update hearts
-    linkHearts.forEach(heart => {
+    document.querySelectorAll('.link-heart').forEach(heart => {
       const link = heart.previousElementSibling;
       const svg = heart.querySelector('.heart-icon');
       if (link && favorites.includes(link.getAttribute('href'))) {
         heart.classList.add('pinned');
-        // Filled heart, yellow-orange, no stroke
         svg.setAttribute('fill', '#ffb300');
         svg.setAttribute('stroke', 'none');
       } else {
         heart.classList.remove('pinned');
-        // Monoline heart, aquamarine, no fill
         svg.setAttribute('fill', 'none');
         svg.setAttribute('stroke', '#00ffd0');
       }
     });
+    bindHeartEvents();
   }
 
-  linkHearts.forEach(heart => {
-    heart.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const link = heart.previousElementSibling;
-      const href = link.getAttribute('href');
-      if (favorites.includes(href)) {
-        favorites = favorites.filter(f => f !== href);
-      } else {
-        favorites.push(href);
-      }
-      localStorage.setItem('favoritesLinks', JSON.stringify(favorites));
-      updateFavoritesUI();
-    });
-  });
   updateFavoritesUI();
 
   // Responsive Drawer
@@ -162,19 +188,19 @@ document.addEventListener('DOMContentLoaded', function() {
       drawer.hidden = true;
     }
   });
-  const accordionHeader = document.querySelector('.accordion-header');
-  const accordionContent = document.getElementById('formulas-list');
-  if (accordionHeader && accordionContent) {
-    accordionHeader.addEventListener('click', function() {
-      const expanded = accordionHeader.getAttribute('aria-expanded') === 'true';
-      accordionHeader.setAttribute('aria-expanded', !expanded);
-      if (expanded) {
-        accordionContent.hidden = true;
-      } else {
-        accordionContent.hidden = false;
+  function bindAccordionEvents() {
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      const content = document.getElementById(header.getAttribute('aria-controls'));
+      if (content) {
+        header.addEventListener('click', function() {
+          const expanded = header.getAttribute('aria-expanded') === 'true';
+          header.setAttribute('aria-expanded', !expanded);
+          content.hidden = expanded;
+        });
       }
     });
   }
+  bindAccordionEvents();
 });
 function enterSite() {
   console.log('enterSite function called');

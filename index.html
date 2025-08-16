@@ -97,7 +97,15 @@
     </svg>
     <span class="favorites-title">Favorites</span>
   </div>
-  <div class="favorites-list" id="favoritesRow"></div>
+    <div class="favorites-header" id="favoritesSidebarToggle" tabindex="0" role="button" aria-label="Show favorites" style="cursor:pointer;">
+      <svg class="sidebar-heart-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/>
+      </svg>
+    </div>
+    <div class="favorites-content" id="favoritesSidebarContent" hidden>
+      <span class="favorites-title">Favorites</span>
+      <div class="favorites-list" id="favoritesRow"></div>
+    </div>
 </aside>
 
 <!-- Hamburger for mobile drawer -->
@@ -106,17 +114,17 @@
 </button>
 
 <section class="tabs" id="tabsSection">
-  <div class="tab active" data-tab="abd"><h2>ABD</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="chest"><h2>CHEST</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="breast"><h2>BREAST</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="neuro"><h2>NEURO</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="msk"><h2>MSK</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="peds"><h2>PEDS</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" data-tab="us"><h2>ULTRASOUND</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2><span class="tab-star" title="Pin tab">☆</span></div>
-  <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab active" data-tab="abd"><h2>ABD</h2></div>
+  <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2></div>
+  <div class="tab" data-tab="chest"><h2>CHEST</h2></div>
+  <div class="tab" data-tab="breast"><h2>BREAST</h2></div>
+  <div class="tab" data-tab="neuro"><h2>NEURO</h2></div>
+  <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2></div>
+  <div class="tab" data-tab="msk"><h2>MSK</h2></div>
+  <div class="tab" data-tab="peds"><h2>PEDS</h2></div>
+  <div class="tab" data-tab="us"><h2>ULTRASOUND</h2></div>
+  <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2></div>
+  <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2></div>
 </section>
 
 <!-- Responsive Drawer -->
@@ -176,11 +184,16 @@
   <ul>
     <li>Measurements:
       <ul>
-        <li><a href="https://app.statdx.com/wrist" target="_blank" rel="noopener">Wrist</a></li>
-        <li><a href="https://app.statdx.com/elbow" target="_blank" rel="noopener">Elbow</a></li>
-        <li><a href="https://app.statdx.com/pelvis-hip" target="_blank" rel="noopener">Pelvis & Hip</a></li>
-        <li><a href="https://app.statdx.com/knee-leg" target="_blank" rel="noopener">Knee & Leg</a></li>
-        <li><a href="https://app.statdx.com/foot-ankle" target="_blank" rel="noopener">Foot & Ankle</a></li>
+  <!-- Removed duplicate -->
+  <li><a href="https://app.statdx.com/wrist" target="_blank" rel="noopener">Wrist</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <!-- Removed duplicate -->
+  <li><a href="https://app.statdx.com/elbow" target="_blank" rel="noopener">Elbow</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <!-- Removed duplicate -->
+  <li><a href="https://app.statdx.com/pelvis-hip" target="_blank" rel="noopener">Pelvis & Hip</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <!-- Removed duplicate -->
+  <li><a href="https://app.statdx.com/knee-leg" target="_blank" rel="noopener">Knee & Leg</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <!-- Removed duplicate -->
+  <li><a href="https://app.statdx.com/foot-ankle" target="_blank" rel="noopener">Foot & Ankle</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
       </ul>
     </li>
   </ul>
@@ -190,30 +203,42 @@
   <ul>
     <li>Normal Radiographs:
       <ul>
-        <li><a href="https://bonexray.com" target="_blank" rel="noopener">Bonexray.com</a></li>
-        <li><a href="https://www.casestacks.com/peds/peds-normals-by-age/" target="_blank" rel="noopener">CaseStacks</a></li>     
-        <li><a href="http://www.bonepit.com/Normal%20for%20age/Normal%20for%20age%20index.htm" target="_blank" rel="noopener">Bonepit.com</a></li>
+  <!-- Removed duplicate -->
+  <li><a href="https://bonexray.com" target="_blank" rel="noopener">Bonexray.com</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <!-- Removed duplicate -->
+  <li><a href="https://www.casestacks.com/peds/peds-normals-by-age/" target="_blank" rel="noopener">CaseStacks</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <!-- Removed duplicate -->
+  <li><a href="http://www.bonepit.com/Normal%20for%20age/Normal%20for%20age%20index.htm" target="_blank" rel="noopener">Bonepit.com</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
       </ul>
     </li>
-    <li><a href="https://www.ohsu.edu/school-of-medicine/diagnostic-radiology/pediatric-radiology-normal-measurements" target="_blank" rel="noopener">Normal Measurements (OHSU)</a></li>
+    <!-- Removed duplicate -->
+  <li><a href="https://www.ohsu.edu/school-of-medicine/diagnostic-radiology/pediatric-radiology-normal-measurements" target="_blank" rel="noopener">Normal Measurements (OHSU)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <section id="us" class="content">
   <h2>ULTRASOUND</h2>
   <ul>
-    <li><a href="https://www.radsreview.net/reading-room-resources/1st-trimester-lexicon?authuser=0" target="_blank" rel="noopener">1st Trimester Guidelines</a></li>
-    <li><a href="https://www.radsreview.net/reading-room-resources/fetal-anatomy-us?authuser=0" target="_blank" rel="noopener">Fetal Anatomy Ultrasound</a></li>
-    <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/O-RADS/O-RADS-Ultrasound-v2022-Assessment-Categories.pdf" target="_blank" rel="noopener">O-RADS</a></li>
-    <li><a href="https://www.radsreview.net/reading-room-resources/gb-polyps?authuser=0" target="_blank" rel="noopener">Gallbladder Polyps</a></li>
+    <!-- Removed duplicate -->
+  <li><a href="https://www.radsreview.net/reading-room-resources/1st-trimester-lexicon?authuser=0" target="_blank" rel="noopener">1st Trimester Guidelines</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+    <!-- Removed duplicate -->
+  <li><a href="https://www.radsreview.net/reading-room-resources/fetal-anatomy-us?authuser=0" target="_blank" rel="noopener">Fetal Anatomy Ultrasound</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+    <!-- Removed duplicate -->
+  <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/O-RADS/O-RADS-Ultrasound-v2022-Assessment-Categories.pdf" target="_blank" rel="noopener">O-RADS</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+    <!-- Removed duplicate -->
+  <li><a href="https://www.radsreview.net/reading-room-resources/gb-polyps?authuser=0" target="_blank" rel="noopener">Gallbladder Polyps</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <section id="quickhelp" class="content">
   <h2>QUICK HELP</h2>
   <ul>
     <li><a href="https://app.statdx.com/" target="_blank" rel="noopener">Statdx</a></li>
+  <li><a href="https://app.statdx.com/" target="_blank" rel="noopener">Statdx</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
     <li><a href="https://radhq.net/" target="_blank" rel="noopener">RADHQ.net</a></li>
+  <li><a href="https://radhq.net/" target="_blank" rel="noopener">RADHQ.net</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
     <li>AI: <a href="https://openevidence.ai/" target="_blank" rel="noopener">OpenEvidence</a> | <a href="https://chat.openai.com/" target="_blank" rel="noopener">Chatgpt</a></li>
+  <li>AI: <a href="https://openevidence.ai/" target="_blank" rel="noopener">OpenEvidence</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span> | <a href="https://chat.openai.com/" target="_blank" rel="noopener">Chatgpt</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
     <li><a href="https://www.rsna.org/practice-tools/sample-reports" target="_blank" rel="noopener">Sample Reports (RSNA)</a></li>
+  <li><a href="https://www.rsna.org/practice-tools/sample-reports" target="_blank" rel="noopener">Sample Reports (RSNA)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <footer>
@@ -239,46 +264,42 @@
           <button class="calc-btn clear" data-action="clear-entry">CE</button>
           <button class="calc-btn operator" data-action="delete">⌫</button>
           <button class="calc-btn operator" data-value="/" data-op="÷">÷</button>
-          
           <button class="calc-btn number" data-value="7">7</button>
           <button class="calc-btn number" data-value="8">8</button>
           <button class="calc-btn number" data-value="9">9</button>
           <button class="calc-btn operator" data-value="*" data-op="×">×</button>
-          
           <button class="calc-btn number" data-value="4">4</button>
           <button class="calc-btn number" data-value="5">5</button>
           <button class="calc-btn number" data-value="6">6</button>
           <button class="calc-btn operator" data-value="-">−</button>
-          
           <button class="calc-btn number" data-value="1">1</button>
           <button class="calc-btn number" data-value="2">2</button>
           <button class="calc-btn number" data-value="3">3</button>
           <button class="calc-btn operator" data-value="+">+</button>
-          
           <button class="calc-btn number zero" data-value="0">0</button>
-          <!-- Accordion for Frequent Formulas -->
-          <div class="accordion-formulas">
-            <button class="accordion-header" aria-expanded="false" aria-controls="formulas-list">
-              <span class="accordion-title">Frequent Formulas</span>
-              <span class="accordion-icon">▼</span>
-            </button>
-            <div class="accordion-content" id="formulas-list" hidden>
-              <ul class="formulas-list">
-                <li><strong>Body Mass Index (BMI):</strong> BMI = weight (kg) / [height (m)]²</li>
-                <li><strong>Creatinine Clearance (Cockcroft-Gault):</strong> CrCl = [(140 - age) × weight (kg)] / [72 × serum Cr (mg/dL)] (×0.85 for females)</li>
-                <li><strong>GFR (MDRD):</strong> GFR = 175 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females, ×1.212 for African Americans)</li>
-                <li><strong>Estimated Blood Volume:</strong> EBV = weight (kg) × average blood volume (mL/kg)</li>
-                <li><strong>CT Dose Index (CTDI):</strong> CTDI = D × L</li>
-                <li><strong>Radiation Dose (Effective):</strong> Effective Dose = DLP × k</li>
-                <li><strong>Renal Function (eGFR):</strong> eGFR = 186 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females)</li>
-                <li><strong>Corrected Calcium:</strong> Corrected Ca = measured Ca + 0.8 × (4 - albumin)</li>
-                <li><strong>Alveolar-arterial Gradient:</strong> A–a gradient = PAO₂ – PaO₂</li>
-                <li><strong>Osmolality:</strong> Osmolality = 2 × Na + glucose/18 + BUN/2.8</li>
-              </ul>
-            </div>
-          </div>
           <button class="calc-btn number" data-value=".">.</button>
           <button class="calc-btn equals" data-action="calculate">=</button>
+        </div>
+      </div>
+      <!-- Accordion for Frequent Formulas: moved below calculator -->
+      <div class="accordion-formulas">
+        <button class="accordion-header" aria-expanded="false" aria-controls="formulas-list">
+          <span class="accordion-title">Frequent Formulas</span>
+          <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content" id="formulas-list" hidden>
+          <ul class="formulas-list">
+            <li><strong>Body Mass Index (BMI):</strong> BMI = weight (kg) / [height (m)]²</li>
+            <li><strong>Creatinine Clearance (Cockcroft-Gault):</strong> CrCl = [(140 - age) × weight (kg)] / [72 × serum Cr (mg/dL)] (×0.85 for females)</li>
+            <li><strong>GFR (MDRD):</strong> GFR = 175 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females, ×1.212 for African Americans)</li>
+            <li><strong>Estimated Blood Volume:</strong> EBV = weight (kg) × average blood volume (mL/kg)</li>
+            <li><strong>CT Dose Index (CTDI):</strong> CTDI = D × L</li>
+            <li><strong>Radiation Dose (Effective):</strong> Effective Dose = DLP × k</li>
+            <li><strong>Renal Function (eGFR):</strong> eGFR = 186 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females)</li>
+            <li><strong>Corrected Calcium:</strong> Corrected Ca = measured Ca + 0.8 × (4 - albumin)</li>
+            <li><strong>Alveolar-arterial Gradient:</strong> A–a gradient = PAO₂ – PaO₂</li>
+            <li><strong>Osmolality:</strong> Osmolality = 2 × Na + glucose/18 + BUN/2.8</li>
+          </ul>
         </div>
       </div>
     </div>

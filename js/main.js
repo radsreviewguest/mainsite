@@ -556,10 +556,19 @@ function setupCalculatorEventListeners() {
 }
 
 
+// CORRECTED CODE
 // MAIN INITIALIZATION
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, starting initialization...');
-  
+
+  // --- START: ADD THIS NEW CODE ---
+  // Attach the event listener to the splash screen button
+  const enterSiteButton = document.getElementById('enterSiteBtn');
+  if (enterSiteButton) {
+    enterSiteButton.addEventListener('click', enterSite);
+  }
+  // --- END: ADD THIS NEW CODE ---
+
   // Initialize the new favorites system first
   setupFavoritesSystem();
 

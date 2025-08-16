@@ -17,7 +17,6 @@
   align-items: center;
   margin-bottom: 32px;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-/* removed stray closing brace */
 }
 .favorites-header {
   display: flex;
@@ -59,9 +58,8 @@
 }
 .favorite-link:hover {
   background: rgba(255,255,255,0.18);
-/* removed stray closing brace */
 }
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .favorites-sidebar {
     position: static;
     min-width: unset;
@@ -140,13 +138,8 @@
   height: 100vh;
   background: #fff;
   box-shadow: 2px 0 16px rgba(44,62,80,0.12);
-    border-radius: 10px 0 0 10px;
+  border-radius: 10px 0 0 10px;
   padding: 18px 16px 0 16px;
-    padding: 0;
-    min-width: 56px;
-    max-width: 56px;
-    width: 56px;
-    height: auto;
 }
 .drawer[hidden] {
   display: none !important;
@@ -154,21 +147,22 @@
 .drawer-header {
   display: flex;
   justify-content: space-between;
-    max-width: 350px;
-    width: 350px;
-    padding: 16px 14px 20px 14px;
+  max-width: 350px;
+  width: 350px;
+  padding: 16px 14px 20px 14px;
   align-items: center;
   margin-bottom: 16px;
-    justify-content: center;
+  justify-content: center;
+}
 .drawer-title {
-    height: 56px;
+  height: 56px;
   font-size: 1.2em;
   font-weight: 600;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
 }
 .drawer-close {
   background: none;
@@ -1185,12 +1179,6 @@ header img {
 
 .content {
   min-width: 320px;
-  @media (min-width: 600px) {
-    min-width: 400px;
-  }
-  @media (min-width: 900px) {
-    min-width: 500px;
-  }
   display: none;
   max-width: 800px;
   margin: 2rem auto;
@@ -1199,6 +1187,16 @@ header img {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+}
+@media (min-width: 600px) {
+  .content {
+    min-width: 400px;
+  }
+}
+@media (min-width: 900px) {
+  .content {
+    min-width: 500px;
+  }
 }
 .content.active {
   display: block;
@@ -1740,6 +1738,8 @@ footer {
     max-width: 98vw;
     width: 100%;
   }
+}
+
 @media (min-width: 1200px) {
   .calculator,
   .sidebar-content .calculator,
@@ -1748,7 +1748,6 @@ footer {
     max-width: 420px;
     width: 100%;
   }
-}
 }
 
 /* Calculator Display */

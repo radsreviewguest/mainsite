@@ -1,3 +1,231 @@
+/* Sticky Favorites Sidebar */
+.favorites-sidebar {
+  position: sticky;
+  top: 80px;
+  left: 0;
+  z-index: 100;
+  background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green));
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+  padding: 16px 14px 20px 14px;
+  min-width: 180px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+}
+.favorites-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  width: 100%;
+  justify-content: center;
+}
+.sidebar-heart-icon {
+  vertical-align: middle;
+  stroke: var(--sidebar-heart, #222);
+  fill: none;
+  filter: drop-shadow(0 1px 2px rgba(44,62,80,0.10));
+}
+.favorites-title {
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+}
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 2px;
+}
+.favorite-link {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 6px 0 6px 2px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.favorite-link:hover {
+  background: rgba(255,255,255,0.18);
+}
+}
+@media (max-width: 700px) {
+  .favorites-sidebar {
+    position: static;
+    min-width: unset;
+    max-width: unset;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green));
+    padding: 10px 6px 12px 6px;
+  }
+  .favorites-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+/* Favorite Heart Icon Styles */
+.link-heart {
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 6px;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.link-heart:active {
+  transform: scale(0.9);
+}
+.heart-icon {
+  transition: fill 0.2s, stroke 0.2s;
+}
+.link-heart.pinned .heart-icon {
+  fill: #ffb300 !important;
+  stroke: none !important;
+}
+.link-heart:not(.pinned) .heart-icon {
+  fill: none !important;
+  stroke: #00ffd0 !important;
+}
+/* Favorites Row */
+.favorites-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tab-star {
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #aaa;
+  transition: color 0.2s;
+}
+.tab-star.pinned {
+  color: var(--aquamarine);
+  font-weight: bold;
+}
+/* Drawer Styles */
+.drawer-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2em;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80vw;
+  max-width: 340px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: 2px 0 16px rgba(44,62,80,0.12);
+  z-index: 2000;
+  padding: 18px 16px 0 16px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s;
+}
+.drawer[hidden] {
+  display: none !important;
+}
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.drawer-title {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+.drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.drawer-favorites, .drawer-tabs {
+  margin-bottom: 18px;
+}
+@media (max-width: 700px) {
+  .drawer-toggle {
+    display: block;
+  }
+  .tabs-wrapper, .tabs {
+    display: none !important;
+  }
+}
+/* Accordion for Frequent Formulas in Sidebar Calculator */
+.accordion-formulas {
+  margin-top: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
+  background: #f5f6fa;
+}
+.accordion-header {
+  width: 100%;
+  background: linear-gradient(90deg, var(--aquamarine), var(--jungle-green));
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+}
+.accordion-title {
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+.accordion-icon {
+  font-size: 1.1rem;
+  margin-left: 8px;
+  transition: transform 0.2s;
+}
+.accordion-header[aria-expanded="true"] .accordion-icon {
+  transform: rotate(180deg);
+}
+.accordion-content {
+  background: #f5f6fa;
+  border-radius: 0 0 10px 10px;
+  padding: 12px 18px 14px 18px;
+  box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+}
+.formulas-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.formulas-list li {
+  margin-bottom: 10px;
+  font-size: 0.97rem;
+  color: #2d3436;
+}
+/* Monoline theme icon vertical alignment */
+.monoline-theme-icon {
+  vertical-align: middle;
+}
 .centered-header {
   text-align: center;
 }
@@ -1472,17 +1700,13 @@ footer {
 .calculator,
 .sidebar-content .calculator,
 .floating-sidebar .calculator {
-  background: linear-gradient(135deg, 
-    var(--bg-secondary) 0%, 
-    var(--bg-primary) 100%) !important;
-  border: 1px solid rgba(48, 250, 181, 0.3) !important;
-  border-radius: 12px !important;
-  padding: 12px !important;
-  box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-  -webkit-backdrop-filter: blur(5px) !important;
-  backdrop-filter: blur(5px) !important;
+  background: #f5f6fa !important; /* Flat UI 2.0 base */
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 14px !important;
+  padding: 18px 16px !important;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08), 0 1.5px 0 rgba(255,255,255,0.08) !important;
+  -webkit-backdrop-filter: blur(3px) !important;
+  backdrop-filter: blur(3px) !important;
   height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
@@ -1498,7 +1722,6 @@ footer {
     max-width: 98vw;
     width: 100%;
   }
-}
 @media (min-width: 1200px) {
   .calculator,
   .sidebar-content .calculator,
@@ -1520,14 +1743,14 @@ footer {
 .floating-sidebar .calculator-display input,
 #calcDisplay {
   width: 100% !important;
-  height: 60px !important;
-  font-size: 18px !important;
+  height: 48px !important;
+  font-size: 17px !important;
   font-family: 'Inter', monospace !important;
-  background: rgba(21, 31, 45, 0.8) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid rgba(48, 250, 181, 0.3) !important;
+  background: #ecf0f1 !important; /* Flat UI 2.0 input bg */
+  color: #2d3436 !important;
+  border: 1px solid #dfe6e9 !important;
   border-radius: 8px !important;
-  padding: 12px !important;
+  padding: 10px 14px !important;
   text-align: right !important;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
   box-sizing: border-box !important;
@@ -1540,9 +1763,9 @@ footer {
 .floating-sidebar .calculator-buttons {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
-  gap: 8px !important;
+  gap: 18px 22px !important; /* Increased row/col spacing */
   width: 100% !important;
-  padding: 0 12px !important;
+  padding: 0 10px !important;
   box-sizing: border-box !important;
 }
 
@@ -1554,17 +1777,21 @@ footer {
 }
 
 .calc-btn {
-  height: 38px !important;
+  height: 32px !important;
+  min-width: 0 !important;
   border: none !important;
-  border-radius: 6px !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
+  border-radius: 7px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
   font-family: 'Inter', sans-serif !important;
   cursor: pointer !important;
-  -webkit-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  -moz-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  -ms-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: #dfe6e9 !important;
+  color: #2d3436 !important;
+  box-shadow: 0 1px 2px rgba(44,62,80,0.04);
+  -webkit-transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  -moz-transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  -ms-transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
   position: relative !important;
   overflow: hidden !important;
 }

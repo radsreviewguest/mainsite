@@ -67,7 +67,12 @@
   </a>
   <div class="header-controls">
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-      <span class="theme-icon">◐</span>
+      <span class="theme-icon" aria-hidden="true">
+          <svg class="monoline-theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M 12 3 A 9 9 0 0 1 21 12"/>
+        </svg>
+      </span>
     </button>
   </div>
 </header>
@@ -84,54 +89,80 @@
   </div>
 </section>
 <div class="tabs-wrapper">
-<section class="tabs">
-  <div class="tab active" data-tab="abd"><h2>ABD</h2></div>
-  <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2></div>
-  <div class="tab" data-tab="chest"><h2>CHEST</h2></div>
-  <div class="tab" data-tab="breast"><h2>BREAST</h2></div>
-  <div class="tab" data-tab="neuro"><h2>NEURO</h2></div>
-  <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2></div>
-  <div class="tab" data-tab="msk"><h2>MSK</h2></div>
-  <div class="tab" data-tab="peds"><h2>PEDS</h2></div>
-  <div class="tab" data-tab="us"><h2>ULTRASOUND</h2></div>
-  <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2></div>
-  <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2></div>
+<!-- Favorites Row -->
+<aside class="favorites-sidebar" id="favoritesSidebar">
+  <div class="favorites-header">
+    <svg class="sidebar-heart-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/>
+    </svg>
+    <span class="favorites-title">Favorites</span>
+  </div>
+  <div class="favorites-list" id="favoritesRow"></div>
+</aside>
+
+<!-- Hamburger for mobile drawer -->
+<button class="drawer-toggle" id="drawerToggle" aria-label="Open menu">
+  <span class="drawer-icon">☰</span>
+</button>
+
+<section class="tabs" id="tabsSection">
+  <div class="tab active" data-tab="abd"><h2>ABD</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="chest"><h2>CHEST</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="breast"><h2>BREAST</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="neuro"><h2>NEURO</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="msk"><h2>MSK</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="peds"><h2>PEDS</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" data-tab="us"><h2>ULTRASOUND</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2><span class="tab-star" title="Pin tab">☆</span></div>
+  <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2><span class="tab-star" title="Pin tab">☆</span></div>
 </section>
+
+<!-- Responsive Drawer -->
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
+  </div>
+  <div class="drawer-favorites" id="drawerFavorites"></div>
+  <div class="drawer-tabs" id="drawerTabs"></div>
+</div>
 </div> <!-- End tabs-wrapper -->
 <section id="abd" class="content active">
   <h2>ABD</h2>
   <ul>
-    <li><a href="adrenal_nodules.html" target="_blank" rel="noopener">Incidental Adrenal Nodules</a></li>
+  <li><a href="adrenal_nodules.html" target="_blank" rel="noopener">Incidental Adrenal Nodules</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <section id="anatomy" class="content">
   <h2>ANATOMY</h2>
   <ul>
-    <li><a href="https://www.imaios.com/e-anatomy" target="_blank" rel="noopener">E-Anatomy</a></li>
-    <li><a href="https://www.castlemountain.dk/atlas/index.php?page=modules" target="_blank" rel="noopener">Dr. Borgbjerg's</a></li>
+  <li><a href="https://www.imaios.com/e-anatomy" target="_blank" rel="noopener">E-Anatomy</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <li><a href="https://www.castlemountain.dk/atlas/index.php?page=modules" target="_blank" rel="noopener">Dr. Borgbjerg's</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <section id="chest" class="content">
   <h2>CHEST</h2>
   <ul>
-    <li><a href="https://www.imaios.com/en/e-anatomy/thorax/ct-axial-chest" target="_blank" rel="noopener">Normal Chest CT (e-anatomy)</a></li>
-    <li><a href="fleischner.html" target="_blank" rel="noopener">Fleischner Nodules</a></li>
+  <li><a href="https://www.imaios.com/en/e-anatomy/thorax/ct-axial-chest" target="_blank" rel="noopener">Normal Chest CT (e-anatomy)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <li><a href="fleischner.html" target="_blank" rel="noopener">Fleischner Nodules</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <section id="breast" class="content">
   <h2>BREAST</h2>
   <ul>
-    <li><a href="mammo_descriptors.html">BI-RADS Smart Tool (Experimental)</a></li>
-    <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Reference-Card.pdf" target="_blank" rel="noopener">Birads: Reference (Card)</a></li>
-    <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Poster.pdf" target="_blank" rel="noopener">Birads: Poster</a></li>
+  <li><a href="mammo_descriptors.html">BI-RADS Smart Tool (Experimental)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Reference-Card.pdf" target="_blank" rel="noopener">Birads: Reference (Card)</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Poster.pdf" target="_blank" rel="noopener">Birads: Poster</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <section id="neuro" class="content">
   <h2>NEURO</h2>
   <ul>
-    <li><a href="infarct_territories.html">Brain Vascular Territories</a></li>
-    <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/incidental-thyroid-nodules?authuser=0" target="_blank" rel="noopener">Incidental Thyroid Nodules</a></li>
-    <li><a href="cerebrai.html" target="_blank" rel="noopener">CerebrAI</a></li>
+  <li><a href="infarct_territories.html">Brain Vascular Territories</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/incidental-thyroid-nodules?authuser=0" target="_blank" rel="noopener">Incidental Thyroid Nodules</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
+  <li><a href="cerebrai.html" target="_blank" rel="noopener">CerebrAI</a> <span class="link-heart" title="Favorite link"><svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10.2C5 6.6 8.2 4 12 7.2 15.8 4 19 6.6 19 10.8c0 5-7 10.2-7 10.2z"/></svg></span></li>
   </ul>
 </section>
 <section id="nuclear" class="content">
@@ -225,6 +256,27 @@
           <button class="calc-btn operator" data-value="+">+</button>
           
           <button class="calc-btn number zero" data-value="0">0</button>
+          <!-- Accordion for Frequent Formulas -->
+          <div class="accordion-formulas">
+            <button class="accordion-header" aria-expanded="false" aria-controls="formulas-list">
+              <span class="accordion-title">Frequent Formulas</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content" id="formulas-list" hidden>
+              <ul class="formulas-list">
+                <li><strong>Body Mass Index (BMI):</strong> BMI = weight (kg) / [height (m)]²</li>
+                <li><strong>Creatinine Clearance (Cockcroft-Gault):</strong> CrCl = [(140 - age) × weight (kg)] / [72 × serum Cr (mg/dL)] (×0.85 for females)</li>
+                <li><strong>GFR (MDRD):</strong> GFR = 175 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females, ×1.212 for African Americans)</li>
+                <li><strong>Estimated Blood Volume:</strong> EBV = weight (kg) × average blood volume (mL/kg)</li>
+                <li><strong>CT Dose Index (CTDI):</strong> CTDI = D × L</li>
+                <li><strong>Radiation Dose (Effective):</strong> Effective Dose = DLP × k</li>
+                <li><strong>Renal Function (eGFR):</strong> eGFR = 186 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females)</li>
+                <li><strong>Corrected Calcium:</strong> Corrected Ca = measured Ca + 0.8 × (4 - albumin)</li>
+                <li><strong>Alveolar-arterial Gradient:</strong> A–a gradient = PAO₂ – PaO₂</li>
+                <li><strong>Osmolality:</strong> Osmolality = 2 × Na + glucose/18 + BUN/2.8</li>
+              </ul>
+            </div>
+          </div>
           <button class="calc-btn number" data-value=".">.</button>
           <button class="calc-btn equals" data-action="calculate">=</button>
         </div>

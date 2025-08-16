@@ -58,6 +58,124 @@ function contractSearch(input) {
 }
 
 // Splash Screen functionality - Define early for maximum availability
+// Accordion toggle for Frequent Formulas
+document.addEventListener('DOMContentLoaded', function() {
+  // Favorite Links
+  const favoritesRow = document.getElementById('favoritesRow');
+  const linkHearts = document.querySelectorAll('.link-heart');
+  let favorites = JSON.parse(localStorage.getItem('favoritesLinks') || '[]');
+
+  function updateFavoritesUI() {
+    favoritesRow.innerHTML = '';
+    if (favorites.length > 0) {
+      favoritesRow.style.display = 'flex';
+      favorites.forEach(href => {
+        const link = document.querySelector('a[href="' + href + '"]');
+        if (link) {
+          const favLink = link.cloneNode(true);
+          favLink.classList.add('favorite-link');
+          favoritesRow.appendChild(favLink);
+        }
+      });
+    } else {
+      favoritesRow.style.display = 'none';
+    }
+    // Update hearts
+    linkHearts.forEach(heart => {
+      const link = heart.previousElementSibling;
+      const svg = heart.querySelector('.heart-icon');
+      if (link && favorites.includes(link.getAttribute('href'))) {
+        heart.classList.add('pinned');
+        // Filled heart, yellow-orange, no stroke
+        svg.setAttribute('fill', '#ffb300');
+        svg.setAttribute('stroke', 'none');
+      } else {
+        heart.classList.remove('pinned');
+        // Monoline heart, aquamarine, no fill
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', '#00ffd0');
+      }
+    });
+  }
+
+  linkHearts.forEach(heart => {
+    heart.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const link = heart.previousElementSibling;
+      const href = link.getAttribute('href');
+      if (favorites.includes(href)) {
+        favorites = favorites.filter(f => f !== href);
+      } else {
+        favorites.push(href);
+      }
+      localStorage.setItem('favoritesLinks', JSON.stringify(favorites));
+      updateFavoritesUI();
+    });
+  });
+  updateFavoritesUI();
+
+  // Responsive Drawer
+  const drawerToggle = document.getElementById('drawerToggle');
+  const drawer = document.getElementById('drawer');
+  const drawerClose = document.getElementById('drawerClose');
+  const drawerFavorites = document.getElementById('drawerFavorites');
+  const drawerTabs = document.getElementById('drawerTabs');
+
+  function updateDrawerUI() {
+    drawerFavorites.innerHTML = '';
+    drawerTabs.innerHTML = '';
+    if (favorites.length > 0) {
+      favorites.forEach(href => {
+        const link = document.querySelector('a[href="' + href + '"]');
+        if (link) {
+          const favLink = link.cloneNode(true);
+          favLink.classList.add('favorite-link');
+          drawerFavorites.appendChild(favLink);
+        }
+      });
+    }
+    // Optionally, show all links in drawerTabs except favorites
+    document.querySelectorAll('a').forEach(link => {
+      if (!favorites.includes(link.getAttribute('href'))) {
+        drawerTabs.appendChild(link.cloneNode(true));
+      }
+    });
+  }
+
+  drawerToggle.addEventListener('click', function() {
+    drawer.hidden = false;
+    updateDrawerUI();
+  });
+  drawerClose.addEventListener('click', function() {
+    drawer.hidden = true;
+  });
+
+  // Close drawer on outside click
+  drawer.addEventListener('click', function(e) {
+    if (e.target === drawer) {
+      drawer.hidden = true;
+    }
+  });
+
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 700) {
+      drawer.hidden = true;
+    }
+  });
+  const accordionHeader = document.querySelector('.accordion-header');
+  const accordionContent = document.getElementById('formulas-list');
+  if (accordionHeader && accordionContent) {
+    accordionHeader.addEventListener('click', function() {
+      const expanded = accordionHeader.getAttribute('aria-expanded') === 'true';
+      accordionHeader.setAttribute('aria-expanded', !expanded);
+      if (expanded) {
+        accordionContent.hidden = true;
+      } else {
+        accordionContent.hidden = false;
+      }
+    });
+  }
+});
 function enterSite() {
   console.log('enterSite function called');
   const splashScreen = document.getElementById('splashScreen');

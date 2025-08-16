@@ -6,8 +6,32 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="theme-color" content="#191c1c" />
+<!-- Theme color for supported browsers -->
+<meta name="theme-color" content="#191c1c" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)" />
+<meta name="msapplication-TileColor" content="#191c1c" />
 <meta name="apple-mobile-web-app-title" content="RadsReview" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+
+<!-- DNS Prefetch for external domains -->
+<link rel="dns-prefetch" href="//www.imaios.com">
+<link rel="dns-prefetch" href="//edge.sitecorecloud.io">
+<link rel="dns-prefetch" href="//sites.google.com">
+<link rel="dns-prefetch" href="//app.statdx.com">
+
+<!-- Preload critical resources -->
+<link rel="preload" href="./images/radreview_text.png" as="image" type="image/png">
+<link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./js/main.js" as="script">
+
+<!-- Preload additional resources -->
+<link rel="preload" href="./fonts/inter-v19-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="colors.css" as="style">
+<link rel="preload" href="style.css" as="style">
+<link rel="preload" href="./js/main.js" as="script">
+
 <title>RadsReview | Radiology Teaching Files</title>
 <link rel="stylesheet" href="colors.css">
 <link rel="stylesheet" href="style.css">
@@ -20,16 +44,16 @@
 <div id="splashScreen" class="splash-screen">
   <div class="splash-content">
     <div class="splash-logo">
-      <img src="./images/radreview_text.png" alt="RadsReview Logo" />
+      <img src="./images/radreview_text.png" alt="RadsReview Logo" loading="eager" decoding="sync" />
     </div>
     <div class="splash-main-image">
-  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" />
+  <img src="./images/neonsplash3.gif" alt="RadsReview Neon Animation" class="central-image" loading="lazy" decoding="async" />
     </div>
     <div class="splash-text">
       <h1 class="splash-title">READING ROOM RESOURCES</h1>
       <p class="splash-subtitle">Instant access to trusted radiology references, tools, and teaching files.</p>
     </div>
-    <button class="splash-enter-btn" onclick="enterSite()">
+    <button class="splash-enter-btn" id="enterSiteBtn" onclick="enterSite()">
       Enter Site
     </button>
   </div>
@@ -38,7 +62,9 @@
 <!-- Main Content -->
 <div id="mainContent" class="main-content" style="display: none;">
 <header>
-  <img src="./images/radreview_text.png" alt="RadsReview Logo">
+  <a href="index.html">
+    <img src="./images/radreview_text.png" alt="RadsReview Logo" style="cursor: pointer;" loading="eager" decoding="sync">
+  </a>
   <div class="header-controls">
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
       <span class="theme-icon">◐</span>
@@ -47,25 +73,29 @@
 </header>
 <section class="hero">
   <h1>READING ROOM RESOURCES</h1>
-  <div class="search">
+  <div class="search-and-ai-container">
     <div class="search-container">
       <span class="search-icon">⌕</span>
-      <input type="text" placeholder="Search resources..." oninput="filterResources(this.value)" onfocus="expandSearch(this)" onblur="contractSearch(this)" />
+      <input type="text" id="searchInput" placeholder="Search resources..." aria-label="Search radiology resources" />
     </div>
+    <button class="ai-button" id="aiButton" title="AI Tools">
+      <span class="ai-icon">Ai</span>
+    </button>
   </div>
 </section>
 <div class="tabs-wrapper">
 <section class="tabs">
-  <div class="tab active" onclick="showTab('abd', this)"><h2>ABD</h2></div>
-  <div class="tab" onclick="showTab('anatomy', this)"><h2>ANATOMY</h2></div>
-  <div class="tab" onclick="showTab('chest', this)"><h2>CHEST</h2></div>
-  <div class="tab" onclick="showTab('breast', this)"><h2>BREAST</h2></div>
-  <div class="tab" onclick="showTab('neuro', this)"><h2>NEURO</h2></div>
-  <div class="tab" onclick="showTab('nuclear', this)"><h2>NUCLEAR MED</h2></div>
-  <div class="tab" onclick="showTab('msk', this)"><h2>MSK</h2></div>
-  <div class="tab" onclick="showTab('peds', this)"><h2>PEDS</h2></div>
-  <div class="tab" onclick="showTab('us', this)"><h2>ULTRASOUND</h2></div>
-  <div class="tab" onclick="window.open('https://sites.google.com/view/radsreview/numbers-and-measurements','_blank')"><h2>NUMBERS ETC.</h2></div>
+  <div class="tab active" data-tab="abd"><h2>ABD</h2></div>
+  <div class="tab" data-tab="anatomy"><h2>ANATOMY</h2></div>
+  <div class="tab" data-tab="chest"><h2>CHEST</h2></div>
+  <div class="tab" data-tab="breast"><h2>BREAST</h2></div>
+  <div class="tab" data-tab="neuro"><h2>NEURO</h2></div>
+  <div class="tab" data-tab="nuclear"><h2>NUCLEAR MED</h2></div>
+  <div class="tab" data-tab="msk"><h2>MSK</h2></div>
+  <div class="tab" data-tab="peds"><h2>PEDS</h2></div>
+  <div class="tab" data-tab="us"><h2>ULTRASOUND</h2></div>
+  <div class="tab" id="numbersTab"><h2>NUMBERS ETC.</h2></div>
+  <div class="tab protocols-tab" id="protocolsTab"><h2>PROTOCOLS</h2></div>
 </section>
 </div> <!-- End tabs-wrapper -->
 <section id="abd" class="content active">
@@ -91,6 +121,7 @@
 <section id="breast" class="content">
   <h2>BREAST</h2>
   <ul>
+    <li><a href="mammo_descriptors.html">BI-RADS Smart Tool (Experimental)</a></li>
     <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Reference-Card.pdf" target="_blank" rel="noopener">Birads: Reference (Card)</a></li>
     <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/BI-RADS/BIRADS-Poster.pdf" target="_blank" rel="noopener">Birads: Poster</a></li>
   </ul>
@@ -98,7 +129,7 @@
 <section id="neuro" class="content">
   <h2>NEURO</h2>
   <ul>
-    <li><a href="https://radiologyassistant.nl/assets/brain-ischemia-vascular-territories/a509797854359e_Territory.jpg" target="_blank" rel="noopener">Vascular Territories</a></li>
+    <li><a href="infarct_territories.html">Brain Vascular Territories</a></li>
     <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/incidental-thyroid-nodules?authuser=0" target="_blank" rel="noopener">Incidental Thyroid Nodules</a></li>
     <li><a href="cerebrai.html" target="_blank" rel="noopener">CerebrAI</a></li>
   </ul>
@@ -106,7 +137,7 @@
 <section id="nuclear" class="content">
   <h2>NUCLEAR MED</h2>
   <ul>
-    <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/nm-on-call?authuser=0" target="_blank" rel="noopener">On Call Exams</a></li>
+    <li><a href="https://www.radsreview.net/reading-room-resources/nm-on-call" target="_blank" rel="noopener">On Call Exams</a></li>
   </ul>
 </section>
 <section id="msk" class="content">
@@ -139,10 +170,10 @@
 <section id="us" class="content">
   <h2>ULTRASOUND</h2>
   <ul>
-    <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/1st-trimester-lexicon?authuser=0" target="_blank" rel="noopener">1st Trimester Guidelines</a></li>
-    <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/fetal-anatomy-us?authuser=0" target="_blank" rel="noopener">Fetal Anatomy Ultrasound</a></li>
+    <li><a href="https://www.radsreview.net/reading-room-resources/1st-trimester-lexicon?authuser=0" target="_blank" rel="noopener">1st Trimester Guidelines</a></li>
+    <li><a href="https://www.radsreview.net/reading-room-resources/fetal-anatomy-us?authuser=0" target="_blank" rel="noopener">Fetal Anatomy Ultrasound</a></li>
     <li><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/O-RADS/O-RADS-Ultrasound-v2022-Assessment-Categories.pdf" target="_blank" rel="noopener">O-RADS</a></li>
-    <li><a href="https://sites.google.com/view/radsreview/reading-room-resources/gb-polyps?authuser=0" target="_blank" rel="noopener">Gallbladder Polyps</a></li>
+    <li><a href="https://www.radsreview.net/reading-room-resources/gb-polyps?authuser=0" target="_blank" rel="noopener">Gallbladder Polyps</a></li>
   </ul>
 </section>
 <section id="quickhelp" class="content">
@@ -155,9 +186,56 @@
   </ul>
 </section>
 <footer>
-  <p>© 2025 RadsReview — Built For Radiologists</p>
+  <p>© 2025 RadsReview — Built For Radiologists | <a href="privacy-policy.html" style="color: var(--accent-primary); text-decoration: none;">Privacy Policy</a></p>
 </footer>
+
+<!-- Floating Sidebar -->
+<div id="floatingSidebar" class="floating-sidebar">
+  <div class="sidebar-toggle" id="sidebarToggle">
+    <span class="toggle-icon">⊞</span>
+  </div>
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <h3>CALCULATOR</h3>
+    </div>
+    <div class="sidebar-body">
+      <div class="calculator">
+        <div class="calculator-display">
+          <input type="text" id="calcDisplay" readonly value="0" aria-label="Calculator display" title="Calculator result display" />
+        </div>
+        <div class="calculator-buttons">
+          <button class="calc-btn clear" data-action="clear">C</button>
+          <button class="calc-btn clear" data-action="clear-entry">CE</button>
+          <button class="calc-btn operator" data-action="delete">⌫</button>
+          <button class="calc-btn operator" data-value="/" data-op="÷">÷</button>
+          
+          <button class="calc-btn number" data-value="7">7</button>
+          <button class="calc-btn number" data-value="8">8</button>
+          <button class="calc-btn number" data-value="9">9</button>
+          <button class="calc-btn operator" data-value="*" data-op="×">×</button>
+          
+          <button class="calc-btn number" data-value="4">4</button>
+          <button class="calc-btn number" data-value="5">5</button>
+          <button class="calc-btn number" data-value="6">6</button>
+          <button class="calc-btn operator" data-value="-">−</button>
+          
+          <button class="calc-btn number" data-value="1">1</button>
+          <button class="calc-btn number" data-value="2">2</button>
+          <button class="calc-btn number" data-value="3">3</button>
+          <button class="calc-btn operator" data-value="+">+</button>
+          
+          <button class="calc-btn number zero" data-value="0">0</button>
+          <button class="calc-btn number" data-value=".">.</button>
+          <button class="calc-btn equals" data-action="calculate">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div> <!-- End of main content -->
-<script src="js/main.js"></script>
+
+<!-- Load JavaScript asynchronously for better performance -->
+<script src="js/main.js" async></script>
 </body>
 </html>

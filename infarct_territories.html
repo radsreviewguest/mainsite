@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Vascular Territories Interactive Map</title>
+    <link rel="stylesheet" href="colors.css">
+    <link rel="stylesheet" href="styling/infarct-territories.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <div class="tool-container">
+        <h1>Brain Vascular Territories</h1>
+        <h2>Interactive Map of Cerebral Infarct Territories</h2>
+
+        <div class="main-grid">
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="control-header">
+                    <h3>Vascular Territories</h3>
+                    <button id="toggle-all" class="toggle-all-btn">Show All</button>
+                </div>
+
+                <div class="vessel-controls">
+                    <div class="vessel-group">
+                        <h4>Anterior Circulation</h4>
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="aca-toggle" data-vessel="aca">
+                            <span class="checkmark aca-color"></span>
+                            <span class="vessel-name">Anterior Cerebral Artery (ACA)</span>
+                            <span class="frequency low">Uncommon</span>
+                        </label>
+                        
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="mca-toggle" data-vessel="mca" checked>
+                            <span class="checkmark mca-color"></span>
+                            <span class="vessel-name">Middle Cerebral Artery (MCA)</span>
+                            <span class="frequency high">Most Common</span>
+                        </label>
+                        
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="ica-toggle" data-vessel="ica">
+                            <span class="checkmark ica-color"></span>
+                            <span class="vessel-name">Internal Carotid Artery (ICA)</span>
+                            <span class="frequency medium">Moderate</span>
+                        </label>
+                    </div>
+
+                    <div class="vessel-group">
+                        <h4>Posterior Circulation</h4>
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="pca-toggle" data-vessel="pca">
+                            <span class="checkmark pca-color"></span>
+                            <span class="vessel-name">Posterior Cerebral Artery (PCA)</span>
+                            <span class="frequency medium">Moderate</span>
+                        </label>
+                        
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="ba-toggle" data-vessel="ba">
+                            <span class="checkmark ba-color"></span>
+                            <span class="vessel-name">Basilar Artery (BA)</span>
+                            <span class="frequency low">Uncommon</span>
+                        </label>
+                        
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="va-toggle" data-vessel="va">
+                            <span class="checkmark va-color"></span>
+                            <span class="vessel-name">Vertebral Artery (VA)</span>
+                            <span class="frequency low">Uncommon</span>
+                        </label>
+                    </div>
+
+                    <div class="vessel-group">
+                        <h4>Deep Territories</h4>
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="lsa-toggle" data-vessel="lsa">
+                            <span class="checkmark lsa-color"></span>
+                            <span class="vessel-name">Lenticulostriate Arteries</span>
+                            <span class="frequency high">Common</span>
+                        </label>
+                        
+                        <label class="vessel-toggle">
+                            <input type="checkbox" id="aca-deep-toggle" data-vessel="aca-deep">
+                            <span class="checkmark aca-deep-color"></span>
+                            <span class="vessel-name">ACA Deep Branches</span>
+                            <span class="frequency low">Rare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="info-panel">
+                    <h4>Clinical Information</h4>
+                    <div id="vessel-info" class="vessel-info">
+                        <p>Select a vascular territory to view clinical details and common presentation patterns.</p>
+                    </div>
+                </div>
+
+                <div class="statistics-panel">
+                    <h4>Stroke Statistics</h4>
+                    <div class="stat-item">
+                        <span class="stat-label">MCA Territory:</span>
+                        <span class="stat-value">~80% of strokes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Lacunar Strokes:</span>
+                        <span class="stat-value">~25% of strokes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Posterior Circulation:</span>
+                        <span class="stat-value">~20% of strokes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brain Map Container -->
+            <div class="brain-container">
+                <div class="brain-header">
+                    <h3>Axial Brain Sections</h3>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="axial">Axial</button>
+                        <button class="view-btn" data-view="coronal">Coronal</button>
+                        <button class="view-btn" data-view="sagittal">Sagittal</button>
+                    </div>
+                </div>
+
+                <!-- Axial Views -->
+                <div id="axial-view" class="brain-view active">
+                    <div class="slice-container">
+                        <h4>High Convexity (Vertex Level)</h4>
+                        <svg class="brain-slice" viewBox="0 0 400 300" id="slice-high">
+                            <!-- Background brain outline -->
+                            <ellipse cx="200" cy="150" rx="180" ry="120" fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="2"/>
+                            
+                            <!-- Falx cerebri -->
+                            <line x1="200" y1="30" x2="200" y2="270" stroke="var(--text-secondary)" stroke-width="1" opacity="0.5"/>
+                            
+                            <!-- ACA territories (bilateral) -->
+                            <path class="territory aca-territory" data-vessel="aca" 
+                                  d="M 120 80 Q 160 40 200 50 Q 240 40 280 80 Q 280 120 240 140 Q 200 130 160 140 Q 120 120 120 80 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            
+                            <!-- MCA territories (bilateral) -->
+                            <path class="territory mca-territory" data-vessel="mca" 
+                                  d="M 50 120 Q 80 100 120 120 Q 120 160 80 200 Q 50 180 40 150 Q 40 135 50 120 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            <path class="territory mca-territory" data-vessel="mca" 
+                                  d="M 350 120 Q 320 100 280 120 Q 280 160 320 200 Q 350 180 360 150 Q 360 135 350 120 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                        </svg>
+                    </div>
+
+                    <div class="slice-container">
+                        <h4>Mid-Brain Level (Basal Ganglia)</h4>
+                        <svg class="brain-slice" viewBox="0 0 400 300" id="slice-mid">
+                            <!-- Background brain outline -->
+                            <ellipse cx="200" cy="150" rx="190" ry="130" fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="2"/>
+                            
+                            <!-- Ventricular system -->
+                            <ellipse cx="160" cy="130" rx="15" ry="20" fill="var(--bg-primary)" stroke="var(--text-secondary)" stroke-width="1"/>
+                            <ellipse cx="240" cy="130" rx="15" ry="20" fill="var(--bg-primary)" stroke="var(--text-secondary)" stroke-width="1"/>
+                            <rect x="190" y="120" width="20" height="20" fill="var(--bg-primary)" stroke="var(--text-secondary)" stroke-width="1"/>
+                            
+                            <!-- Lenticulostriate territories (basal ganglia) -->
+                            <ellipse class="territory lsa-territory" data-vessel="lsa" cx="140" cy="150" rx="25" ry="20" fill="transparent" stroke="transparent"/>
+                            <ellipse class="territory lsa-territory" data-vessel="lsa" cx="260" cy="150" rx="25" ry="20" fill="transparent" stroke="transparent"/>
+                            
+                            <!-- MCA territories -->
+                            <path class="territory mca-territory" data-vessel="mca" 
+                                  d="M 30 120 Q 60 110 100 130 Q 100 180 60 210 Q 30 190 20 155 Q 25 135 30 120 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            <path class="territory mca-territory" data-vessel="mca" 
+                                  d="M 370 120 Q 340 110 300 130 Q 300 180 340 210 Q 370 190 380 155 Q 375 135 370 120 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            
+                            <!-- ACA deep territories -->
+                            <ellipse class="territory aca-deep-territory" data-vessel="aca-deep" cx="200" cy="120" rx="30" ry="15" fill="transparent" stroke="transparent"/>
+                        </svg>
+                    </div>
+
+                    <div class="slice-container">
+                        <h4>Low Brain Level (Temporal/Cerebellar)</h4>
+                        <svg class="brain-slice" viewBox="0 0 400 300" id="slice-low">
+                            <!-- Background brain outline -->
+                            <ellipse cx="200" cy="150" rx="185" ry="125" fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="2"/>
+                            
+                            <!-- Brainstem -->
+                            <ellipse cx="200" cy="150" rx="40" ry="30" fill="var(--bg-primary)" stroke="var(--text-secondary)" stroke-width="1"/>
+                            
+                            <!-- Cerebellum outline -->
+                            <ellipse cx="200" cy="220" rx="80" ry="40" fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="1"/>
+                            
+                            <!-- PCA territories -->
+                            <path class="territory pca-territory" data-vessel="pca" 
+                                  d="M 280 100 Q 320 120 350 160 Q 320 200 280 180 Q 250 160 250 130 Q 265 110 280 100 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            <path class="territory pca-territory" data-vessel="pca" 
+                                  d="M 120 100 Q 80 120 50 160 Q 80 200 120 180 Q 150 160 150 130 Q 135 110 120 100 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            
+                            <!-- Basilar artery territory -->
+                            <ellipse class="territory ba-territory" data-vessel="ba" cx="200" cy="150" rx="35" ry="25" fill="transparent" stroke="transparent"/>
+                            
+                            <!-- Vertebral artery territories -->
+                            <path class="territory va-territory" data-vessel="va" 
+                                  d="M 120 220 Q 140 200 160 210 Q 160 240 140 250 Q 120 240 110 230 Q 115 225 120 220 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            <path class="territory va-territory" data-vessel="va" 
+                                  d="M 280 220 Q 260 200 240 210 Q 240 240 260 250 Q 280 240 290 230 Q 285 225 280 220 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Coronal View (simplified) -->
+                <div id="coronal-view" class="brain-view">
+                    <div class="slice-container">
+                        <h4>Coronal Section - Frontal View</h4>
+                        <svg class="brain-slice" viewBox="0 0 400 350" id="slice-coronal">
+                            <!-- Brain outline -->
+                            <path d="M 50 100 Q 50 50 200 50 Q 350 50 350 100 Q 350 250 300 300 Q 200 320 100 300 Q 50 250 50 100 Z" 
+                                  fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="2"/>
+                            
+                            <!-- Ventricles -->
+                            <ellipse cx="150" cy="150" rx="20" ry="30" fill="var(--bg-primary)" stroke="var(--text-secondary)" stroke-width="1"/>
+                            <ellipse cx="250" cy="150" rx="20" ry="30" fill="var(--bg-primary)" stroke="var(--text-secondary)" stroke-width="1"/>
+                            
+                            <!-- MCA territories -->
+                            <path class="territory mca-territory" data-vessel="mca" 
+                                  d="M 60 120 Q 90 110 120 130 Q 120 200 90 220 Q 60 210 50 165 Q 55 140 60 120 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            <path class="territory mca-territory" data-vessel="mca" 
+                                  d="M 340 120 Q 310 110 280 130 Q 280 200 310 220 Q 340 210 350 165 Q 345 140 340 120 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            
+                            <!-- ACA territories -->
+                            <path class="territory aca-territory" data-vessel="aca" 
+                                  d="M 120 80 Q 160 60 200 70 Q 240 60 280 80 Q 260 120 200 110 Q 140 120 120 80 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Sagittal View (simplified) -->
+                <div id="sagittal-view" class="brain-view">
+                    <div class="slice-container">
+                        <h4>Sagittal Section - Side View</h4>
+                        <svg class="brain-slice" viewBox="0 0 400 300" id="slice-sagittal">
+                            <!-- Brain outline -->
+                            <path d="M 50 150 Q 50 100 100 80 Q 200 60 300 80 Q 350 100 350 150 Q 350 200 300 220 Q 200 240 100 220 Q 50 200 50 150 Z" 
+                                  fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="2"/>
+                            
+                            <!-- ACA territory -->
+                            <path class="territory aca-territory" data-vessel="aca" 
+                                  d="M 100 120 Q 150 100 200 110 Q 180 140 150 150 Q 120 140 100 120 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            
+                            <!-- MCA territory -->
+                            <path class="territory mca-territory" data-vessel="mca" 
+                                  d="M 80 160 Q 120 150 160 160 Q 160 180 120 190 Q 80 180 80 160 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                            
+                            <!-- PCA territory -->
+                            <path class="territory pca-territory" data-vessel="pca" 
+                                  d="M 220 140 Q 280 130 320 140 Q 300 170 260 180 Q 220 170 220 140 Z" 
+                                  fill="transparent" stroke="transparent"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend-section">
+            <h3>Legend & Key Information</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-color aca-color"></div>
+                    <span>ACA - Anterior Cerebral Artery</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color mca-color"></div>
+                    <span>MCA - Middle Cerebral Artery</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color pca-color"></div>
+                    <span>PCA - Posterior Cerebral Artery</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color lsa-color"></div>
+                    <span>LSA - Lenticulostriate Arteries</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color ba-color"></div>
+                    <span>BA - Basilar Artery</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color va-color"></div>
+                    <span>VA - Vertebral Artery</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-notes">
+            <p><strong>Clinical Notes:</strong></p>
+            <ul>
+                <li>MCA territory strokes are the most common, representing ~80% of cerebral infarcts</li>
+                <li>Lacunar strokes (small vessel disease) commonly affect lenticulostriate territories</li>
+                <li>Posterior circulation strokes account for ~20% of cerebral infarcts</li>
+                <li>Watershed infarcts occur at territorial boundaries during hypoperfusion</li>
+                <li>Time-sensitive treatment windows: IV tPA ≤4.5 hours, mechanical thrombectomy ≤24 hours</li>
+            </ul>
+            <p><em>Reference: Based on standard neuroanatomical atlases and stroke epidemiology data</em></p>
+        </div>
+    </div>
+</div>
+
+<script>
+// Territory information database
+const territoryInfo = {
+    aca: {
+        name: "Anterior Cerebral Artery (ACA)",
+        frequency: "Uncommon (~5-10% of strokes)",
+        clinicalSigns: [
+            "Contralateral leg weakness > arm weakness",
+            "Sensory loss in leg",
+            "Akinetic mutism (bilateral ACA)",
+            "Gait apraxia",
+            "Urinary incontinence"
+        ],
+        anatomy: "Supplies medial frontal and parietal cortex, anterior corpus callosum",
+        imaging: "Parafalcine hypodensity, may see bilateral involvement"
+    },
+    mca: {
+        name: "Middle Cerebral Artery (MCA)",
+        frequency: "Most Common (~80% of strokes)",
+        clinicalSigns: [
+            "Contralateral hemiplegia (arm > leg)",
+            "Contralateral sensory loss",
+            "Aphasia (dominant hemisphere)",
+            "Neglect (non-dominant hemisphere)",
+            "Gaze deviation toward lesion"
+        ],
+        anatomy: "Supplies lateral frontal, parietal, temporal cortex and basal ganglia",
+        imaging: "Classic 'hyperdense MCA sign', large territorial infarct"
+    },
+    pca: {
+        name: "Posterior Cerebral Artery (PCA)",
+        frequency: "Moderate (~10-15% of strokes)",
+        clinicalSigns: [
+            "Contralateral homonymous hemianopia",
+            "Visual field defects",
+            "Memory impairment (if bilateral)",
+            "Alexia without agraphia",
+            "Color agnosia"
+        ],
+        anatomy: "Supplies occipital lobe, medial temporal lobe, thalamus",
+        imaging: "Occipital/temporal infarct, may involve thalamus"
+    },
+    lsa: {
+        name: "Lenticulostriate Arteries",
+        frequency: "Common (~25% of lacunar strokes)",
+        clinicalSigns: [
+            "Pure motor hemiparesis",
+            "Ataxic hemiparesis",
+            "Dysarthria-clumsy hand syndrome",
+            "Pure sensory stroke",
+            "Mixed sensorimotor stroke"
+        ],
+        anatomy: "Small penetrating arteries supplying basal ganglia and internal capsule",
+        imaging: "Small lacunar infarcts in basal ganglia, internal capsule"
+    },
+    ba: {
+        name: "Basilar Artery",
+        frequency: "Uncommon (~2-5% of strokes)",
+        clinicalSigns: [
+            "Quadriplegia",
+            "Bulbar signs (dysarthria, dysphagia)",
+            "Ocular movement disorders",
+            "Altered consciousness",
+            "Locked-in syndrome"
+        ],
+        anatomy: "Supplies brainstem, cerebellum, thalamus",
+        imaging: "Brainstem infarct, 'basilar artery sign'"
+    },
+    va: {
+        name: "Vertebral Artery",
+        frequency: "Uncommon (~5% of strokes)",
+        clinicalSigns: [
+            "Dizziness/vertigo",
+            "Nausea/vomiting",
+            "Ataxia",
+            "Dysphagia",
+            "Lateral medullary syndrome (Wallenberg)"
+        ],
+        anatomy: "Supplies medulla, cerebellum, posterior inferior cerebellum",
+        imaging: "Lateral medullary infarct, cerebellar infarct"
+    },
+    "aca-deep": {
+        name: "ACA Deep Branches",
+        frequency: "Rare (<2% of strokes)",
+        clinicalSigns: [
+            "Behavioral changes",
+            "Abulia",
+            "Gait disturbance",
+            "Memory impairment"
+        ],
+        anatomy: "Deep penetrating branches to anterior corpus callosum",
+        imaging: "Small deep frontal infarcts"
+    }
+};
+
+// Initialize the interactive map
+document.addEventListener('DOMContentLoaded', function() {
+    initializeControls();
+    initializeTooltips();
+    initializeViewToggle();
+});
+
+function initializeControls() {
+    // Toggle individual vessels
+    const toggles = document.querySelectorAll('.vessel-toggle input');
+    toggles.forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const vessel = this.dataset.vessel;
+            toggleVessel(vessel, this.checked);
+            updateVesselInfo(vessel, this.checked);
+        });
+    });
+
+    // Toggle all vessels
+    const toggleAllBtn = document.getElementById('toggle-all');
+    toggleAllBtn.addEventListener('click', function() {
+        const isShowingAll = this.textContent === 'Hide All';
+        toggles.forEach(toggle => {
+            toggle.checked = !isShowingAll;
+            toggleVessel(toggle.dataset.vessel, !isShowingAll);
+        });
+        this.textContent = isShowingAll ? 'Show All' : 'Hide All';
+        
+        if (!isShowingAll) {
+            document.getElementById('vessel-info').innerHTML = '<p>All territories visible. Click individual vessels to see detailed information.</p>';
+        } else {
+            document.getElementById('vessel-info').innerHTML = '<p>Select a vascular territory to view clinical details and common presentation patterns.</p>';
+        }
+    });
+}
+
+function toggleVessel(vessel, show) {
+    const territories = document.querySelectorAll(`.${vessel}-territory`);
+    territories.forEach(territory => {
+        if (show) {
+            territory.style.fill = `var(--${vessel}-color)`;
+            territory.style.stroke = `var(--${vessel}-stroke)`;
+            territory.style.strokeWidth = '2';
+            territory.style.opacity = '0.7';
+        } else {
+            territory.style.fill = 'transparent';
+            territory.style.stroke = 'transparent';
+            territory.style.strokeWidth = '0';
+            territory.style.opacity = '0';
+        }
+    });
+}
+
+function updateVesselInfo(vessel, isVisible) {
+    const infoPanel = document.getElementById('vessel-info');
+    
+    if (!isVisible) {
+        infoPanel.innerHTML = '<p>Select a vascular territory to view clinical details and common presentation patterns.</p>';
+        return;
+    }
+    
+    const info = territoryInfo[vessel];
+    if (!info) return;
+    
+    infoPanel.innerHTML = `
+        <h5>${info.name}</h5>
+        <p><strong>Frequency:</strong> ${info.frequency}</p>
+        <p><strong>Anatomy:</strong> ${info.anatomy}</p>
+        <p><strong>Clinical Signs:</strong></p>
+        <ul>
+            ${info.clinicalSigns.map(sign => `<li>${sign}</li>`).join('')}
+        </ul>
+        <p><strong>Imaging:</strong> ${info.imaging}</p>
+    `;
+}
+
+function initializeTooltips() {
+    const territories = document.querySelectorAll('.territory');
+    territories.forEach(territory => {
+        territory.addEventListener('mouseenter', function() {
+            const vessel = this.dataset.vessel;
+            const info = territoryInfo[vessel];
+            if (info && this.style.opacity !== '0') {
+                showTooltip(this, info.name);
+            }
+        });
+        
+        territory.addEventListener('mouseleave', function() {
+            hideTooltip();
+        });
+    });
+}
+
+function showTooltip(element, text) {
+    // Create tooltip if it doesn't exist
+    let tooltip = document.getElementById('tooltip');
+    if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.id = 'tooltip';
+        tooltip.style.cssText = `
+            position: absolute;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        `;
+        document.body.appendChild(tooltip);
+    }
+    
+    tooltip.textContent = text;
+    tooltip.style.display = 'block';
+    
+    // Position tooltip
+    const rect = element.getBoundingClientRect();
+    tooltip.style.left = (rect.left + rect.width / 2 - tooltip.offsetWidth / 2) + 'px';
+    tooltip.style.top = (rect.top - tooltip.offsetHeight - 10) + 'px';
+}
+
+function hideTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    if (tooltip) {
+        tooltip.style.display = 'none';
+    }
+}
+
+function initializeViewToggle() {
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const views = document.querySelectorAll('.brain-view');
+    
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetView = this.dataset.view;
+            
+            // Update active button
+            viewBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update active view
+            views.forEach(view => {
+                view.classList.remove('active');
+                if (view.id === `${targetView}-view`) {
+                    view.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+// Initialize with MCA territory shown (most common)
+document.addEventListener('DOMContentLoaded', function() {
+    toggleVessel('mca', true);
+    updateVesselInfo('mca', true);
+});
+</script>
+
+<footer class="sticky-footer">
+    <p>© 2025 RadsReview — Medical Education Tool | <a href="privacy-policy.html" style="color: var(--accent-primary); text-decoration: none;">Privacy Policy</a></p>
+</footer>
+
+</div>
+
+</body>
+</html>

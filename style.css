@@ -266,9 +266,7 @@
 
 /* Optimize font rendering and performance */
 html {
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  /* text-size-adjust: 100%; */
+  text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1576,6 +1574,7 @@ footer {
   right: 0;
   transform: translateY(-20%);
   z-index: 1000;
+  -ms-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1936,9 +1935,9 @@ footer {
     inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
   -webkit-transform: translateY(-2px) !important;
   -ms-transform: translateY(-2px) !important;
-  transform: translateY(-2px) !important;
+  -ms-transform: translateY(-2px) !important;
   -moz-transform: translateY(-2px);
-  -ms-transform: translateY(-2px);
+  transform: translateY(-2px) !important;
 }
 
 /* Zero button spans two columns */

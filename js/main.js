@@ -556,32 +556,57 @@ function setupCalculatorEventListeners() {
 }
 
 
-// CORRECTED CODE
+// ====================================================================
+// START: REPLACE YOUR OLD DOMContentLoaded WITH THIS IMPROVED VERSION
+// ====================================================================
+
 // MAIN INITIALIZATION
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, starting initialization...');
 
-  // --- START: ADD THIS NEW CODE ---
-  // Attach the event listener to the splash screen button
+  const splashScreen = document.getElementById('splashScreen');
+  const mainContent = document.getElementById('mainContent');
   const enterSiteButton = document.getElementById('enterSiteBtn');
+
+  /**
+   * This function handles showing the main content and setting up
+   * all the functionality that depends on it being visible.
+   */
+  function showMainContent() {
+    splashScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    mainContent.classList.add('show');
+
+    // Initialize everything that needs the main content to be visible
+    initializeTheme();
+    setupEventListeners();
+    setupFavoritesSystem();
+
+    // Set the default active tab
+    const firstTab = document.querySelector('.tabs .tab');
+    if (firstTab) {
+        showTab(firstTab.getAttribute('data-tab'), firstTab);
+    }
+  }
+
+  // Attach the click listener to the enter button
   if (enterSiteButton) {
     enterSiteButton.addEventListener('click', enterSite);
   }
-  // --- END: ADD THIS NEW CODE ---
 
-  // Initialize the new favorites system first
-  setupFavoritesSystem();
+  // --- Main Logic on Page Load ---
+  // Check if the splash screen has already been seen in this session.
+  const hasSeenSplash = sessionStorage.getItem('splashSeen');
 
-  checkSplashScreen();
-  
-  if (document.getElementById('mainContent').style.display !== 'none') {
-    initializeTheme();
-  }
-  
-  setupEventListeners();
-
-  const firstTab = document.querySelector('.tabs .tab');
-  if (firstTab) {
-      showTab(firstTab.getAttribute('data-tab'), firstTab);
+  if (hasSeenSplash === 'true') {
+    // If it has been seen, skip the splash and show the main content directly.
+    showMainContent();
+  } else {
+    // Otherwise, the splash screen will be visible by default.
+    // The `enterSite` function (triggered by the button) will then call `showMainContent`.
   }
 });
+
+// ====================================================================
+// END: REPLACEMENT BLOCK
+// ====================================================================

@@ -942,6 +942,13 @@ header img {
 }
 
 .content {
+  min-width: 320px;
+  @media (min-width: 600px) {
+    min-width: 400px;
+  }
+  @media (min-width: 900px) {
+    min-width: 500px;
+  }
   display: none;
   max-width: 800px;
   margin: 2rem auto;
@@ -1479,6 +1486,28 @@ footer {
   height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
+  min-width: 260px;
+  max-width: 350px;
+  width: 100%;
+}
+@media (max-width: 600px) {
+  .calculator,
+  .sidebar-content .calculator,
+  .floating-sidebar .calculator {
+    min-width: 90vw;
+    max-width: 98vw;
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .calculator,
+  .sidebar-content .calculator,
+  .floating-sidebar .calculator {
+    min-width: 320px;
+    max-width: 420px;
+    width: 100%;
+  }
+}
 }
 
 /* Calculator Display */

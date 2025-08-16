@@ -2178,3 +2178,44 @@ footer {
     font-size: 0.8em;
   }
 }
+
+/*
+   ==================================================================
+   START: FAVORITES SIDEBAR CSS (PASTE THIS AT THE END OF YOUR FILE)
+   ==================================================================
+*/
+
+/* This positions the new favorites sidebar button directly below the calculator button */
+#favorites-sidebar {
+  /* The original sidebar is at top: 20%. We use calc() to add 70px of space below it. */
+  /* You can change 70px to make the space bigger or smaller. */
+  top: calc(20% + 70px); 
+}
+
+/* This makes the list of links inside the favorites bar look nice */
+#favorites-sidebar .formulas-list a {
+  color: var(--accent-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  padding: 8px 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* This adds a hover effect to the links, using your site's color scheme */
+#favorites-sidebar .formulas-list a:hover {
+  background-color: rgba(48, 250, 181, 0.1); /* Uses your --aquamarine color with transparency */
+  color: var(--accent-primary);
+}
+
+/* This allows the list to scroll if it becomes too long to fit */
+#favorites-sidebar .sidebar-body {
+    overflow-y: auto;
+}
+
+/*
+   ==================================================================
+   END: FAVORITES SIDEBAR CSS
+   ==================================================================
+*/

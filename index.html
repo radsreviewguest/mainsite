@@ -276,25 +276,39 @@
         </div>
       </div>
       <!-- Accordion for Frequent Formulas: moved below calculator -->
-      <div class="accordion-formulas">
-        <button class="accordion-header" aria-expanded="false" aria-controls="formulas-list">
-          <span class="accordion-title">Frequent Formulas</span>
-          <span class="accordion-icon">▼</span>
-        </button>
-        <div class="accordion-content" id="formulas-list" hidden>
-          <ul class="formulas-list">
-            <li><strong>Body Mass Index (BMI):</strong> BMI = weight (kg) / [height (m)]²</li>
-            <li><strong>Creatinine Clearance (Cockcroft-Gault):</strong> CrCl = [(140 - age) × weight (kg)] / [72 × serum Cr (mg/dL)] (×0.85 for females)</li>
-            <li><strong>GFR (MDRD):</strong> GFR = 175 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females, ×1.212 for African Americans)</li>
-            <li><strong>Estimated Blood Volume:</strong> EBV = weight (kg) × average blood volume (mL/kg)</li>
-            <li><strong>CT Dose Index (CTDI):</strong> CTDI = D × L</li>
-            <li><strong>Radiation Dose (Effective):</strong> Effective Dose = DLP × k</li>
-            <li><strong>Renal Function (eGFR):</strong> eGFR = 186 × (serum Cr)^-1.154 × (age)^-0.203 (×0.742 for females)</li>
-            <li><strong>Corrected Calcium:</strong> Corrected Ca = measured Ca + 0.8 × (4 - albumin)</li>
-            <li><strong>Alveolar-arterial Gradient:</strong> A–a gradient = PAO₂ – PaO₂</li>
-            <li><strong>Osmolality:</strong> Osmolality = 2 × Na + glucose/18 + BUN/2.8</li>
-          </ul>
+<!-- ======================================================= -->
+<!-- START: FAVORITES SIDEBAR CODE (PASTE THIS INTO YOUR HTML) -->
+<!-- ======================================================= -->
+
+<div id="favorites-sidebar" class="floating-sidebar">
+    <!-- This is the button that users will click -->
+    <button id="favorites-toggle" class="sidebar-toggle" aria-label="Toggle Favorites" aria-expanded="false">
+        <span class="toggle-icon">★</span> <!-- Star icon for favorites -->
+    </button>
+
+    <!-- This is the content that slides out -->
+    <div class="sidebar-content">
+        <div class="sidebar-header">
+            <h3>Favorites</h3>
         </div>
+        <div class="sidebar-body">
+            <!-- The list of favorite items will go here -->
+            <ul id="favorites-list" class="formulas-list">
+                <!-- Example Items (you can remove these) -->
+                <li><a href="#">Example Favorite 1</a></li>
+                <li><a href="#">Example Favorite 2</a></li>
+            </ul>
+            <!-- This message appears if the list is empty -->
+            <p id="no-favorites-message" style="display: none; text-align: center; color: var(--text-secondary);">
+                You have no favorites yet.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- END: FAVORITES SIDEBAR CODE -->
+<!-- ===================================================== -->
       </div>
     </div>
   </div>
@@ -304,5 +318,52 @@
 
 <!-- Load JavaScript asynchronously for better performance -->
 <script src="js/main.js" async></script>
+<!-- ============================================================ -->
+<!-- START: FAVORITES JAVASCRIPT (PASTE THIS BEFORE /BODY) -->
+<!-- ============================================================ -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Select the new favorites sidebar and its toggle button using their unique IDs
+    const favoritesSidebar = document.getElementById('favorites-sidebar');
+    const favoritesToggle = document.getElementById('favorites-toggle');
+
+    // Make sure both elements exist before trying to add event listeners
+    if (favoritesSidebar && favoritesToggle) {
+        
+        // Listen for a click on the favorites toggle button
+        favoritesToggle.addEventListener('click', function(event) {
+            // Stop the click from bubbling up to the document
+            event.stopPropagation(); 
+            
+            // This single line adds or removes the 'expanded' class, triggering the animation
+            favoritesSidebar.classList.toggle('expanded');
+            
+            // Update accessibility attribute
+            const isExpanded = favoritesSidebar.classList.contains('expanded');
+            this.setAttribute('aria-expanded', isExpanded);
+        });
+    }
+
+    // OPTIONAL: This part closes the sidebar if you click anywhere else on the page
+    document.addEventListener('click', function(event) {
+        // Check if the sidebar is open AND if the click was outside of it
+        if (favoritesSidebar && favoritesSidebar.classList.contains('expanded') && !favoritesSidebar.contains(event.target)) {
+            favoritesSidebar.classList.remove('expanded');
+            if (favoritesToggle) {
+                favoritesToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+
+});
+</script>
+
+<!-- ============================================================ -->
+<!-- END: FAVORITES JAVASCRIPT -->
+<!-- ============================================================ -->```
+
+**Why it works:** This script adds the open/close logic. When the star button (`#favorites-toggle`) is clicked, it adds the `.expanded` class to your sidebar. Your existing CSS already knows how to animate this class, so the slide-out effect will work instantly. It does not conflict with the calculator's JavaScript because it uses the unique IDs we defined.
 </body>
 </html>

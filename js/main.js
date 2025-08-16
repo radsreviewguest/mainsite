@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.link-heart').forEach(heart => {
       heart.onclick = function(e) {
         e.stopPropagation();
-        const link = heart.previousElementSibling;
+        const link = heart.parentElement.querySelector('a');
+        if (!link) return;
         const href = link.getAttribute('href');
         if (favorites.includes(href)) {
           favorites = favorites.filter(f => f !== href);
